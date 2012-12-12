@@ -1,22 +1,14 @@
 JobVacancy.controllers :page do
-  # get :index, :map => "/foo/bar" do
-  #   session[:foo] = "bar"
-  #   render 'index'
-  # end
+  get :about, :map => '/about' do
+    render :erb, 'page/about'
+  end
 
-  # get :sample, :map => "/sample/url", :provides => [:any, :js] do
-  #   case content_type
-  #     when :js then ...
-  #     else ...
-  # end
+  get :contact , :map => "/contact" do
+    render :erb, 'page/contact'
+  end
 
-  # get :foo, :with => :id do
-  #   "Maps to url '/foo/#{params[:id]}'"
-  # end
+  get :home, :map => "/" do
+    render :erb, 'page/home'
+  end
 
-  # get "/example" do
-  #   "Hello world!"
-  # end
-
-  
 end
