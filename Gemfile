@@ -7,6 +7,7 @@ gem 'thin' # or mongrel
 # Project requirements
 gem 'rake'
 gem 'sinatra-flash', :require => 'sinatra/flash'
+gem 'padrino-sprockets'
 
 # Component requirements
 gem 'erubis', "~> 2.7.0"
