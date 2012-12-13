@@ -1,3 +1,10 @@
+GIT
+  remote: git://github.com/nightsailer/padrino-sprockets.git
+  revision: c15b4a7877a412f8d4ffff6201b93b0227617b66
+  specs:
+    padrino-sprockets (0.0.1)
+      sprockets
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -56,8 +63,6 @@ GEM
     padrino-mailer (0.10.7)
       mail (~> 2.3.0)
       padrino-core (= 0.10.7)
-    padrino-sprockets (0.0.1)
-      sprockets
     polyglot (0.3.3)
     rack (1.4.1)
     rack-protection (1.3.2)
@@ -105,7 +110,7 @@ DEPENDENCIES
   activerecord
   erubis (~> 2.7.0)
   padrino (= 0.10.7)
-  padrino-sprockets
+  padrino-sprockets!
   rack-test
   rake
   rspec
