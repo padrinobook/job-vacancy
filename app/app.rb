@@ -1,3 +1,4 @@
+
 class JobVacancy < Padrino::Application
   use ActiveRecord::ConnectionAdapters::ConnectionManagement
   register Padrino::Rendering
@@ -5,6 +6,10 @@ class JobVacancy < Padrino::Application
   register Padrino::Helpers
 
   enable :sessions
+
+  require 'sprockets'
+  register Padrino::Sprockets
+  sprockets
 
   ##
   # Caching support
