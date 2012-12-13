@@ -7,6 +7,7 @@ gem 'thin' # or mongrel
 # Project requirements
 gem 'rake'
 gem 'sinatra-flash', :require => 'sinatra/flash'
+gem 'padrino-sprockets', :require => ["sprockets","padrino/sprockets"], :git => 'git://github.com/nightsailer/padrino-sprockets.git'
 
 # Component requirements
 gem 'erubis', "~> 2.7.0"
