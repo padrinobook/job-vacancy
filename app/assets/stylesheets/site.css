@@ -1,0 +1,26 @@
+body {
+  font: 18.5px Palatino, 'Palatino Linotype', Helvetica, Arial, Verdana, sans-serif;
+  text-align: justify;
+}
+
+#header {
+  font-family: Lato;
+  font-size: 40px;
+  font-weight: bold;
+}
+
+#navigation {
+  padding-top: 20px;
+}
+
+h1 {
+  font-family: Lato;
+  font-size: 30px;
+  margin-bottom: 20px;
+}
+
+.site {
+  padding: 20px;
+  line-height: 1.8em;
+}
+
