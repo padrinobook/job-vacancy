@@ -1,14 +1,14 @@
 JobVacancy.controllers :page do
   get :about, :map => '/about' do
-    render :erb, 'page/about'
+    render 'page/about'
   end
 
   get :contact , :map => "/contact" do
-    render :erb, 'page/contact'
+    render 'page/contact'
   end
 
   get :home, :map => "/" do
-    render :erb, 'page/home'
+    render 'page/home'
   end
 
 end
