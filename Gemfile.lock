@@ -76,6 +76,7 @@ GEM
     rack-test (0.6.2)
       rack (>= 1.0)
     rake (10.0.2)
+    rb-readline (0.4.2)
     rspec (2.12.0)
       rspec-core (~> 2.12.0)
       rspec-expectations (~> 2.12.0)
@@ -119,9 +120,10 @@ DEPENDENCIES
   erubis (~> 2.7.0)
   padrino (= 0.10.7)
   padrino-sprockets!
-  pry
+  pry (~> 0.9.10)
   rack-test
   rake
+  rb-readline (~> 0.4)
   rspec
   sinatra-flash
   sqlite3
