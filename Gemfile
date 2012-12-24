@@ -21,4 +21,6 @@ gem 'rack-test', :require => "rack/test", :group => "test"
 # Padrino Stable Gem
 gem 'padrino', '0.10.7'
 gem 'wirble', '~>0.1.3'
+gem 'pry', '~>0.9.10'
+gem 'rb-readline', '~>0.4'
 
