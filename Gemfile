@@ -2,7 +2,6 @@ source :rubygems
 
 # Server requirements
 gem 'thin' # or mongrel
-# gem 'trinidad', :platform => 'jruby'
 
 # Project requirements
 gem 'rake'
@@ -15,9 +14,11 @@ gem 'activerecord', :require => "active_record"
 gem 'sqlite3'
 
 # Test requirements
-gem 'rspec', :group => "test"
-gem 'factory_girl', :group => "test"
-gem 'rack-test', :require => "rack/test", :group => "test"
+group :test do
+  gem 'rspec'
+  gem 'factory_girl'
+  gem 'rack-test', :require => "rack/test"
+end
 
 # Padrino Stable Gem
 gem 'padrino', '0.10.7'
