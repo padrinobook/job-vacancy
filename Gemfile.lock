@@ -26,6 +26,8 @@ GEM
     diff-lcs (1.1.3)
     erubis (2.7.0)
     eventmachine (1.0.0)
+    factory_girl (4.1.0)
+      activesupport (>= 3.0.0)
     hike (1.2.1)
     http_router (0.10.2)
       rack (>= 1.0.0)
@@ -118,6 +120,7 @@ PLATFORMS
 DEPENDENCIES
   activerecord
   erubis (~> 2.7.0)
+  factory_girl
   padrino (= 0.10.7)
   padrino-sprockets!
   pry (~> 0.9.10)
