@@ -118,17 +118,17 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  activerecord
+  activerecord (~> 3.2.9)
   erubis (~> 2.7.0)
-  factory_girl
-  padrino (= 0.10.7)
+  factory_girl (~> 4.1.0)
+  padrino (~> 0.10.7)
   padrino-sprockets!
   pry (~> 0.9.10)
-  rack-test
-  rake
-  rb-readline (~> 0.4)
-  rspec
-  sinatra-flash
-  sqlite3
-  thin
+  rack-test (~> 0.6.2)
+  rake (~> 10.0.2)
+  rb-readline (~> 0.4.0)
+  rspec (~> 2.12.0)
+  sinatra-flash (~> 0.3.0)
+  sqlite3 (~> 1.3.6)
+  thin (~> 1.5.0)
   wirble (~> 0.1.3)
