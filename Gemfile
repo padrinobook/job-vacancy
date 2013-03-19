@@ -15,7 +15,7 @@ gem 'sqlite3', '~> 1.3.6'
 
 # Test requirements
 group :test do
-  gem 'rspec' , '~> 2.12.0'
+  gem 'rspec' , '~> 2.13.0'
   gem 'factory_girl', '~> 4.1.0'
   gem 'rack-test', '~> 0.6.2', :require => 'rack/test'
 end
