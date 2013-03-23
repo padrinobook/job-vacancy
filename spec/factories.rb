@@ -1,9 +1,10 @@
 # encoding: utf-8
 FactoryGirl.define do
   sequence(:email){ |n| "matthias.guenther#{n}@wikimatze.de"}
+  sequence(:name){ |n| "Matthias Günther #{n}"}
 
   factory :user do
-    name  "Matthias Günther"
+    name
     email
     password "foo"
     password_confirmation "foo"
@@ -17,5 +18,4 @@ FactoryGirl.define do
     time_start  "1/01/2013          "
     time_end    "01/03/2013         "
   end
-
 end
