@@ -16,25 +16,47 @@ describe "User Model" do
     user.job_offers.size.should == 1
   end
 
-  it 'have no blank name' do
+  it 'no blank name' do
     user.name = ""
     user.should_not be_valid
   end
 
-  it 'have no blank email' do
+  it 'no blank email' do
     user.email = ""
     user.should_not be_valid
   end
 
-  it 'have no blank password' do
-    user.password = ""
-    user.should_not be_valid
+  describe "passwords" do
+
+    it 'no blank password' do
+      user.password = ""
+      user.should_not be_valid
+    end
+
+    it 'no blank password confirmation' do
+      user.password_confirmation = ""
+      user.should_not be_valid
+    end
+
+    it 'password and password_confirmation should fail if not equal' do
+      user.password = "abcdefg"
+      user.password_confirmation = "abcdefgh"
+      user.should_not be_valid
+    end
+
+    it 'password and password_confirmation should be equal' do
+      user.password = "foobaraa"
+      user.password_confirmation = "foobaraa"
+      user.should be_valid
+    end
+
   end
 
   describe "when name is already used" do
     let(:user_second) { build(:user) }
 
     it 'should not be saved' do
+      user.save
       user_second.name = user.name
       user_second.should_not be_valid
     end

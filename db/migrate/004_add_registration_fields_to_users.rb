@@ -1,6 +1,6 @@
 class AddRegistrationFieldsToUsers < ActiveRecord::Migration
 
-  @fields = [:password, :password_confirmation]
+  @fields = [:password]
 
   def self.up
     change_table :users do |t|
