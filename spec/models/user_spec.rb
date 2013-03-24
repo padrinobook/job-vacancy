@@ -44,8 +44,9 @@ describe "User Model" do
     let(:user_second) { build(:user) }
 
     it 'should not save an user with an existing adress' do
+      user.save
       user_second.email = user.email
-      user_second.should_not be_valid
+      user_second.save.should be_false
     end
   end
 
@@ -73,5 +74,9 @@ describe "User Model" do
     end
   end
 
-  pending('the password should have a min lenght of 5 characters')
+  it 'password length should be at least 5 characters long' do
+    user.password = "foo"
+    user.should_not be_valid
+  end
+
 end
