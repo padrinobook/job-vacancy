@@ -2,6 +2,7 @@ require 'spec_helper'
 
 describe "User Model" do
   let(:user) { build(:user) }
+  let(:user_second) { build(:user)}
 
   it 'can be created' do
     user.should_not be_nil
@@ -27,7 +28,6 @@ describe "User Model" do
   end
 
   describe "passwords" do
-
     it 'no blank password' do
       user.password = ""
       user.should_not be_valid
@@ -53,8 +53,6 @@ describe "User Model" do
   end
 
   describe "when name is already used" do
-    let(:user_second) { build(:user) }
-
     it 'should not be saved' do
       user.save
       user_second.name = user.name
@@ -62,10 +60,8 @@ describe "User Model" do
     end
   end
 
-  describe "when email adress is already used" do
-    let(:user_second) { build(:user) }
-
-    it 'should not save an user with an existing adress' do
+  describe "when email address is already used" do
+    it 'should not save an user with an existing address' do
       user.save
       user_second.email = user.email
       user_second.save.should be_false
@@ -73,8 +69,6 @@ describe "User Model" do
   end
 
   describe "valid email address" do
-    let(:user_second) { build(:user) }
-
     it 'is valid' do
       adresses = %w[test@test.de hero@movie.com]
       adresses.each do |email|
@@ -84,10 +78,8 @@ describe "User Model" do
     end
   end
 
-  describe "not valid email adress" do
-    let(:user_second) { build(:user)}
-
-    it 'not save them' do
+  describe "not valid email address" do
+    it 'not valid' do
       adresses = %w[spamspamspam.de heman,test.com]
       adresses.each do |email|
         user_second.email= email
