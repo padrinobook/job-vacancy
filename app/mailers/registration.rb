@@ -36,7 +36,11 @@
 JobVacancy.mailer :registration do
 
   email :registration_email do
-    # Your mailer goes here
+    from "test@test.de"
+    to "lordmatze@gmail.com"
+    subject "Welcome!"
+    render 'registration/registration_email'
+    content_type :plain
   end
 
 end
