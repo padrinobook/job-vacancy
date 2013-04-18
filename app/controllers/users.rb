@@ -7,7 +7,9 @@ JobVacancy.controllers :users do
 
   post :create do
     @user = User.new(params[:user])
+
     if @user.save
+      deliver(:registration, :registration_email, @user.name, @user.email)
       redirect('/')
     else
       render 'users/new'
