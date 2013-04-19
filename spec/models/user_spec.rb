@@ -27,6 +27,11 @@ describe "User Model" do
     user.should_not be_valid
   end
 
+  it 'password length should be at least 5 characters long' do
+    user.password = "foo"
+    user.should_not be_valid
+  end
+
   describe "passwords" do
     it 'no blank password' do
       user.password = ""
@@ -88,9 +93,11 @@ describe "User Model" do
     end
   end
 
-  it 'password length should be at least 5 characters long' do
-    user.password = "foo"
-    user.should_not be_valid
+  describe "confirmation code" do
+    it 'should be created' do
+      user.password = "Test"
+      user.confirmation_code.should_not be_empty
+    end
   end
 
 end

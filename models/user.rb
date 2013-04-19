@@ -1,4 +1,6 @@
 class User < ActiveRecord::Base
+  before_save :encrypt_confirmation_code
+
   validates :name, :presence => true,
                    :uniqueness => true
 
@@ -12,4 +14,17 @@ class User < ActiveRecord::Base
                     :format => { with: VALID_EMAIL_REGEX }
 
   has_many :job_offers
+
+  def confirmation_code
+    require 'bcrypt'
+    salt = BCrypt::Engine.generate_salt
+    confirmation_code = BCrypt::Engine.hash_secret(self.password, salt)
+    confirmation_code
+  end
+
+  private
+  def encrypt_confirmation_code
+    self.confirmation_code = confirmation_code
+  end
+
 end
