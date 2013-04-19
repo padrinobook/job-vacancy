@@ -20,6 +20,9 @@ group :test do
   gem 'rack-test', '~> 0.6.2', :require => 'rack/test'
 end
 
+# Security
+gem 'bcrypt-ruby', '~> 3.0.1', :require => 'bcrypt'
+
 # Padrino Stable Gem
 gem 'padrino', '~> 0.10.7'
 gem 'wirble', '~> 0.1.3'
