@@ -41,7 +41,8 @@ JobVacancy.mailer :registration do
     subject "Welcome!"
     locals :name => name, :email=> email
     render 'registration/registration_email'
-    content_type :plain
+    add_file :filename => 'welcome.pdf', :content => File.open("#{Padrino.root}/app/assets/pdfs/welcome.pdf") { |f| f.read}
+
   end
 
 end
