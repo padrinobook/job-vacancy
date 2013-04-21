@@ -2,11 +2,15 @@
 FactoryGirl.define do
   sequence(:email){ |n| "matthias.guenther#{n}@wikimatze.de"}
   sequence(:name){ |n| "Matthias Günther #{n}"}
+  sequence(:confirmation_code){ "1" }
+  sequence(:id){ |n| n }
 
   factory :user do
+    id
     name
     email
     password "foobar"
+    confirmation_code
   end
 
   factory :job_offer do
