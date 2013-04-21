@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  before_save :encrypt_confirmation_code
+  before_save :encrypt_confirmation_code, :if => :registered?
 
   validates :name, :presence => true,
                    :uniqueness => true
@@ -15,16 +15,34 @@ class User < ActiveRecord::Base
 
   has_many :job_offers
 
-  def confirmation_code
-    require 'bcrypt'
-    salt = BCrypt::Engine.generate_salt
-    confirmation_code = BCrypt::Engine.hash_secret(self.password, salt)
-    confirmation_code
+  def authenticate(confirmation_code)
+    return false unless @user = User.find_by_id(self.id)
+
+    if @user.confirmation_code == self.confirmation_code
+      true
+    else
+      false
+    end
   end
 
   private
   def encrypt_confirmation_code
-    self.confirmation_code = confirmation_code
+    self.confirmation_code = set_confirmation_code
+  end
+
+  def set_confirmation_code
+    require 'bcrypt'
+    salt = BCrypt::Engine.generate_salt
+    confirmation_code = BCrypt::Engine.hash_secret(self.password, salt)
+    normal_confirmation_code(confirmation_code)
+  end
+
+  def registered?
+    self.new_record?
+  end
+
+  def normal_confirmation_code(confirmation_code)
+    confirmation_code.gsub("/", "")
   end
 
 end

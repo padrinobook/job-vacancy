@@ -54,7 +54,6 @@ describe "User Model" do
       user.password_confirmation = "foobaraa"
       user.should be_valid
     end
-
   end
 
   describe "when name is already used" do
@@ -78,6 +77,7 @@ describe "User Model" do
       adresses = %w[test@test.de hero@movie.com]
       adresses.each do |email|
         user_second.email = email
+        user_second.name= email
         user_second.should be_valid
       end
     end
@@ -94,10 +94,21 @@ describe "User Model" do
   end
 
   describe "confirmation code" do
+    let(:user_confirmation) { build(:user) }
+
     it 'should be created' do
-      user.password = "Test"
-      user.confirmation_code.should_not be_empty
+      user_confirmation.confirmation_code.should_not be_nil
+    end
+
+    it 'should authenticate user with correct confirmation code' do
+      user_confirmation.save
+      confirmation_of_saved_user = User.find_by_id(user_confirmation.id)
+      user_confirmation.confirmation_code = confirmation_of_saved_user.confirmation_code
+      user_confirmation.authenticate(user_confirmation.confirmation_code).should be_true
+    end
+
+    it 'should not authenticate user with incorrect confirmation code' do
+      user_confirmation.authenticate("wrong").should be_false
     end
   end
-
 end
