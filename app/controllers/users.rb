@@ -16,6 +16,10 @@ JobVacancy.controllers :users do
 
     if @user.save
       deliver(:registration, :registration_email, @user.name, @user.email)
+      deliver(:confirmation, :confirmation_email, @user.name,
+              @user.email,
+              @user.id,
+              @user.confirmation_code)
       redirect('/')
     else
       render 'users/new'
