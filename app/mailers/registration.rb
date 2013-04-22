@@ -39,9 +39,9 @@ JobVacancy.mailer :registration do
 
   email :registration_email do |name, email|
     from "test@test.de"
-    to email
     subject "Welcome!"
-    locals :name => name, :email=> email
+    to email
+    locals :name => name, :email => email
     render 'registration/registration_email'
     add_file :filename => 'welcome.pdf', :content => File.open(WELCOME_PDF) { |f| f.read}
   end
