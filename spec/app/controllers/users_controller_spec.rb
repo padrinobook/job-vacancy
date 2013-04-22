@@ -11,9 +11,10 @@ describe "UsersController" do
 
   describe "GET confirm" do
   let(:user) { build(:user) }
-    it "render the 'users/confirm' page if user has confirmation code" do
+    it "render the '/confirm' page if user has confirmation code" do
       user.save
-      get "/confirm/#{user.id}/#{user.confirmation_code.to_s}"
+      user_confirmed = User.find_by_id(user.id)
+      get "/confirm/#{user_confirmed.id}/#{user_confirmed.confirmation_code.to_s}"
       last_response.should be_ok
     end
 
