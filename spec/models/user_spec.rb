@@ -105,6 +105,7 @@ describe "User Model" do
       confirmation_of_saved_user = User.find_by_id(user_confirmation.id)
       user_confirmation.confirmation_code = confirmation_of_saved_user.confirmation_code
       user_confirmation.authenticate(user_confirmation.confirmation_code).should be_true
+      user_confirmation.confirmation.should be_true
     end
 
     it 'should not authenticate user with incorrect confirmation code' do

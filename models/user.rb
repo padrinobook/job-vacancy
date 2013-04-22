@@ -8,6 +8,7 @@ class User < ActiveRecord::Base
                        :presence => true,
                        :confirmation => true
 
+
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :email, :presence => true,
                     :uniqueness => true,
@@ -18,7 +19,9 @@ class User < ActiveRecord::Base
   def authenticate(confirmation_code)
     return false unless @user = User.find_by_id(self.id)
 
-    if @user.confirmation_code == self.confirmation_code
+    if @user.confirmation_code == confirmation_code
+      self.confirmation = true
+      self.save
       true
     else
       false
