@@ -3,11 +3,17 @@ require File.expand_path(File.dirname(__FILE__) + "/../config/boot")
 require File.dirname(__FILE__) + "/factories"
 
 RSpec.configure do |conf|
+  conf.mock_with :rspec
   conf.include Rack::Test::Methods
   conf.include FactoryGirl::Syntax::Methods
   conf.full_backtrace= false # save the console
   conf.color_enabled= true   # save your eyes
   conf.formatter = :documentation
+end
+
+# don't send mails during testing
+Mail.defaults do
+  delivery_method :test
 end
 
 def app
