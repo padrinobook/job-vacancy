@@ -37,14 +37,14 @@ class User < ActiveRecord::Base
     require 'bcrypt'
     salt = BCrypt::Engine.generate_salt
     confirmation_code = BCrypt::Engine.hash_secret(self.password, salt)
-    normal_confirmation_code(confirmation_code)
+    normalize_confirmation_code(confirmation_code)
   end
 
   def registered?
     self.new_record?
   end
 
-  def normal_confirmation_code(confirmation_code)
+  def normalize_confirmation_code(confirmation_code)
     confirmation_code.gsub("/", "")
   end
 
