@@ -1,4 +1,3 @@
-
 class JobVacancy < Padrino::Application
   use ActiveRecord::ConnectionAdapters::ConnectionManagement
   register Padrino::Rendering
@@ -10,6 +9,9 @@ class JobVacancy < Padrino::Application
   require 'sprockets'
   register Padrino::Sprockets
   sprockets
+
+  # Activating the user_observer
+  ActiveRecord::Base.add_observer UserObserver.instance
 
   ##
   # Caching support
@@ -61,5 +63,5 @@ class JobVacancy < Padrino::Application
   #   error 505 do
   #     render 'errors/505'
   #   end
-  #
+ #
 end
