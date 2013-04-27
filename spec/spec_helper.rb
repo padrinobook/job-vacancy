@@ -3,6 +3,9 @@ require File.expand_path(File.dirname(__FILE__) + "/../config/boot")
 require File.dirname(__FILE__) + "/factories"
 
 RSpec.configure do |conf|
+  conf.before do
+    User.observers.disable :all # <-- turn of user observers for testing reasons
+  end
   conf.mock_with :rspec
   conf.include Rack::Test::Methods
   conf.include FactoryGirl::Syntax::Methods
