@@ -13,6 +13,9 @@ class JobVacancy < Padrino::Application
   # Activating the user_observer
   ActiveRecord::Base.add_observer UserObserver.instance
 
+  # Mailer should not send mails when tests are performed
+  set :delivery_method, :test
+
   ##
   # Caching support
   #
