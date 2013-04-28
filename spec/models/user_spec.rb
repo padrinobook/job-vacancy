@@ -68,7 +68,7 @@ describe "User Model" do
     it 'should not save an user with an existing address' do
       user.save
       user_second.email = user.email
-      user_second.save.should be_false
+      user_second.should_not be_valid
     end
   end
 
@@ -101,6 +101,13 @@ describe "User Model" do
     end
 
     it 'should authenticate user with correct confirmation code' do
+      user_confirmation.save
+      confirmation_of_saved_user = User.find_by_id(user_confirmation.id)
+      user_confirmation.confirmation_code = confirmation_of_saved_user.confirmation_code
+      user_confirmation.authenticate(user_confirmation.confirmation_code).should be_true
+    end
+
+    it 'confirmation should be set true after a user is authenticated' do
       user_confirmation.save
       confirmation_of_saved_user = User.find_by_id(user_confirmation.id)
       user_confirmation.confirmation_code = confirmation_of_saved_user.confirmation_code
