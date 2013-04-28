@@ -19,6 +19,11 @@ Mail.defaults do
   delivery_method :test
 end
 
+# have access to the session variables
+def session
+  last_request.env['rack.session']
+end
+
 def app
   ##
   # You can handle all padrino applications using instead:

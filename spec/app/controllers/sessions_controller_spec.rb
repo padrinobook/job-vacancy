@@ -48,9 +48,13 @@ describe "SessionsController" do
     end
   end
 
-  describe "DELETE :logout" do
-    it "empty the current session"
-    it "redirect to homepage if user is logging out"
+  describe "GET :logout" do
+    it "empty the current session" do
+      # first arguments are params (like the ones out of an form), the second are environments variables
+      get '/logout', { :name => 'Hans', :password => 'Test123' }, 'rack.session' => { :current_user => 1 }
+      session[:current_user].should == nil
+      last_response.should be_redirect
+    end
   end
 
   private

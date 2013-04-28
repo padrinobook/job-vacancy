@@ -1,6 +1,6 @@
 JobVacancy.controllers :users do
 
-  get :new, :map => "/login" do
+  get :new, :map => "/register" do
     @user = User.new
     render 'users/new'
   end

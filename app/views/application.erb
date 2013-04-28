@@ -23,8 +23,12 @@
           <%= link_to 'Contact', url_for(:page, :contact) %>
         </div>
         <div class="span2">
-          <%= link_to 'Login/Registration', url_for(:users, :new) %>
+          <%= link_to 'Login', url_for(:sessions, :new) %>
         </div>
+
+        <% if signed_in? %>
+          <%= link_to 'Logout', url_for(:sessions, :destroy) %>
+        <% end %>
         </nav>
       </div>
       <div class="row">

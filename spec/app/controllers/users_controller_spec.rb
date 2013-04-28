@@ -2,9 +2,9 @@ require 'spec_helper'
 
 describe "UsersController" do
 
-  describe "GET login" do
+  describe "GET new" do
     it "render the :new view" do
-      get :login
+      get "/register"
       last_response.should be_ok
     end
   end
