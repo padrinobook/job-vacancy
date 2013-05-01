@@ -3,8 +3,9 @@ class JobVacancy < Padrino::Application
   register Padrino::Rendering
   register Padrino::Mailer
   register Padrino::Helpers
+  register Padrino::Flash
 
-  enable :sessions
+  enable :sessions # without we couldn't log in any user ...
 
   require 'sprockets'
   register Padrino::Sprockets

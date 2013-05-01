@@ -8,6 +8,7 @@ JobVacancy.controllers :sessions do
     user = User.find_by_email(params[:email])
 
     if user && user.confirmation && user.password == params[:password]
+      flash[:notice] = "You have successfully logged in"
       sign_in(user)
       redirect '/'
     else

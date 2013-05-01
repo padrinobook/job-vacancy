@@ -25,6 +25,7 @@ gem 'bcrypt-ruby', '~> 3.0.1', :require => 'bcrypt'
 
 # Padrino Stable Gem
 gem 'padrino', '~> 0.10.7'
+gem 'padrino-flash', '~> 0.1.1'
 gem 'wirble', '~> 0.1.3'
 gem 'pry', '~> 0.9.10'
 gem 'rb-readline', '~> 0.4.0'
