@@ -5,11 +5,11 @@ JobVacancy.controllers :sessions do
   end
 
   post :create do
-    user = User.find_by_email(params[:email])
+    @user = User.find_by_email(params[:email])
 
-    if user && user.confirmation && user.password == params[:password]
-      flash[:notice] = "You have successfully logged in"
-      sign_in(user)
+    if @user && @user.confirmation && @user.password == params[:password]
+      flash[:notice] = "You have successfully logged in!"
+      sign_in(@user)
       redirect '/'
     else
       render '/sessions/new', :locals => { :error => true }
@@ -18,6 +18,7 @@ JobVacancy.controllers :sessions do
 
   get :destroy, :map => '/logout' do
     sign_out
+    flash[:notice] = "You have successfully logged out."
     redirect '/'
   end
 

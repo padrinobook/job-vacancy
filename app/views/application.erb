@@ -7,11 +7,17 @@
 </head>
 <body>
   <div class="container">
-    <% if flash[:notice] %>
+    <% if !flash.empty? %>
       <div class="row" id="flash">
-        <div class="span9 offset3 alert alert-success">
+        <% if flash.has_key?(:notice) %>
+        <div class="span6 offset3 alert alert-success">
           <%= flash[:notice] %></p>
         </div>
+        <% elsif flash.has_key?( :error ) %>
+        <div class="span9 offset3 alert alert-error">
+          <%= flash[:error] %></p>
+        </div>
+        <% end %>
         <script type="text/javascript">
           $(function(){
               $("#flash").fadeOut(2000);
