@@ -29,4 +29,7 @@ gem 'padrino-flash', '~> 0.1.1'
 gem 'wirble', '~> 0.1.3'
 gem 'pry', '~> 0.9.10'
 gem 'rb-readline', '~> 0.4.0'
+gem 'tilt', '1.3.7'
 
+gem 'ZenTest', '~> 4.9.1'
+gem "test_notifier", "~> 1.0.1" # send messages to software as Growl, LibNotify, and Snarl, displaying a window with the results
