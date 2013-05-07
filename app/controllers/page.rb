@@ -10,5 +10,4 @@ JobVacancy.controllers :page do
   get :contact , :map => "/contact" do
     render 'page/contact'
   end
-
 end

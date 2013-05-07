@@ -1,5 +1,4 @@
 JobVacancy.controllers :users do
-
   get :new, :map => "/register" do
     @user = User.new
     render 'users/new'
@@ -26,5 +25,4 @@ JobVacancy.controllers :users do
       render 'users/new'
     end
   end
-
 end

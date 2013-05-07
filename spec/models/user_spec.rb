@@ -27,14 +27,14 @@ describe "User Model" do
     user.should_not be_valid
   end
 
-  it 'password length should be at least 5 characters long' do
-    user.password = "foo"
-    user.should_not be_valid
-  end
-
   describe "passwords" do
     it 'no blank password' do
       user.password = ""
+      user.should_not be_valid
+    end
+
+    it 'password length should be at least 5 characters long' do
+      user.password = "octo"
       user.should_not be_valid
     end
 
@@ -50,8 +50,8 @@ describe "User Model" do
     end
 
     it 'password and password_confirmation should be equal' do
-      user.password = "foobaraa"
-      user.password_confirmation = "foobaraa"
+      user.password = "octocats"
+      user.password_confirmation = "octocats"
       user.should be_valid
     end
   end
@@ -72,18 +72,16 @@ describe "User Model" do
     end
   end
 
-  describe "valid email address" do
-    it 'is valid' do
-      adresses = %w[test@test.de hero@movie.com]
+  describe "email address" do
+    it 'valid' do
+      adresses = %w[thor@marvel.de hero@movie.com]
       adresses.each do |email|
         user_second.email = email
         user_second.name= email
         user_second.should be_valid
       end
     end
-  end
 
-  describe "not valid email address" do
     it 'not valid' do
       adresses = %w[spamspamspam.de heman,test.com]
       adresses.each do |email|

@@ -1,5 +1,4 @@
 JobVacancy.controllers :sessions do
-
   get :new, :map => "/login" do
     render '/sessions/new', :locals => { :error => false }
   end
@@ -21,5 +20,4 @@ JobVacancy.controllers :sessions do
     flash[:notice] = "You have successfully logged out."
     redirect '/'
   end
-
 end

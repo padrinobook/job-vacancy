@@ -9,7 +9,7 @@ FactoryGirl.define do
     id
     name
     email
-    password "foobar"
+    password "octocat"
     confirmation_code
   end
 
