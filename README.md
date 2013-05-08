@@ -1,0 +1,3 @@
+# Job Vacancy app
+
+Detailed description has to be written ...
