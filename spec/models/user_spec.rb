@@ -28,32 +28,17 @@ describe "User Model" do
   end
 
   describe "passwords" do
+    let(:user_confirmation) { build(:user)}
     it 'no blank password' do
-      user.password = ""
-      user.should_not be_valid
+      user_confirmation.password = ""
+      user_confirmation.should_not be_valid
     end
 
     it 'password length should be at least 5 characters long' do
-      user.password = "octo"
-      user.should_not be_valid
+      user_confirmation.password = "octo"
+      user_confirmation.should_not be_valid
     end
 
-    it 'no blank password confirmation' do
-      user.password_confirmation = ""
-      user.should_not be_valid
-    end
-
-    it 'password and password_confirmation should fail if not equal' do
-      user.password = "abcdefg"
-      user.password_confirmation = "abcdefgh"
-      user.should_not be_valid
-    end
-
-    it 'password and password_confirmation should be equal' do
-      user.password = "octocats"
-      user.password_confirmation = "octocats"
-      user.should be_valid
-    end
   end
 
   describe "when name is already used" do
@@ -94,8 +79,9 @@ describe "User Model" do
   describe "confirmation code" do
     let(:user_confirmation) { build(:user) }
 
-    it 'should be created' do
-      user_confirmation.confirmation_code.should_not be_nil
+    it 'should not be blank' do
+      user_confirmation.confirmation_code = ""
+      user_confirmation.valid?.should be_false
     end
 
     it 'should authenticate user with correct confirmation code' do
