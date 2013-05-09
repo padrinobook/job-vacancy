@@ -6,22 +6,47 @@
   <%= javascript_include_tag '../assets/application' %>
 </head>
 <body>
-  <div class=="container">
+  <div class="container">
+    <% if !flash.empty? %>
+      <div class="row" id="flash">
+        <% if flash.has_key?(:notice) %>
+        <div class="span6 offset3 alert alert-success">
+          <%= flash[:notice] %></p>
+        </div>
+        <% elsif flash.has_key?( :error ) %>
+        <div class="span9 offset3 alert alert-error">
+          <%= flash[:error] %></p>
+        </div>
+        <% end %>
+        <script type="text/javascript">
+          $(function(){
+              $("#flash").fadeOut(2000);
+          });
+        </script>
+      </div>
+    <% end %>
     <div class="row">
       <div class="span12 offset3">
         <span id="header">Job Vacancy Board</span>
       </div>
       <div class="row">
         <nav id="navigation">
-        <div class="span2 offset4">
-          <%= link_to 'Home', url_for(:page, :home) %>
-        </div>
-        <div class="span2">
-          <%= link_to 'About', url_for(:page, :about) %>
-        </div>
-        <div class="span2">
-          <%= link_to 'Contact', url_for(:page, :contact) %>
-        </div>
+          <div class="span2 offset3">
+            <%= link_to 'Home', url_for(:page, :home) %>
+          </div>
+          <div class="span2">
+            <%= link_to 'About', url_for(:page, :about) %>
+          </div>
+          <div class="span2">
+            <%= link_to 'Contact', url_for(:page, :contact) %>
+          </div>
+          <div class="span3">
+          <% if signed_in? %>
+            <%= link_to 'Logout', url_for(:sessions, :destroy) %>
+          <% else %>
+            <%= link_to 'Login', url_for(:sessions, :new) %>
+          <% end %>
+          </div>
         </nav>
       </div>
       <div class="row">

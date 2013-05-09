@@ -1,4 +1,4 @@
-source :rubygems
+source 'https://rubygems.org'
 
 # Server requirements
 gem 'thin', '~> 1.5.0'
@@ -15,19 +15,22 @@ gem 'sqlite3', '~> 1.3.6'
 
 # Test requirements
 group :test do
-  gem 'rspec' , '~> 2.12.0'
-  gem 'factory_girl', '~> 4.1.0'
-  gem 'rack-test', '~> 0.6.2', :require => 'rack/test'
-end
-group :test do
-  gem 'rspec' , '~> 2.12.0'
+  gem 'rspec' , '~> 2.13.0'
   gem 'factory_girl', '~> 4.1.0'
   gem 'rack-test', '~> 0.6.2', :require => 'rack/test'
 end
 
+gem 'guard-rspec'
+gem 'libnotify'
+
+# Security
+gem 'bcrypt-ruby', '~> 3.0.1', :require => 'bcrypt'
+
 # Padrino Stable Gem
 gem 'padrino', '~> 0.10.7'
+gem 'padrino-flash', '~> 0.1.1'
 gem 'wirble', '~> 0.1.3'
 gem 'pry', '~> 0.9.10'
 gem 'rb-readline', '~> 0.4.0'
+gem 'tilt', '1.3.7'
 

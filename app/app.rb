@@ -1,15 +1,30 @@
-
 class JobVacancy < Padrino::Application
   use ActiveRecord::ConnectionAdapters::ConnectionManagement
   register Padrino::Rendering
   register Padrino::Mailer
   register Padrino::Helpers
+  register Padrino::Flash
 
-  enable :sessions
+  enable :sessions # without we couldn't log in any user ...
 
   require 'sprockets'
   register Padrino::Sprockets
   sprockets
+
+  # Activating the user_observer
+  ActiveRecord::Base.add_observer UserObserver.instance
+
+  set :delivery_method, :smtp => {
+    :address => 'smtp.gmail.com',
+    :port => 587,
+    :user_name => '<secret>@gmail.com',
+    :password => '<secret>',
+    :authentication => :plain,
+    :enable_starttls_auto => true
+  }
+
+  # Mailer should not send mails when tests are performed
+  set :delivery_method, :test
 
   ##
   # Caching support
@@ -61,5 +76,5 @@ class JobVacancy < Padrino::Application
   #   error 505 do
   #     render 'errors/505'
   #   end
-  #
+ #
 end

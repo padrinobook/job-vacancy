@@ -1,0 +1,22 @@
+<h1>Login</h1>
+
+<% form_tag '/sessions/create' do %>
+  <% if error %>
+    <div class="alert alert-error">
+      <h4>Error</h4>
+      Your Email and/or Password is wrong!
+    </div>
+  <% end %>
+
+  <%= label_tag :email %>
+  <%= text_field_tag :email %>
+
+  <%= label_tag :password %>
+  <%= password_field_tag :password %>
+  <p>
+  <%= submit_tag "Sign up", :class => "btn btn-primary" %>
+  </p>
+<% end %>
+
+New on this platform? <%= link_to 'Register', url_for(:users, :new) %>
+
