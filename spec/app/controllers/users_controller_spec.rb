@@ -29,4 +29,18 @@ describe "UsersController" do
     end
   end
 
+  describe "GET edit" do
+    let(:user) { build(:user) }
+
+    it "redirects if wrong id" do
+      get "users/-1/edit"
+      last_response.should be_redirect
+    end
+
+    it "render the view for editing a user" do
+      User.should_receive(:find_by_id).twice.and_return(user.id)
+      get "users/#{user.id}/edit"
+      last_response.should be_ok
+    end
+  end
 end

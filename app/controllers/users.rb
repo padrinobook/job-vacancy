@@ -15,6 +15,15 @@ JobVacancy.controllers :users do
     end
   end
 
+  # using namespaced route alias
+  get :edit, :map => '/users/:id/edit' do
+    @user = User.find_by_id(params[:id])
+    unless @user
+      redirect('/')
+    end
+    render 'users/edit'
+  end
+
   post :create do
     @user = User.new(params[:user])
 
@@ -25,4 +34,6 @@ JobVacancy.controllers :users do
       render 'users/new'
     end
   end
+
+
 end
