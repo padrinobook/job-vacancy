@@ -33,14 +33,28 @@ describe "UsersController" do
     let(:user) { build(:user) }
 
     it "redirects if wrong id" do
-      get "users/-1/edit"
+      get "/users/-1/edit"
       last_response.should be_redirect
     end
 
     it "render the view for editing a user" do
-      User.should_receive(:find_by_id).twice.and_return(user.id)
-      get "users/#{user.id}/edit"
+      User.should_receive(:find_by_id).twice.and_return(user)
+      get "/users/#{user.id}/edit"
       last_response.should be_ok
+    end
+  end
+
+  describe "PUT update" do
+    let(:user) { build(:user) }
+    it "does update attributes" do
+      name_before = user.name
+      new_name = Time.now.to_s
+      id = user.id
+      user.save
+      params = user.attributes.merge({"name" => new_name, "created_at" => Time.now, "updated_at" => Time.now})
+      put "users/#{user.id}", :user => params
+      user = User.find(id)
+      user.name.should_not be_eql(name_before)
     end
   end
 end
