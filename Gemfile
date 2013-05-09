@@ -20,6 +20,9 @@ group :test do
   gem 'rack-test', '~> 0.6.2', :require => 'rack/test'
 end
 
+gem 'guard-rspec'
+gem 'libnotify'
+
 # Security
 gem 'bcrypt-ruby', '~> 3.0.1', :require => 'bcrypt'
 
@@ -31,5 +34,3 @@ gem 'pry', '~> 0.9.10'
 gem 'rb-readline', '~> 0.4.0'
 gem 'tilt', '1.3.7'
 
-gem 'ZenTest', '~> 4.9.1'
-gem "test_notifier", "~> 1.0.1" # send messages to software as Growl, LibNotify, and Snarl, displaying a window with the results
