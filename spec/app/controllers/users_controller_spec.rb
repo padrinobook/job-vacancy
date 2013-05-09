@@ -32,34 +32,35 @@ describe "UsersController" do
   describe "GET edit" do
     let(:user) { build(:user) }
 
-    it "redirects if wrong id" do
-      get "/users/-1/edit"
-      last_response.should be_redirect
-    end
-
     it "render the view for editing a user" do
       User.should_receive(:find_by_id).twice.and_return(user)
       get "/users/#{user.id}/edit"
       last_response.should be_ok
     end
+
+    it "redirects if wrong id" do
+      get "/users/-1/edit"
+      last_response.should be_redirect
+    end
+
   end
 
   describe "PUT update" do
     let(:user) { build(:user) }
-    it "does update attributes and redirects" do
+
+    it "redirects and update attributes" do
       name_before = user.name
       id = user.id
       user.save
-      params = user_params
-      put "users/#{user.id}", :user => params
+      put "users/#{user.id}", :user => user_params
       last_response.should be_redirect
       user = User.find(id)
       user.name.should_not be_eql(name_before)
     end
 
     it "stays on the page if the user has made input errors" do
-      params = user_params
-      put "users/1", :user => params
+      User.should_receive(:find_by_id).and_return(user)
+      put "users/#{user_params["id"]}", :user => user_params
       last_response.should be_ok
     end
   end
