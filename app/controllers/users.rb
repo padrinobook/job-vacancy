@@ -25,15 +25,19 @@ JobVacancy.controllers :users do
   end
 
   put :update, :map => '/users/:id' do
-    @user = User.find(params[:id])
+    @user = User.find_by_id(params[:id])
 
     unless @user
+      flash[:error] = "User is not registered in our platform."
       render 'users/edit'
     end
 
     if @user.update_attributes(params[:user])
-      # make flash message
+      flash[:notice] = "You have updated your profile."
       redirect('/')
+    else
+      flash[:error] = "Your profile was not updated."
+      render 'users/edit'
     end
   end
 
