@@ -42,7 +42,6 @@ describe "UsersController" do
       get "/users/-1/edit"
       last_response.should be_redirect
     end
-
   end
 
   describe "PUT update" do
@@ -59,8 +58,8 @@ describe "UsersController" do
     end
 
     it "stays on the page if the user has made input errors" do
-      User.should_receive(:find_by_id).and_return(user)
-      put "users/#{user_params["id"]}", :user => user_params
+      User.should_receive(:find_by_id).twice.times.and_return(user)
+      put "users/#{user_params["id"]}", :user => user_params.merge({"name" => ''})
       last_response.should be_ok
     end
   end
