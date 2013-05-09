@@ -14,6 +14,15 @@ class JobVacancy < Padrino::Application
   # Activating the user_observer
   ActiveRecord::Base.add_observer UserObserver.instance
 
+  set :delivery_method, :smtp => {
+    :address => 'smtp.gmail.com',
+    :port => 587,
+    :user_name => '<secret>@gmail.com',
+    :password => '<secret>',
+    :authentication => :plain,
+    :enable_starttls_auto => true
+  }
+
   # Mailer should not send mails when tests are performed
   set :delivery_method, :test
 
