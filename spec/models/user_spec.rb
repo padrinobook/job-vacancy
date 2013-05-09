@@ -79,11 +79,6 @@ describe "User Model" do
   describe "confirmation code" do
     let(:user_confirmation) { build(:user) }
 
-    it 'should not be blank' do
-      user_confirmation.confirmation_code = ""
-      user_confirmation.valid?.should be_false
-    end
-
     it 'should authenticate user with correct confirmation code' do
       user_confirmation.save
       confirmation_of_saved_user = User.find_by_id(user_confirmation.id)

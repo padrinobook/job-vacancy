@@ -12,8 +12,6 @@ class User < ActiveRecord::Base
                     :uniqueness => true,
                     :format => { with: VALID_EMAIL_REGEX }
 
-  validates :confirmation_code, :presence => true
-
   has_many :job_offers
 
   def authenticate(confirmation_code)
