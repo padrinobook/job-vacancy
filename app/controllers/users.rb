@@ -26,14 +26,14 @@ JobVacancy.controllers :users do
 
   put :update, :map => '/users/:id' do
     @user = User.find(params[:id])
+
+    unless @user
+      render 'users/edit'
+    end
+
     if @user.update_attributes(params[:user])
       # make flash message
-      # sign_in user
       redirect('/')
-      puts "Hallo"
-    else
-      binding.pry
-      render 'users/edit'
     end
   end
 

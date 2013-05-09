@@ -46,15 +46,26 @@ describe "UsersController" do
 
   describe "PUT update" do
     let(:user) { build(:user) }
-    it "does update attributes" do
+    it "does update attributes and redirects" do
       name_before = user.name
-      new_name = Time.now.to_s
       id = user.id
       user.save
-      params = user.attributes.merge({"name" => new_name, "created_at" => Time.now, "updated_at" => Time.now})
+      params = user_params
       put "users/#{user.id}", :user => params
+      last_response.should be_redirect
       user = User.find(id)
       user.name.should_not be_eql(name_before)
     end
+
+    it "stays on the page if the user has made input errors" do
+      params = user_params
+      put "users/1", :user => params
+      last_response.should be_ok
+    end
+  end
+
+  private
+  def user_params
+    user.attributes.merge({"name" => "Octocat", "created_at" => Time.now, "updated_at" => Time.now})
   end
 end
