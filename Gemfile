@@ -26,7 +26,7 @@ gem 'libnotify'
 gem 'bcrypt-ruby', '3.0.1', :require => 'bcrypt'
 
 # Padrino Stable Gem
-gem 'padrino', '0.11.1'
+gem 'padrino', :git => "git://github.com/padrino/padrino-framework.git"
 gem 'wirble', '0.1.3'
 gem 'pry', '0.9.12'
 gem 'tilt', '1.3.7'
