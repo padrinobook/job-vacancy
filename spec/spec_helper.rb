@@ -9,11 +9,8 @@ RSpec.configure do |conf|
   conf.full_backtrace= false # save the console
   conf.color_enabled= true   # save your eyes
   conf.formatter = :documentation
-end
 
-# don't send mails during testing
-Mail.defaults do
-  delivery_method :test
+  ActiveRecord::Base.observers.disable :all # => Turn them all off
 end
 
 # have access to the session variables
