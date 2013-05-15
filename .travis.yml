@@ -1,9 +1,8 @@
 lang: ruby
-before_install: gem install bundler --pre
+before_install: gem install bundler
 install:
   - gem update --system
-  - bundle update
+  - bundle install
 rvm:
-  - 1.8.7
   - 1.9.3
   - 2.0.0
