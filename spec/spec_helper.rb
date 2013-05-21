@@ -22,5 +22,5 @@ def app
   ##
   # You can handle all padrino applications using instead:
   #   Padrino.application
-  JobVacancy.tap { |app|  }
+  JobVacancy::App.tap { |app|  }
 end
