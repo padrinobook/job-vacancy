@@ -2,18 +2,18 @@
 <html lang="en-US">
 <head>
   <title>Job Vacancy - find the best jobs</title>
-  <%= stylesheet_link_tag '../assets/application' %>
-  <%= javascript_include_tag '../assets/application' %>
+  <%= stylesheet_link_tag '/assets/application' %>
+  <%= javascript_include_tag '/assets/application' %>
 </head>
 <body>
   <div class="container">
     <% if !flash.empty? %>
       <div class="row" id="flash">
-        <% if flash.has_key?(:notice) %>
+        <% if flash.key?(:notice) %>
         <div class="span6 offset3 alert alert-success">
           <%= flash[:notice] %></p>
         </div>
-        <% elsif flash.has_key?( :error ) %>
+        <% elsif flash.key?(:error) %>
         <div class="span9 offset3 alert alert-error">
           <%= flash[:error] %></p>
         </div>
