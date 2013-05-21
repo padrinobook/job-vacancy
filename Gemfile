@@ -5,7 +5,9 @@ gem 'thin', '1.5.1'
 
 # Project requirements
 gem 'rake', '10.0.4'
-gem 'padrino-sprockets', :require => ['sprockets','padrino/sprockets'], :git => 'git://github.com/nightsailer/padrino-sprockets.git'
+gem 'padrino-sprockets', :require => 'padrino/sprockets', :git => 'git://github.com/nightsailer/padrino-sprockets.git'
+gem 'uglifier', '2.1.1'
+gem 'yui-compressor', '0.9.6'
 
 # Component requirements
 gem 'erubis', '~> 2.7.0'
@@ -26,8 +28,9 @@ gem 'libnotify'
 gem 'bcrypt-ruby', '3.0.1', :require => 'bcrypt'
 
 # Padrino Stable Gem
-gem 'padrino', :git => "git://github.com/padrino/padrino-framework.git"
 gem 'wirble', '0.1.3'
 gem 'pry', '0.9.12'
 gem 'tilt', '1.3.7'
 
+# Padrino edge
+gem 'padrino', :github => 'padrino/padrino-framework'

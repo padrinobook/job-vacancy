@@ -6,9 +6,8 @@ class JobVacancy < Padrino::Application
 
   enable :sessions
 
-  require 'sprockets'
   register Padrino::Sprockets
-  sprockets
+  sprockets :minify => (Padrino.env == :production)
 
   # Activating the user_observer
   ActiveRecord::Base.add_observer UserObserver.instance
