@@ -1,4 +1,4 @@
-JobVacancy.mailer :registration do
+JobVacancy::App.mailer :registration do
   WELCOME_PDF = "#{Padrino.root}/app/assets/pdfs/welcome.pdf"
 
   email :registration_email do |name, email|

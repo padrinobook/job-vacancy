@@ -1,4 +1,4 @@
-JobVacancy.controllers :sessions do
+JobVacancy::App.controllers :sessions do
   get :new, :map => "/login" do
     render '/sessions/new', :locals => { :error => false }
   end

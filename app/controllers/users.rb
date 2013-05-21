@@ -1,4 +1,10 @@
-JobVacancy.controllers :users do
+JobVacancy::App.controllers :users do
+  before :edit, :update  do
+    redirect('/login') unless signed_in?
+    @user = User.find(params[:id])
+    redirect('/login') unless current_user?(@user)
+  end
+
   get :new, :map => "/register" do
     @user = User.new
     render 'users/new'
@@ -34,7 +40,7 @@ JobVacancy.controllers :users do
 
     if @user.update_attributes(params[:user])
       flash[:notice] = "You have updated your profile."
-      redirect('/')
+      render 'users/edit'
     else
       flash[:error] = "Your profile was not updated."
       render 'users/edit'
@@ -51,6 +57,5 @@ JobVacancy.controllers :users do
       render 'users/new'
     end
   end
-
 
 end
