@@ -33,4 +33,4 @@ gem 'pry', '0.9.12'
 gem 'tilt', '1.3.7'
 
 # Padrino edge
-gem 'padrino', :github => 'padrino/padrino-framework'
+gem 'padrino', '0.11.2'
