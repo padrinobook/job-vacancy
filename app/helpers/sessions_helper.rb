@@ -1,4 +1,4 @@
-JobVacancy::App.helpers do
+module SessionsHelper
   def current_user=(user)
     @current_user = user
   end
@@ -23,5 +23,7 @@ JobVacancy::App.helpers do
   def signed_in?
     !current_user.nil?
   end
+
 end
 
+JobVacancy::App.helpers SessionsHelper
