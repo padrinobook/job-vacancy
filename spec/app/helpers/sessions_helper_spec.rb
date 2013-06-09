@@ -2,11 +2,11 @@ require 'spec_helper'
 
 describe SessionsHelper do
   before do
-    class SessionsHelperClass
+    class SessionsHelperKlass
       include SessionsHelper
     end
 
-    @session_helper = SessionsHelperClass.new
+    @session_helper = SessionsHelperKlass.new
   end
 
   context "#current_user" do
