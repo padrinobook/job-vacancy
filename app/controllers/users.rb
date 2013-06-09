@@ -1,7 +1,12 @@
 JobVacancy::App.controllers :users do
   before :edit, :update  do
     redirect('/login') unless signed_in?
-    @user = User.find(params[:id])
+    begin
+      @user = User.find(params[:id])
+    rescue ActiveRecord::RecordNotFound
+      @user = nil
+    end
+
     redirect('/login') unless current_user?(@user)
   end
 
