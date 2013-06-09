@@ -6,9 +6,6 @@ describe SessionsHelper do
       include SessionsHelper
     end
 
-    @user = mock(User)
-    @user.stub!(:find_by_id)
-
     @session_helper = SessionsHelperClass.new
   end
 
