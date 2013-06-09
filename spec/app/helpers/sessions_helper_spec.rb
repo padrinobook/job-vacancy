@@ -17,9 +17,8 @@ describe SessionsHelper do
     end
 
     it "find the user by id from the current session" do
-      @session_helper.current_user = nil
       user = User.first
-      browser = Rack::Test::Session.new(Rack::MockSession.new(Sinatra::Application))
+      browser = Rack::Test::Session.new(JobVacancy::App)
       browser.get '/', {}, 'rack.session' => { :current_user => user.id }
       @session_helper.should_receive(:last_request).and_return(browser.last_request)
       @session_helper.current_user.should == user
@@ -43,7 +42,7 @@ describe SessionsHelper do
   context "#sign_in" do
     it "it sets the current user to the signed in user" do
       user = User.first
-      browser = Rack::Test::Session.new(Rack::MockSession.new(Sinatra::Application))
+      browser = Rack::Test::Session.new(JobVacancy::App)
       browser.get '/', {}, 'rack.session' => { :current_user => user.id }
       @session_helper.should_receive(:session).and_return(browser.last_request)
       @session_helper.sign_in(user)
