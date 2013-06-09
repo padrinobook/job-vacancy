@@ -21,12 +21,8 @@ JobVacancy::App.controllers :users do
     end
   end
 
-  # using namespaced route alias
   get :edit, :map => '/users/:id/edit' do
     @user = User.find_by_id(params[:id])
-    unless @user
-      redirect('/')
-    end
     render 'users/edit'
   end
 
