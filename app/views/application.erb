@@ -26,12 +26,12 @@
       </div>
     <% end %>
     <div class="row">
-      <div class="span12 offset3">
+      <div class="span12 offset2">
         <span id="header">Job Vacancy Board</span>
       </div>
       <div class="row">
         <nav id="navigation">
-          <div class="span2 offset3">
+          <div class="span2 offset2">
             <%= link_to 'Home', url_for(:page, :home) %>
           </div>
           <div class="span2">
@@ -40,11 +40,18 @@
           <div class="span2">
             <%= link_to 'Contact', url_for(:page, :contact) %>
           </div>
-          <div class="span3">
           <% if signed_in? %>
-            <%= link_to 'Logout', url_for(:sessions, :destroy) %>
+            <div class="span2">
+              <%= link_to 'Logout', url_for(:sessions, :destroy) %>
+            </div>
+            <div class="span2">
+            <%= link_to 'Edit Profile', url_for(:users, :edit, :id => session[:current_user]) %>
+            </div>
+            <div>
           <% else %>
-            <%= link_to 'Login', url_for(:sessions, :new) %>
+            <div class="span3">
+              <%= link_to 'Login', url_for(:sessions, :new) %>
+            </div>
           <% end %>
           </div>
         </nav>
