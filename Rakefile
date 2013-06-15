@@ -1,8 +1,6 @@
-desc "run the testfiles"
-task :spec do
-  Dir.glob("spec/**/*_spec.rb") do |file|
-    system "rspec #{file}"
-  end
-end
+require 'bundler/setup'
+require 'padrino-core/cli/rake'
 
-task :default => :spec
+PadrinoTasks.use(:database)
+PadrinoTasks.use(:activerecord)
+PadrinoTasks.init
