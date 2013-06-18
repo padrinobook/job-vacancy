@@ -13,6 +13,11 @@
 
   <%= label_tag :password %>
   <%= password_field_tag :password %>
+
+  <label class="checkbox">
+    <%= check_box_tag :remember_me %> Remember me
+  </label>
+
   <p>
   <%= submit_tag "Sign up", :class => "btn btn-primary" %>
   </p>
