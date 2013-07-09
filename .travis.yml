@@ -4,5 +4,7 @@ install:
   - gem update --system
   - bundle install
 rvm:
-  - 1.9.3
-  - 2.0.0
+  - 1.9.3p448
+branches:
+  only:
+    - user-update
