@@ -5,6 +5,7 @@ env:
   - DB=sqlite
 script:
   - bundle exec padrino rake ar:schema:load
+  - bundle exec padrino rake spec
 branches:
   only:
     - user-update
