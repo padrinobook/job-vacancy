@@ -1,10 +1,6 @@
 lang: ruby
-before_install: gem install bundler
-install:
-  - gem update --system
-  - bundle install
 rvm:
-  - 1.9.3p448
+  - 2.1.0
 branches:
   only:
     - user-update
