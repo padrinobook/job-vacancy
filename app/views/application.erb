@@ -41,7 +41,14 @@
             <%= link_to 'Contact', url_for(:page, :contact) %>
           </div>
           <% if signed_in? %>
-            <div class="span3">
+            <div class="span2">
+              <%= link_to 'Logout', url_for(:sessions, :destroy) %>
+            </div>
+            <div class="span2">
+              <%= link_to 'Edit Profile', url_for(:users, :edit, :id => session[:current_user]) %>
+            </div>
+            </div>
+            <!--
             <li class="dropdown">
               <a class="dropdown-toggle" id="drop4" role="button" data-toggle="dropdown" href="#">User Actions<b class="caret"></b></a>
               <ul id="menu1" class="dropdown-menu" role="menu" aria-labelledby="drop4">
@@ -53,7 +60,7 @@
                 <li role="presentation"><%= link_to 'Logout', url_for(:sessions, :destroy), :tabindex => '-1' %></li>
               </ul>
             </li>
-            </div>
+            -->
           <% else %>
             <div class="span3">
               <%= link_to 'Login', url_for(:sessions, :new) %>

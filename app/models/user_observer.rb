@@ -8,7 +8,7 @@ class UserObserver < ActiveRecord::Observer
   end
 
   def after_save(user)
-    JobVacancy.deliver(:confirmation, :confirmation_email, user.name,
+    deliver(:confirmation, :confirmation_email, user.name,
                        user.email,
                        user.id,
                        user.confirmation_code) unless user.confirmation

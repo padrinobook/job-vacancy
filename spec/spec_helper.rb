@@ -14,7 +14,7 @@ RSpec.configure do |conf|
   ActiveRecord::Base.observers.disable :all # => Turn them all off
 end
 
-# have access to the session variables
+# Have access to the session variables.
 def session
   last_request.env['rack.session']
 end
