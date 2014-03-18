@@ -3,12 +3,21 @@ require File.expand_path(File.dirname(__FILE__) + "/../config/boot")
 require File.dirname(__FILE__) + "/factories"
 Dir[File.dirname(__FILE__) + '/../app/helpers/**.rb'].each { |file| require file }
 
+require 'simplecov'
+
+SimpleCov.start do
+  add_group "Models", "app/models"
+  add_group "Controllers", "app/controllers"
+  add_group "Helpers", "app/helpers"
+  add_group "Mailers", "app/mailers"
+end
+
 RSpec.configure do |conf|
   conf.mock_with :rspec
   conf.include Rack::Test::Methods
   conf.include FactoryGirl::Syntax::Methods
-  conf.full_backtrace= false # save the console
-  conf.color_enabled= true   # save your eyes
+  conf.full_backtrace = false # save the console
+  conf.color_enabled = true   # save your eyes
   conf.formatter = :documentation
 
   ActiveRecord::Base.observers.disable :all # => Turn them all off
