@@ -21,6 +21,8 @@ group :test do
   gem 'rack-test', '0.6.2', :require => 'rack/test'
 end
 
+gem 'metric_fu'
+
 # Automatically running tests
 gem 'guard-rspec'
 gem 'libnotify', '0.8.2'
