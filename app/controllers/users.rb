@@ -1,9 +1,9 @@
 JobVacancy::App.controllers :users do
-  before :edit, :update  do
-    redirect('/login') unless signed_in?
-    @user = User.find_by_id(params[:id])
-    redirect('/login') unless current_user?(@user)
-  end
+   before :edit, :update  do
+     redirect('/login') unless signed_in?
+     @user = User.find_by_id(params[:id])
+     redirect('/login') unless current_user?(@user)
+   end
 
   get :new, :map => "/register" do
     @user = User.new
@@ -12,7 +12,8 @@ JobVacancy::App.controllers :users do
 
   get :confirm, :map => "/confirm/:id/:code" do
     @user = User.find_by_id(params[:id])
-    if (@user &&  @user.authenticate(params[:code]))
+
+    if @user &&  @user.authenticate(params[:code])
       flash[:notice] = "You have been confirmed. Please confirm with the mail we've send you recently."
       render 'users/confirm'
     else
@@ -23,6 +24,10 @@ JobVacancy::App.controllers :users do
 
   get :edit, :map => '/users/:id/edit' do
     @user = User.find_by_id(params[:id])
+<<<<<<< Updated upstream
+=======
+    require 'pry'; binding.pry
+>>>>>>> Stashed changes
     render 'users/edit'
   end
 
