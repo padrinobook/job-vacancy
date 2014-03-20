@@ -24,10 +24,6 @@ JobVacancy::App.controllers :users do
 
   get :edit, :map => '/users/:id/edit' do
     @user = User.find_by_id(params[:id])
-<<<<<<< Updated upstream
-=======
-    require 'pry'; binding.pry
->>>>>>> Stashed changes
     render 'users/edit'
   end
 
