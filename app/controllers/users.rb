@@ -7,7 +7,7 @@ JobVacancy::App.controllers :users do
 
   get :new, :map => "/register" do
     @user = User.new
-    render 'users/new'
+    render 'new'
   end
 
   get :confirm, :map => "/confirm/:id/:code" do
@@ -15,7 +15,7 @@ JobVacancy::App.controllers :users do
 
     if @user &&  @user.authenticate(params[:code])
       flash[:notice] = "You have been confirmed. Please confirm with the mail we've send you recently."
-      render 'users/confirm'
+      render 'confirm'
     else
       flash[:error] = "Confirmed code is wrong."
       redirect('/')
@@ -24,7 +24,7 @@ JobVacancy::App.controllers :users do
 
   get :edit, :map => '/users/:id/edit' do
     @user = User.find_by_id(params[:id])
-    render 'users/edit'
+    render 'edit'
   end
 
   put :update, :map => '/users/:id' do
@@ -32,15 +32,15 @@ JobVacancy::App.controllers :users do
 
     unless @user
       flash[:error] = "User is not registered in our platform."
-      render 'users/edit'
+      render 'edit'
     end
 
     if @user.update_attributes(params[:user])
       flash[:notice] = "You have updated your profile."
-      render 'users/edit'
+      render 'edit'
     else
       flash[:error] = "Your profile was not updated."
-      render 'users/edit'
+      render 'edit'
     end
   end
 
@@ -51,7 +51,7 @@ JobVacancy::App.controllers :users do
       flash[:notice] = "You have been registered. Please confirm with the mail we've send you recently."
       redirect('/')
     else
-      render 'users/new'
+      render 'new'
     end
   end
 
