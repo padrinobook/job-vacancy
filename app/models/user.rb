@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
                        :presence => true,
                        :confirmation => true
 
+  before_create :generate_authentity_token
 
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :email, :presence => true,
@@ -26,4 +27,10 @@ class User < ActiveRecord::Base
     end
   end
 
+  private
+  def generate_authentity_token
+    require 'securerandom'
+    self.authentity_token = SecureRandom.hex
+    SecureRandom
+  end
 end
