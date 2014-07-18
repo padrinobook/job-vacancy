@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 6) do
+ActiveRecord::Schema.define(:version => 7) do
 
   create_table "job_offers", :force => true do |t|
     t.string   "title"
@@ -34,6 +34,7 @@ ActiveRecord::Schema.define(:version => 6) do
     t.string   "confirmation_code"
     t.boolean  "confirmation",      :default => false
     t.string   "auth_token"
+    t.string   "authentity_token"
   end
 
 end

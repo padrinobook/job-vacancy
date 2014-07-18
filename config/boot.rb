@@ -40,6 +40,7 @@ end
 # Add your after (RE)load hooks here
 #
 Padrino.after_load do
+  Padrino.require_dependencies("#{Padrino.root}/app/mailers/*.rb")
 end
 
 Padrino.load!
