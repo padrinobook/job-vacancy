@@ -1,6 +1,6 @@
 JobVacancy::App.controllers :sessions do
   get :new, :map => "/login" do
-    render '/sessions/new', :locals => { :error => false }
+    render 'new', :locals => { :error => false }
   end
 
   post :create do
@@ -23,7 +23,7 @@ JobVacancy::App.controllers :sessions do
       sign_in(@user)
       redirect '/'
     else
-      render '/sessions/new', :locals => { :error => true }
+      render 'new', :locals => { :error => true }
     end
   end
 
