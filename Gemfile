@@ -39,6 +39,6 @@ gem 'padrino', '0.12.3'
 
 
 # Codecoverage tools
-gem 'simplecov'
-gem 'metric_fu'
+# gem 'simplecov'
+# gem 'metric_fu'
 
