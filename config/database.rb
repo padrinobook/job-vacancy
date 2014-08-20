@@ -15,6 +15,7 @@
 #
 ActiveRecord::Base.configurations[:development] = {
   :adapter => 'sqlite3',
+  :pool      => 16,
   :database => Padrino.root('db', 'job_vacancy_development.db')
 
 }
