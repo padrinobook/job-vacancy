@@ -19,9 +19,9 @@
   </label>
 
   <p>
-  <%= submit_tag "Sign up", :class => "btn btn-primary" %>
+    <%= submit_tag "Sign up", :class => "btn btn-primary" %>
   </p>
 <% end %>
 
-New on this platform? <%= link_to 'Register', url_for(:users, :new) %>
+New on this platform? <%= link_to 'Register', url(:users, :new) %>
 
