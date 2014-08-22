@@ -3,8 +3,7 @@ require 'spec_helper'
 describe "UsersController" do
 
   describe "GET new" do
-    # Not working since PADRINO_ENV => RACK_ENV???
-    xit "render the :new view" do
+    it "render the :new view" do
       get "/register"
       last_response.should be_ok
     end

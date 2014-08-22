@@ -30,6 +30,7 @@ class User < ActiveRecord::Base
   private
   def generate_authentity_token
     require 'securerandom'
-    self.authentity_token = SecureRandom.hex
+    self.authentity_token = SecureRandom.base64(64)
+    SecureRandom
   end
 end

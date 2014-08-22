@@ -9,8 +9,8 @@ JobVacancy::App.controllers :sessions do
     if @user && @user.confirmation && @user.password == params[:password]
       if (params[:remember_me])
         require 'securerandom'
-        auth_token = SecureRandom.hex
-        @user.auth_token = auth_token
+        token = SecureRandom.hex
+        @user.authentity_token = token
         thirty_days_in_seconds = 30*24*60*60
         response.set_cookie('permanent_cookie',
                             :value => { :domain => 'jobvacancy.de',
