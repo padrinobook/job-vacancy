@@ -1,6 +1,6 @@
 <h1>Login</h1>
 
-<% form_tag '/sessions/create' do %>
+<% form_tag url(:sessions, :create) do %>
   <% if error %>
     <div class="alert alert-error">
       <h4>Error</h4>
