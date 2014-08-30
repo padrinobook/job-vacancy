@@ -41,13 +41,12 @@
             <%= link_to 'Contact', url(:page, :contact) %>
           </div>
           <% if signed_in? %>
-            <div class="span2">
-              <%= link_to 'Logout', url(:sessions, :destroy) %>
-            </div>
-            <div class="span2">
-              <%= link_to 'Edit Profile', url(:users, :edit, :id => session[:current_user]) %>
-            </div>
-            </div>
+          <div class="span2">
+            <%= link_to 'Logout', url(:sessions, :destroy) %>
+          </div>
+          <div class="span2">
+            <%= link_to 'Edit Profile', url(:users, :edit, :id => session[:current_user]) %>
+          </div>
             <!--
             <li class="dropdown">
               <a class="dropdown-toggle" id="drop4" role="button" data-toggle="dropdown" href="#">User Actions<b class="caret"></b></a>
@@ -62,11 +61,10 @@
             </li>
             -->
           <% else %>
-            <div class="span3">
-              <%= link_to 'Login', url(:sessions, :new) %>
-            </div>
-          <% end %>
+          <div class="span3">
+            <%= link_to 'Login', url(:sessions, :new) %>
           </div>
+          <% end %>
         </nav>
       </div>
       <div class="row">
