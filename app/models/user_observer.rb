@@ -3,15 +3,15 @@ class UserObserver < ActiveRecord::Observer
   def before_save(user)
     if user.new_record?
       encrypt_confirmation_code(user)
-      #JobVacancy.deliver(:registration, :registration_email, user.name, user.email)
+      JobVacancy::App.deliver(:registration, :registration_email, user.name, user.email)
     end
   end
 
   def after_save(user)
-#     JobVacancy.deliver(:confirmation, :confirmation_email, user.name,
-#                        user.email,
-#                        user.id,
-#                        user.confirmation_code) unless user.confirmation
+    JobVacancy::App.deliver(:confirmation, :confirmation_email, user.name,
+      user.email,
+      user.id,
+      user.confirmation_code) unless user.confirmation
   end
 
   private
