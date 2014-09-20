@@ -27,10 +27,15 @@ class User < ActiveRecord::Base
     end
   end
 
+  def save_forget_password_token
+    self.password_reset_token = generate_authentity_token
+    self.password_reset_sent_date = Time.now
+    self.save
+  end
+
   private
   def generate_authentity_token
     require 'securerandom'
     self.authentity_token = SecureRandom.base64(64)
-    SecureRandom
   end
 end
