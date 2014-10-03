@@ -13,7 +13,7 @@ JobVacancy::App.controllers :users do
   get :confirm, :map => "/confirm/:id/:code" do
     @user = User.find_by_id(params[:id])
 
-    if @user &&  @user.authenticate(params[:code])
+    if @user && @user.authenticate(params[:code])
       flash[:notice] = "You have been confirmed. Please confirm with the mail we've send you recently."
       render 'confirm'
     else
