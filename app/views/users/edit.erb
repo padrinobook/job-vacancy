@@ -1,4 +1,4 @@
-<% form_for(@user, "/users/#{@user.id}") do |f| %>
+<% form_for @user, "/users/#{@user.id}" do |f| %>
   <input name="_method" type="hidden" value="put" />
   <%= f.label :name %>
   <%= f.text_field :name %>
