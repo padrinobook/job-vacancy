@@ -28,13 +28,14 @@ ActiveRecord::Schema.define(:version => 7) do
   create_table "users", :force => true do |t|
     t.string   "name"
     t.string   "email"
-    t.datetime "created_at",                           :null => false
-    t.datetime "updated_at",                           :null => false
+    t.datetime "created_at",                                  :null => false
+    t.datetime "updated_at",                                  :null => false
     t.string   "password"
     t.string   "confirmation_code"
-    t.boolean  "confirmation",      :default => false
-    t.string   "auth_token"
+    t.boolean  "confirmation",             :default => false
     t.string   "authentity_token"
+    t.string   "password_reset_token",     :default => "0"
+    t.datetime "password_reset_sent_date"
   end
 
 end
