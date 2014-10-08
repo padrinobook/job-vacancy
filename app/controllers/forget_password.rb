@@ -1,3 +1,5 @@
+require 'timerizer'
+
 JobVacancy::App.controllers :forget_password do
   get :new, :map => 'forget_password' do
     render 'new'
@@ -17,9 +19,15 @@ JobVacancy::App.controllers :forget_password do
 
   get :edit, :map => "/password-reset/:token/edit" do
     @user = User.find_by_password_reset_token(params[:token])
-    if @user
+
+    if @user.password_reset_sent_date < 1.hour.ago
+      @user.update_attributes({:password_reset_token => 0, :password_reset_sent_date => 0})
+      flash[:error] = "Password reset token has expired."
+      redirect url(:sessions, :new)
+    elsif @user
       render 'edit'
     else
+      @user.update_attributes({:password_reset_token => 0, :password_reset_sent_date => 0})
       redirect url(:forget_password, :new)
     end
   end
@@ -27,10 +35,8 @@ JobVacancy::App.controllers :forget_password do
   post :update, :map => "password-reset/:token" do
     @user = User.find_by_password_reset_token(params[:token])
 
-    if @user.password_reset_sent_date <= Time.now + (60 * 60)
-      flash[:error] = "Password has expired"
-      redirect url(:forget_password, :new)
-    elsif @user.update_attributes(params[:user])
+    if @user.update_attributes(params[:user])
+      @user.update_attributes({:password_reset_token => 0, :password_reset_sent_date => 0})
       flash[:notice] = "Password has been reseted. Please login with your new password."
       redirect url(:sessions, :new)
     else

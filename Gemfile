@@ -14,6 +14,8 @@ gem 'erubis', '~> 2.7.0'
 gem 'activerecord', '~> 3.2.9', :require => 'active_record'
 gem 'sqlite3', '~> 1.3.9'
 
+gem 'timerizer', '0.1.4'
+
 # Test requirements
 group :test do
   gem 'rspec' , '2.14.1'
