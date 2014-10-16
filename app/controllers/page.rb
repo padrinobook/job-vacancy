@@ -11,3 +11,4 @@ JobVacancy::App.controllers :page do
     render 'contact'
   end
 end
+

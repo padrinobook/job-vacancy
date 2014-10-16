@@ -56,3 +56,4 @@ JobVacancy::App.controllers :users do
   end
 
 end
+

@@ -29,3 +29,4 @@ class UserObserver < ActiveRecord::Observer
     normalize_token(confirmation_code)
   end
 end
+

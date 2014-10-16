@@ -11,3 +11,4 @@ JobVacancy::App.mailer :confirmation do
     render 'confirmation/confirmation_email'
   end
 end
+

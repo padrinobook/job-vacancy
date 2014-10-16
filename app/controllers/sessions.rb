@@ -33,3 +33,4 @@ JobVacancy::App.controllers :sessions do
     redirect '/'
   end
 end
+

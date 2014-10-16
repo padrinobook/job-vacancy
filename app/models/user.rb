@@ -41,3 +41,4 @@ class User < ActiveRecord::Base
     self.authentity_token = normalize_token(SecureRandom.base64(64))
   end
 end
+

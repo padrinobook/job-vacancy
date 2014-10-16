@@ -9,3 +9,4 @@ module JobVacancy
     helpers ForgetPasswordHelper
   end
 end
+

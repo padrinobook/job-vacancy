@@ -10,3 +10,4 @@ JobVacancy::App.mailer :registration do
     add_file :filename => 'welcome.pdf', :content => File.open(WELCOME_PDF) { |f| f.read }
   end
 end
+
