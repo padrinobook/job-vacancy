@@ -27,3 +27,4 @@ module SessionsHelper
 end
 
 JobVacancy::App.helpers SessionsHelper
+
