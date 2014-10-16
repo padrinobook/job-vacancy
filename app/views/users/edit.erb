@@ -1,5 +1,6 @@
-<% form_for @user, "/users/#{@user.id}" do |f| %>
-  <input name="_method" type="hidden" value="put" />
+<h2>Edit your profile</h2>
+
+<% form_for @user, "/users/#{@user.id}", method: :put do |f| %>
   <%= f.label :name %>
   <%= f.text_field :name %>
   <%= error_message_on @user, :name, :class => "text-error", :prepend => "The name " %>
