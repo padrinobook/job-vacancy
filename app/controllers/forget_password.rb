@@ -11,7 +11,7 @@ JobVacancy::App.controllers :forget_password do
     if user
       user.save_forget_password_token
       link = "http://localhost:3000" + url(:forget_password, :edit, :token => user.password_reset_token)
-      deliver(:password_forget, :password_forget_email, user, link)
+      deliver(:password_reset, :password_reset_email, user, link)
     end
 
     render 'success'
