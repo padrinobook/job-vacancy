@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe "ForgetPasswordController" do
+RSpec.describe "PasswordForgetController" do
   pending "add some examples to #{__FILE__}" do
     before do
       get "/"
@@ -11,3 +11,4 @@ RSpec.describe "ForgetPasswordController" do
     end
   end
 end
+

@@ -1,7 +1,7 @@
 require 'timerizer'
 
-JobVacancy::App.controllers :forget_password do
-  get :new, :map => 'forget_password' do
+JobVacancy::App.controllers :password_forget do
+  get :new, :map => 'password_forget' do
     render 'new'
   end
 
@@ -10,7 +10,7 @@ JobVacancy::App.controllers :forget_password do
 
     if user
       user.save_forget_password_token
-      link = "http://localhost:3000" + url(:forget_password, :edit, :token => user.password_reset_token)
+      link = "http://localhost:3000" + url(:password_forget, :edit, :token => user.password_reset_token)
       deliver(:password_reset, :password_reset_email, user, link)
     end
 

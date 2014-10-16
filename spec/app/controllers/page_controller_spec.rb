@@ -10,5 +10,4 @@ describe "PageController" do
       end
     end
   end
-
 end

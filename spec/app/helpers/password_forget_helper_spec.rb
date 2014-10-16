@@ -3,7 +3,7 @@ require 'spec_helper'
 RSpec.describe "JobVacancy::App::ForgetPasswordHelper" do
   pending "add some examples to (or delete) #{__FILE__}" do
     let(:helpers){ Class.new }
-    before { helpers.extend JobVacancy::App::ForgetPasswordHelper }
+    before { helpers.extend JobVacancy::App::PasswordForgetHelper }
     subject { helpers }
 
     it "should return nil" do
