@@ -16,14 +16,20 @@ module JobVacancy
     set :delivery_method, :smtp => {
       :address => 'smtp.gmail.com',
       :port => 587,
-      :user_name => '<secret>@gmail.com',
-      :password => '<secret>',
+      :user_name => 'lordmatze@gmail.com',
+      :password => 'M6guma2#!32?',
       :authentication => :plain,
       :enable_starttls_auto => true
     }
 
-    # Mailer should not send mails when tests are performed
-    set :delivery_method, :test
+    configure :development do
+      use BetterErrors::Middleware
+      BetterErrors.application_root = PADRINO_ROOT
+      set :protect_from_csrf, except: %r{/__better_errors/\d+/\w+\z}
+
+      # Mailer should not send mails when tests are performed
+      set :delivery_method, :test
+    end
 
     ##
     # Caching support

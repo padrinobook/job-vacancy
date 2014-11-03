@@ -16,6 +16,10 @@ gem 'sqlite3', '~> 1.3.9'
 
 gem 'timerizer', '0.1.4'
 
+group :development do
+  gem 'better_errors', '2.0.0'
+end
+
 # Test requirements
 group :test do
   gem 'rspec' , '2.14.1'
