@@ -3,8 +3,6 @@
 If you are new to our platform please fill out the following form:
 
 <% form_for(@user, '/users/create') do |f| %>
-  <%= error_messages_for :user %>
-
   <%= f.label :name %>
   <%= f.text_field :name %>
   <%= error_message_on :user, :name, :class => "text-error", :prepend => "The name " %>
