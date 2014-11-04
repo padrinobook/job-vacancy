@@ -1,36 +1,50 @@
 source 'https://rubygems.org'
 
 # Server requirements
-gem 'thin', '~> 1.5.0'
+gem 'thin', '1.6.2'
 
 # Project requirements
-gem 'rake', '~> 10.0.2'
-gem 'sinatra-flash', '~> 0.3.0', :require => 'sinatra/flash'
-gem 'padrino-sprockets', :require => ['sprockets','padrino/sprockets'], :git => 'git://github.com/nightsailer/padrino-sprockets.git'
+gem 'rake', '10.1.1'
+gem 'padrino-sprockets', :require => 'padrino/sprockets', :git => 'git://github.com/nightsailer/padrino-sprockets.git'
+gem 'uglifier', '2.1.1'
+gem 'yui-compressor', '0.9.6'
 
 # Component requirements
 gem 'erubis', '~> 2.7.0'
 gem 'activerecord', '~> 3.2.9', :require => 'active_record'
-gem 'sqlite3', '~> 1.3.6'
+gem 'sqlite3', '~> 1.3.9'
+
+gem 'timerizer', '0.1.4'
+
+group :development do
+  gem 'better_errors', '2.0.0'
+end
 
 # Test requirements
 group :test do
-  gem 'rspec' , '~> 2.13.0'
-  gem 'factory_girl', '~> 4.1.0'
-  gem 'rack-test', '~> 0.6.2', :require => 'rack/test'
+  gem 'rspec' , '2.14.1'
+  gem 'factory_girl', '4.4.0'
+  gem 'rack-test', '0.6.2', :require => 'rack/test'
 end
 
+# Automatically running tests
 gem 'guard-rspec'
-gem 'libnotify'
+gem 'libnotify', '0.8.2'
 
 # Security
-gem 'bcrypt-ruby', '~> 3.0.1', :require => 'bcrypt'
+gem 'bcrypt-ruby', '3.0.1', :require => 'bcrypt'
 
 # Padrino Stable Gem
-gem 'padrino', '~> 0.10.7'
-gem 'padrino-flash', '~> 0.1.1'
-gem 'wirble', '~> 0.1.3'
-gem 'pry', '~> 0.9.10'
-gem 'rb-readline', '~> 0.4.0'
-gem 'tilt', '1.3.7'
+gem 'wirble', '0.1.3'
+gem 'pry', '0.9.12.6'
+gem 'tilt', '1.4.1'
+
+# Padrino edge
+#gem 'padrino', :git => "git://github.com/padrino/padrino-framework.git"
+gem 'padrino', '0.12.4'
+
+
+# Codecoverage tools
+# gem 'simplecov'
+# gem 'metric_fu'
 

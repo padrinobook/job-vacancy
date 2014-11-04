@@ -98,4 +98,15 @@ describe "User Model" do
       user_confirmation.authenticate("wrong").should be_false
     end
   end
+
+  describe "generate_auth_token" do
+    let(:user_confirmation) { build(:user) }
+
+    it 'generate_auth_token generate token if user is saved' do
+      user.should_receive(:save).and_return(true)
+      user.send(:generate_authentity_token)
+      user.save
+      user.authentity_token.should_not be_empty
+    end
+  end
 end

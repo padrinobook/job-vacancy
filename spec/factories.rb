@@ -1,6 +1,6 @@
 # encoding: utf-8
 FactoryGirl.define do
-  sequence(:email){ |n| "matthias.guenther#{n}@wikimatze.de"}
+  sequence(:email){ |n| "matthias#{n}@wikimatze.de"}
   sequence(:name){ |n| "Matthias Günther #{n}"}
   sequence(:confirmation_code){ "1" }
   sequence(:id){ |n| n }

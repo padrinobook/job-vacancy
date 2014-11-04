@@ -1,4 +1,4 @@
-JobVacancy.mailer :confirmation do
+JobVacancy::App.mailer :confirmation do
   # Find a better way to get into the main URL of the application ...
   # Padrino.root prints me out the path instead of the URL
   CONFIRMATION_URL = "http://localhost:3000/confirm"
@@ -11,3 +11,4 @@ JobVacancy.mailer :confirmation do
     render 'confirmation/confirmation_email'
   end
 end
+

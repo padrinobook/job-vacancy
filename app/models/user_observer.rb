@@ -1,17 +1,20 @@
 class UserObserver < ActiveRecord::Observer
+  include StringNormalizer
 
   def before_save(user)
     if user.new_record?
       encrypt_confirmation_code(user)
-      JobVacancy.deliver(:registration, :registration_email, user.name, user.email)
+
+      user = User.find_by_email('lordmatze@gmail.com')
+      JobVacancy::App.deliver(:registration, :registration_email, user.name, user.email)
     end
   end
 
   def after_save(user)
-    JobVacancy.deliver(:confirmation, :confirmation_email, user.name,
-                       user.email,
-                       user.id,
-                       user.confirmation_code) unless user.confirmation
+    JobVacancy::App.deliver(:confirmation, :confirmation_email, user.name,
+      user.email,
+      user.id,
+      user.confirmation_code) unless user.confirmation
   end
 
   private
@@ -23,10 +26,7 @@ class UserObserver < ActiveRecord::Observer
     require 'bcrypt'
     salt = BCrypt::Engine.generate_salt
     confirmation_code = BCrypt::Engine.hash_secret(user.password, salt)
-    normalize_confirmation_code(confirmation_code)
-  end
-
-  def normalize_confirmation_code(confirmation_code)
-    confirmation_code.gsub("/", "")
+    normalize_token(confirmation_code)
   end
 end
+

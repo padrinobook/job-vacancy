@@ -1,6 +1,6 @@
 <h1>Login</h1>
 
-<% form_tag '/sessions/create' do %>
+<% form_tag url(:sessions, :create) do %>
   <% if error %>
     <div class="alert alert-error">
       <h4>Error</h4>
@@ -13,10 +13,19 @@
 
   <%= label_tag :password %>
   <%= password_field_tag :password %>
+
+  <label class="checkbox">
+    <%= check_box_tag :remember_me %> Remember me
+  </label>
+
   <p>
-  <%= submit_tag "Sign up", :class => "btn btn-primary" %>
+    <%= link_to 'forget password?', url(:password_forget, :new) %>
+  </p>
+
+  <p>
+    <%= submit_tag "Sign up", :class => "btn btn-primary" %>
   </p>
 <% end %>
 
-New on this platform? <%= link_to 'Register', url_for(:users, :new) %>
+New on this platform? <%= link_to 'Register', url(:users, :new) %>
 

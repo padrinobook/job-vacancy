@@ -1,0 +1,11 @@
+<h2>Forget Password</h2>
+
+<% form_tag url(:password_forget, :create) do %>
+  <%= label_tag :email %>
+  <%= text_field_tag :email %>
+
+  <p>
+    <%= submit_tag "Reset password", :class => "btn btn-primary" %>
+  </p>
+<% end %>
+

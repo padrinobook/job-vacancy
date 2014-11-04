@@ -13,6 +13,10 @@ body {
   padding-top: 20px;
 }
 
+#navigation li {
+  list-style: none;
+}
+
 h1 {
   font-family: Lato;
   font-size: 30px;
