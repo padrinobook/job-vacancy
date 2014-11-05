@@ -1,6 +1,7 @@
 ![PadrinoBook - The Guide To Master The Elegant Ruby Web Framework](https://raw.githubusercontent.com/wikimatze/padrinobook/master/images/logo.png "PadrinoBook - The Guide To Master The Elegant Ruby Web Framework")
 
-[![Build Status](https://travis-ci.org/wikimatze/job-vacancy.svg?branch=master)](https://travis-ci.org/wikimatze/job-vacancy)
+
+[![Build Status](https://travis-ci.org/wikimatze/job-vacancy.png?branch=master)](https://travis-ci.org/wikimatze/job-vacancy)
 
 
 This is the application written for my [PadrinoBook](http://padrinobook.com). There are a lots of commits in there - so
