@@ -32,11 +32,10 @@ describe "UsersController" do
   describe "GET edit" do
     let(:user) { build(:user) }
 
-    xit "render the view for editing a user" do
-      User.should_receive(:find_by_id).at_least(:once).with(anything()).and_return(user)
-
-      get "/users/#{user.id}/edit"
-      # I come to this point but the last response is not okay but and routing error
+    it "render the view for editing a user" do
+      id = user.id
+      User.should_receive(:find_by_id).at_least(:once).and_return(user)
+      get "/users/#{id}/edit", {}, { 'rack.session' => { current_user: id } }
       last_response.should be_ok
     end
 
