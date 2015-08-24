@@ -13,11 +13,11 @@ Dir[File.dirname(__FILE__) + '/../app/helpers/**.rb'].each { |file| require file
 
 
 RSpec.configure do |conf|
-  conf.mock_with :rspec
   conf.include Rack::Test::Methods
   conf.include FactoryGirl::Syntax::Methods
+  conf.mock_framework = :rspec
   conf.full_backtrace= false # save the console
-  conf.color_enabled= true   # save your eyes
+  conf.color= true   # save your eyes
   conf.formatter = :documentation
 
   ActiveRecord::Base.observers.disable :all # => Turn them all off
