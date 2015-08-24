@@ -6,7 +6,7 @@ describe "PageController" do
     describe "GET #{path}" do
       it "render the :#{path} view" do
         get path
-        last_response.should be_ok
+        expect(last_response).to be_ok
       end
     end
   end
