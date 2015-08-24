@@ -4,7 +4,7 @@ source 'https://rubygems.org'
 gem 'thin', '1.6.2'
 
 # Project requirements
-gem 'rake', '10.1.1'
+gem 'rake', '10.4.2'
 gem 'padrino-sprockets', :require => 'padrino/sprockets', :git => 'git://github.com/nightsailer/padrino-sprockets.git'
 gem 'uglifier', '2.1.1'
 gem 'yui-compressor', '0.9.6'
@@ -17,7 +17,7 @@ gem 'sqlite3', '~> 1.3.9'
 gem 'timerizer', '0.1.4'
 
 group :development do
-  gem 'better_errors', '2.0.0'
+  gem 'better_errors', '~> 2.1.1'
 end
 
 # Test requirements
