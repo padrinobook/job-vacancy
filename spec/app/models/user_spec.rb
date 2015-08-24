@@ -8,14 +8,14 @@ describe "User Model" do
     user.should_not be_nil
   end
 
-  it 'fresh user should have no offers' do
-    user.job_offers.size.should == 0
-  end
+  # it 'fresh user should have no offers' do
+  #   user.job_offers.size.should == 0
+  # end
 
-  it 'have job-offers' do
-    user.job_offers.build(attributes_for(:job_offer))
-    user.job_offers.size.should == 1
-  end
+  # it 'have job-offers' do
+  #   user.job_offers.build(attributes_for(:job_offer))
+  #   user.job_offers.size.should == 1
+  # end
 
   it 'no blank name' do
     user.name = ""
@@ -51,7 +51,6 @@ describe "User Model" do
 
   describe "when email address is already used" do
     it 'should not save an user with an existing address' do
-      user.save
       user_second.email = user.email
       user_second.should_not be_valid
     end
@@ -61,7 +60,7 @@ describe "User Model" do
     it 'valid' do
       adresses = %w[thor@marvel.de hero@movie.com]
       adresses.each do |email|
-        user_second.email = email
+        user.email = email
         user_second.name= email
         user_second.should be_valid
       end
