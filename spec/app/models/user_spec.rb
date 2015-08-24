@@ -52,6 +52,7 @@ describe "User Model" do
   describe "when email address is already used" do
     it 'should not save an user with an existing address' do
       user_second.email = user.email
+      user_second.save
       expect(user_second.valid?).to be_falsey
     end
   end
