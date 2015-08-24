@@ -5,7 +5,7 @@ describe "SessionsController" do
   describe "GET :new" do
     it "load the login page" do
       get "/login"
-      last_response.should be_ok
+      expect(last_response).to be_ok
     end
   end
 
@@ -52,13 +52,13 @@ describe "SessionsController" do
   describe "GET :logout" do
     it "empty the current session" do
       get_logout
-      session[:current_user].should == nil
-      last_response.should be_redirect
+      expect(session[:current_user]).to be_nil
+      expect(last_response).to be_redirect
     end
 
     it "redirect to homepage if user is logging out" do
       get_logout
-      last_response.should be_redirect
+      expect(last_response).to be_redirect
     end
   end
 

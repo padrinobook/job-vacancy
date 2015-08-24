@@ -22,9 +22,9 @@ end
 
 # Test requirements
 group :test do
-  gem 'rspec' , '2.14.1'
-  gem 'factory_girl', '4.4.0'
-  gem 'rack-test', '0.6.2', :require => 'rack/test'
+  gem 'rspec' , '~> 3.3'
+  gem 'factory_girl', '4.5.0'
+  gem 'rack-test', '~> 0.6.3', :require => 'rack/test'
 end
 
 # Automatically running tests

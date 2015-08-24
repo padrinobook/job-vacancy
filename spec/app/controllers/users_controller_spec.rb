@@ -5,7 +5,7 @@ describe "UsersController" do
   describe "GET new" do
     it "render the :new view" do
       get "/register"
-      last_response.should be_ok
+      expect(last_response).to be_ok
     end
   end
 
@@ -15,17 +15,17 @@ describe "UsersController" do
       user.save
       user_confirmed = User.find_by_id(user.id)
       get "/confirm/#{user_confirmed.id}/#{user_confirmed.confirmation_code.to_s}"
-      last_response.should be_ok
+      expect(last_response).to be_ok
     end
 
     it "redirect to :confirm if user id is wrong" do
       get "/confirm/test/#{user.confirmation_code.to_s}"
-      last_response.should be_redirect
+      expect(last_response).to be_redirect
     end
 
     it "redirect to :confirm if confirmation id is wrong" do
       get "/confirm/#{user.id}/test"
-      last_response.should be_redirect
+      expect(last_response).to be_redirect
     end
   end
 
@@ -42,7 +42,7 @@ describe "UsersController" do
 
     it "redirects if wrong id" do
       get "/users/-1/edit"
-      last_response.should be_redirect
+      expect(last_response).to be_redirect
     end
   end
 
