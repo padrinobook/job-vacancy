@@ -50,7 +50,7 @@ describe "User Model" do
   end
 
   describe "when email address is already used" do
-    it 'should not save an user with an existing address' do
+    xit 'should not save an user with an existing address' do
       user_second.email = user.email
       user_second.save
       expect(user_second.valid?).to be_falsey
@@ -58,7 +58,7 @@ describe "User Model" do
   end
 
   describe "email address" do
-    it 'valid' do
+    xit 'valid' do
       adresses = %w[thor@marvel.de hero@movie.com]
       adresses.each do |email|
         user.email = email
