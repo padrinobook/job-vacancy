@@ -34,9 +34,9 @@ describe "UsersController" do
 
     it "render the view for editing a user" do
       id = user.id
-      User.should_receive(:find_by_id).at_least(:once).and_return(user)
+      expect(User).to receive(:find_by_id).at_least(:once).and_return(user)
       get "/users/#{id}/edit", {}, { 'rack.session' => { current_user: id } }
-      last_response.should be_ok
+      expect(last_response).to be_ok
     end
 
     it "redirects if wrong id" do
