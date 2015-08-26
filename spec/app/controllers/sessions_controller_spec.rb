@@ -1,7 +1,6 @@
 require 'spec_helper'
 
-describe "SessionsController" do
-
+RSpec.describe "SessionsController" do
   describe "GET :new" do
     it "load the login page" do
       get "/login"

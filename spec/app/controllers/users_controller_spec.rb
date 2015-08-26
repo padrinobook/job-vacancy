@@ -1,7 +1,6 @@
 require 'spec_helper'
 
-describe "UsersController" do
-
+RSpec.describe "UsersController" do
   describe "GET new" do
     it "render the :new view" do
       get "/register"
