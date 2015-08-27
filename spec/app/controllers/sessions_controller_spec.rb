@@ -9,15 +9,14 @@ RSpec.describe "SessionsController" do
   end
 
   describe "POST :create" do
-    it "I'm to stupid to test POST + UPDATE request"
-#     let(:user) { build(:user)}
-#     let(:params) { attributes_for(:user)}
-#
-#     it "stay on page if user is not found" do
-#       User.should_receive(:find_by_email).and_return(false)
-#       post_create(user.attributes)
-#       last_response.should be_ok
-#     end
+    let(:user) { build(:user)}
+    let(:params) { attributes_for(:user)}
+
+    it "stay on page if user is not found" do
+      expect(User).to receive(:find_by_email).and_return(false)
+      post 'sessions/create'
+      expect(last_response).to be_ok
+    end
 #
 #     it "stay on login page if user is not confirmed" do
 #       user.confirmation = false
