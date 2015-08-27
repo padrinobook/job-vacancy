@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "User Model" do
+RSpec.describe "User Model" do
   let(:user) { build(:user) }
   let(:user_second) { build(:user)}
 
@@ -8,14 +8,14 @@ describe "User Model" do
     expect(user).not_to be_nil
   end
 
-  # it 'fresh user should have no offers' do
-  #   user.job_offers.size.should == 0
-  # end
+  it 'fresh user should have no offers' do
+    expect(user.job_offers.size).to eq 0
+  end
 
-  # it 'have job-offers' do
-  #   user.job_offers.build(attributes_for(:job_offer))
-  #   user.job_offers.size.should == 1
-  # end
+  it 'have job-offers' do
+    user.job_offers.build(attributes_for(:job_offer))
+    expect(user.job_offers.size).to eq 1
+  end
 
   it 'no blank name' do
     user.name = ""
@@ -43,14 +43,17 @@ describe "User Model" do
 
   describe "when name is already used" do
     it 'should not be saved' do
+      User.destroy_all
       user.save
       user_second.name = user.name
+      user_second.save
       expect(user_second.valid?).to be_falsey
     end
   end
 
   describe "when email address is already used" do
-    xit 'should not save an user with an existing address' do
+    it 'should not save an user with an existing address' do
+      user.save
       user_second.email = user.email
       user_second.save
       expect(user_second.valid?).to be_falsey
@@ -58,11 +61,11 @@ describe "User Model" do
   end
 
   describe "email address" do
-    xit 'valid' do
+    it 'valid' do
       adresses = %w[thor@marvel.de hero@movie.com]
       adresses.each do |email|
         user.email = email
-        user_second.name= email
+        user_second.email= email
         expect(user_second.valid?).to be_truthy
       end
     end
@@ -79,24 +82,17 @@ describe "User Model" do
   describe "confirmation code" do
     let(:user_confirmation) { build(:user) }
 
-    # it 'should authenticate user with correct confirmation code' do
-    #   user_confirmation.save
-    #   confirmation_of_saved_user = User.find_by_id(user_confirmation.id)
-    #   user_confirmation.confirmation_code = confirmation_of_saved_user.confirmation_code
-    #   user_confirmation.authenticate(user_confirmation.confirmation_code).should be_true
-    # end
+    it 'should authenticate user with correct confirmation code and should be confirmed' do
+      user_confirmation.save
+      confirmation_of_saved_user = User.find_by_id(user_confirmation.id)
+      user_confirmation.confirmation_code = confirmation_of_saved_user.confirmation_code
+      expect(user_confirmation.authenticate(user_confirmation.confirmation_code)).to be_truthy
+      expect(user_confirmation.confirmation).to be_truthy
+    end
 
-    # it 'confirmation should be set true after a user is authenticated' do
-    #   user_confirmation.save
-    #   confirmation_of_saved_user = User.find_by_id(user_confirmation.id)
-    #   user_confirmation.confirmation_code = confirmation_of_saved_user.confirmation_code
-    #   user_confirmation.authenticate(user_confirmation.confirmation_code).should be_true
-    #   user_confirmation.confirmation.should be_true
-    # end
-    #
-    # it 'should not authenticate user with incorrect confirmation code' do
-    #   user_confirmation.authenticate("wrong").should be_false
-    # end
+    it 'should not authenticate user with incorrect confirmation code' do
+      expect(user_confirmation.authenticate("wrong")).to be_falsey
+    end
   end
 
   describe "generate_auth_token" do
