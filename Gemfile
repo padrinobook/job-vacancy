@@ -32,7 +32,7 @@ gem 'guard-rspec'
 gem 'libnotify', '0.8.2'
 
 # Security
-gem 'bcrypt-ruby', '3.0.1', :require => 'bcrypt'
+gem 'bcrypt-ruby', '~> 3.1', :require => 'bcrypt'
 
 # Padrino Stable Gem
 gem 'wirble', '0.1.3'
