@@ -1,9 +1,9 @@
 JobVacancy::App.controllers :users do
-   before :edit, :update  do
-     redirect('/login') unless signed_in?
-     @user = User.find_by_id(params[:id])
-     redirect('/login') unless current_user?(@user)
-   end
+  before :edit, :update  do
+    redirect('/login') unless signed_in?
+    @user = User.find_by_id(params[:id])
+    redirect('/login') unless current_user?(@user)
+  end
 
   get :new, :map => "/register" do
     @user = User.new
@@ -54,6 +54,5 @@ JobVacancy::App.controllers :users do
       render 'new'
     end
   end
-
 end
 
