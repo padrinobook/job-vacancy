@@ -17,20 +17,29 @@ RSpec.describe "SessionsController" do
       post 'sessions/create'
       expect(last_response).to be_ok
     end
-#
-#     it "stay on login page if user is not confirmed" do
-#       user.confirmation = false
-#       User.should_receive(:find_by_email).and_return(user)
-#       post_create(user.attributes)
-#       last_response.should be_ok
-#     end
-#
-#     it "stay on login page if user has wrong email" do
-#       user.email = "fake@google.de"
-#       User.should_receive(:find_by_email).and_return(user)
-#       post_create(user.attributes)
-#       last_response.should be_ok
-#     end
+
+    it "stay on login page if user is not confirmed" do
+      user.confirmation = false
+      expect(User).to receive(:find_by_email).and_return(user)
+      post 'sessions/create'
+      expect(last_response).to be_ok
+    end
+
+    it "stay on login page if user has wrong password" do
+      user.confirmation = true
+      user.password = "fake"
+      User.should_receive(:find_by_email).and_return(user)
+      post 'sessions/create', {:password => 'correct'}
+      expect(last_response).to be_ok
+    end
+
+    it "redirects to home if password is correct and has no remember_me check" do
+      user.confirmation = true
+      user.password = "real"
+      expect(User).to receive(:find_by_email).and_return(user)
+      post 'sessions/create', {:password => 'real', :remember_me => false}
+      expect(last_response).to be_redirect
+    end
 #
 #     it "stay on login page if user has wrong password" do
 #       user.password = "test"
