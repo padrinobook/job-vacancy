@@ -19,7 +19,6 @@ module JobVacancy
       :user_name => 'lordmatze@gmail.com',
       :password => 'M6guma2#!32?',
       :authentication => :plain,
-      :enable_starttls_auto => true
     }
 
     configure :development do
