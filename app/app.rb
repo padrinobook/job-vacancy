@@ -21,6 +21,10 @@ module JobVacancy
       :authentication => :plain,
     }
 
+    configure :test do
+      set :protect_from_csrf, false
+    end
+
     configure :development do
       use BetterErrors::Middleware
       BetterErrors.application_root = PADRINO_ROOT
