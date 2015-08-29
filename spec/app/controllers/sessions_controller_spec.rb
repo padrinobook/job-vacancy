@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 RSpec.describe "SessionsController" do
-  describe "GET :new" do
+  describe "GET /login" do
     it "load the login page" do
       get "/login"
       expect(last_response).to be_ok
@@ -28,54 +28,50 @@ RSpec.describe "SessionsController" do
     it "stay on login page if user has wrong password" do
       user.confirmation = true
       user.password = "fake"
-      User.should_receive(:find_by_email).and_return(user)
+      expect(User).to receive(:find_by_email).and_return(user)
       post 'sessions/create', {:password => 'correct'}
       expect(last_response).to be_ok
     end
 
     it "redirects to home if password is correct and has no remember_me check" do
       user.confirmation = true
-      user.password = "real"
+      user.password = 'real'
       expect(User).to receive(:find_by_email).and_return(user)
       post 'sessions/create', {:password => 'real', :remember_me => false}
       expect(last_response).to be_redirect
     end
-#
-#     it "stay on login page if user has wrong password" do
-#       user.password = "test"
-#       User.should_receive(:find_by_email).and_return(user)
-#       post_create(user.attributes)
-#       last_response.should be_ok
-#     end
-#
-#     it "redirect if user is correct" do
-#       user.confirmation = true
-#       User.should_receive(:find_by_email).and_return(user)
-#       post_create(user.attributes)
-#       last_response.should be_redirect
-#     end
+
+    it "redirect if user is correct and has remember_me" do
+      token = 'real'
+      user = double("User")
+      expect(user).to receive(:id).and_return(1)
+      expect(user).to receive(:password).and_return('real')
+      expect(user).to receive(:confirmation).and_return(true)
+      expect(user).to receive(:authentity_token=).and_return(token)
+      expect(user).to receive(:save)
+      expect(User).to receive(:find_by_email).and_return(user)
+      expect(SecureRandom).to receive(:hex).at_least(:once).and_return(token)
+
+      post 'sessions/create', {:password => 'real', :remember_me => true}
+      expect(last_response).to be_redirect
+      cookie = last_response['Set-Cookie']
+      expect(cookie).to include('permanent_cookie')
+      expect(cookie).to include('path=/')
+      expect(cookie).to include('domain%3D%3E%22jobvacancy.de')
+      expect(cookie).to include('max-age=2592000')
+    end
   end
 
-  describe "GET :logout" do
+  describe "GET /logout" do
     it "empty the current session" do
-      get_logout
+      get '/logout'
       expect(session[:current_user]).to be_nil
-      expect(last_response).to be_redirect
     end
 
     it "redirect to homepage if user is logging out" do
-      get_logout
+      get '/logout'
       expect(last_response).to be_redirect
     end
   end
-
-  private
-  def post_create(params)
-    post "sessions/create", params
-  end
-
-  def get_logout
-      # first arguments are params (like the ones out of an form), the second are environments variables
-    get '/logout', { :name => 'Hans', :password => 'Test123' }, 'rack.session' => { :current_user => 1 }
-  end
 end
+
