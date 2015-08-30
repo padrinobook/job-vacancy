@@ -24,15 +24,15 @@ end
 group :test do
   gem 'rspec' , '~> 3.3'
   gem 'factory_girl', '4.5.0'
-  gem 'rack-test', '~> 0.6.3', :require => 'rack/test'
+  gem 'rack-test', '~> 0.6.3', require:  'rack/test'
 end
 
 # Automatically running tests
-gem 'guard-rspec'
+gem 'guard-rspec', '~> 4.6', require: false
 gem 'libnotify', '0.8.2'
 
 # Security
-gem 'bcrypt-ruby', '~> 3.1', :require => 'bcrypt'
+gem 'bcrypt-ruby', '~> 3.1', require: 'bcrypt'
 
 # Padrino Stable Gem
 gem 'wirble', '0.1.3'

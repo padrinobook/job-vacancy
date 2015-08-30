@@ -178,7 +178,7 @@ DEPENDENCIES
   better_errors (~> 2.1.1)
   erubis (~> 2.7.0)
   factory_girl (= 4.5.0)
-  guard-rspec
+  guard-rspec (~> 4.6)
   libnotify (= 0.8.2)
   padrino (= 0.12.5)
   padrino-sprockets!
