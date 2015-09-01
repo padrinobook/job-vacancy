@@ -25,12 +25,11 @@ RSpec.configure do |conf|
   # it "stay on page if user is not found", :current do
   # ...
   # end
-  conf.filter_run :current
+  #conf.filter_run :current
 
-  ActiveRecord::Base.observers.disable :all # => Turn them all off
+  ActiveRecord::Base.observers.disable :all
 end
 
-# Have access to the session variables.
 def session
   last_request.env['rack.session']
 end
