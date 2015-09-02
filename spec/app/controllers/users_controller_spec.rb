@@ -53,7 +53,21 @@ RSpec.describe "UsersController" do
     end
   end
 
-  describe "PUT update" do
-    xit "redirects and update attributes"
+  describe "PUT /users/:id" do
+    let(:user) { build(:user) }
+    let(:user_second) { build(:user) }
+
+    it "redirects if user is not signed in", :current do
+      put "/users/1", {}, { 'rack.session' => { current_user: nil}}
+      expect(last_response).to be_redirect
+      expect(last_response.header['Location']).to include('/login')
+    end
+
+    it "redirects if user is signed in and tries to call a different user" do
+      expect(User).to receive(:find_by_id).and_return(user, user_second)
+      put "/users/1"
+      expect(last_response).to be_redirect
+      expect(last_response.header['Location']).to include('/login')
+    end
   end
 end
