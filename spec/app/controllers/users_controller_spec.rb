@@ -46,9 +46,8 @@ RSpec.describe "UsersController" do
     end
 
     it "render the view for editing a user" do
-      id = user.id
       expect(User).to receive(:find_by_id).and_return(user, user, user)
-      get "/users/#{id}/edit", {}, { 'rack.session' => { current_user: id } }
+      get "/users/#{user.id}/edit", {}, { 'rack.session' => { current_user: user } }
       expect(last_response).to be_ok
       expect(last_response.body).to include('Edit your profile')
     end
