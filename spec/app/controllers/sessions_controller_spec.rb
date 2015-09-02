@@ -13,14 +13,14 @@ RSpec.describe "SessionsController" do
     let(:params) { attributes_for(:user)}
 
     it "stay on page if user is not found" do
-      expect(User).to receive(:find_by_email).and_return(false)
+      expect(User).to receive(:find_by_email) {false}
       post 'sessions/create'
       expect(last_response).to be_ok
     end
 
     it "stay on login page if user is not confirmed" do
       user.confirmation = false
-      expect(User).to receive(:find_by_email).and_return(user)
+      expect(User).to receive(:find_by_email) {user}
       post 'sessions/create'
       expect(last_response).to be_ok
     end
@@ -28,15 +28,15 @@ RSpec.describe "SessionsController" do
     it "stay on login page if user has wrong password" do
       user.confirmation = true
       user.password = "fake"
-      expect(User).to receive(:find_by_email).and_return(user)
+      expect(User).to receive(:find_by_email) {user}
       post 'sessions/create', {:password => 'correct'}
       expect(last_response).to be_ok
     end
 
-    it "redirects to home if password is correct and has no remember_me check" do
+    it "redirects to home for confirmed user and correct password" do
       user.confirmation = true
       user.password = 'real'
-      expect(User).to receive(:find_by_email).and_return(user)
+      expect(User).to receive(:find_by_email) {user}
       post 'sessions/create', {:password => 'real', :remember_me => false}
       expect(last_response).to be_redirect
     end
@@ -44,13 +44,13 @@ RSpec.describe "SessionsController" do
     it "redirect if user is correct and has remember_me" do
       token = 'real'
       user = double("User")
-      expect(user).to receive(:id).and_return(1)
-      expect(user).to receive(:password).and_return('real')
-      expect(user).to receive(:confirmation).and_return(true)
-      expect(user).to receive(:authentity_token=).and_return(token)
+      expect(user).to receive(:id) {1}
+      expect(user).to receive(:password) {'real'}
+      expect(user).to receive(:confirmation) {true}
+      expect(user).to receive(:authentity_token=) {token}
       expect(user).to receive(:save)
-      expect(User).to receive(:find_by_email).and_return(user)
-      expect(SecureRandom).to receive(:hex).at_least(:once).and_return(token)
+      expect(User).to receive(:find_by_email) {user}
+      expect(SecureRandom).to receive(:hex).at_least(:once) {token}
 
       post 'sessions/create', {:password => 'real', :remember_me => true}
       expect(last_response).to be_redirect
