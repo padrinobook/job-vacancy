@@ -50,6 +50,7 @@ RSpec.describe "UsersController" do
       expect(User).to receive(:find_by_id).and_return(user, user, user)
       get "/users/#{id}/edit", {}, { 'rack.session' => { current_user: id } }
       expect(last_response).to be_ok
+      expect(last_response.body).to include('Edit your profile')
     end
   end
 
