@@ -42,12 +42,12 @@ RSpec.describe "UsersController" do
       expect(User).to receive(:find_by_id).and_return(user, user_second)
       get "/users/2/edit"
       expect(last_response).to be_redirect
-      expect(last_response.header['Location']).to include('/lgin')
+      expect(last_response.header['Location']).to include('/login')
     end
 
     it "render the view for editing a user" do
       id = user.id
-      expect(User).to receive(:find_by_id).at_least(:once).and_return(user)
+      expect(User).to receive(:find_by_id).and_return(user, user, user)
       get "/users/#{id}/edit", {}, { 'rack.session' => { current_user: id } }
       expect(last_response).to be_ok
     end
