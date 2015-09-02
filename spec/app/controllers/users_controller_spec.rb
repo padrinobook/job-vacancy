@@ -28,19 +28,28 @@ RSpec.describe "UsersController" do
     end
   end
 
-  describe "GET edit" do
+  describe "GET /users/:id/edit" do
     let(:user) { build(:user) }
+    let(:user_second) { build(:user) }
+
+    it "redirects if user is not signed in" do
+      get "/users/-1/edit", {}, { 'rack.session' => { current_user: nil}}
+      expect(last_response).to be_redirect
+      expect(last_response.header['Location']).to include('/login')
+    end
+
+    it "redirects if user is signed in and tries to call a different user" do
+      expect(User).to receive(:find_by_id).and_return(user, user_second)
+      get "/users/2/edit"
+      expect(last_response).to be_redirect
+      expect(last_response.header['Location']).to include('/lgin')
+    end
 
     it "render the view for editing a user" do
       id = user.id
       expect(User).to receive(:find_by_id).at_least(:once).and_return(user)
       get "/users/#{id}/edit", {}, { 'rack.session' => { current_user: id } }
       expect(last_response).to be_ok
-    end
-
-    it "redirects if wrong id" do
-      get "/users/-1/edit"
-      expect(last_response).to be_redirect
     end
   end
 
