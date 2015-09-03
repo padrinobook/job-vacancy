@@ -69,5 +69,30 @@ RSpec.describe "UsersController" do
       expect(last_response).to be_redirect
       expect(last_response.header['Location']).to include('/login')
     end
+
+    it "redirects to /edit if user has valid account changes" do
+      expect(User).to receive(:find_by_id).and_return(user, user, user)
+      put "/users/1"
+      expect(last_response).to be_redirect
+      expect(last_response.header['Location']).to include('/edit')
+    end
+
+    it "redirects to /edit if user has valid account changes" do
+      expect(User).to receive(:find_by_id).and_return(user, user, user)
+      put "/users/1"
+      expect(last_response).to be_redirect
+      expect(last_response.body).to eq 'You have updated your profile.'
+      expect(last_response.header['Location']).to include('/edit')
+    end
+
+    it "redirects to /edit if user has not valid account changes" do
+      user.password = 'real'
+      user.password_confirmation = 'fake'
+      expect(User).to receive(:find_by_id).and_return(user, user, user)
+      put "/users/1"
+      expect(last_response).to be_redirect
+      expect(last_response.body).to eq 'Your profile was not updated.'
+      expect(last_response.header['Location']).to include('/edit')
+    end
   end
 end
