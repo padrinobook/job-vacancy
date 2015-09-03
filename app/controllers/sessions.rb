@@ -7,7 +7,7 @@ JobVacancy::App.controllers :sessions do
     @user = User.find_by_email(params[:email])
 
     if @user && @user.confirmation && @user.password == params[:password]
-      if (params[:remember_me])
+      if (params[:remember_me] == "true")
         require 'securerandom'
         token = SecureRandom.hex
         @user.authentity_token = token
