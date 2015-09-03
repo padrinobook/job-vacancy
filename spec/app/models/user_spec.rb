@@ -38,7 +38,6 @@ RSpec.describe "User Model" do
       user_confirmation.password = "octo"
       expect(user_confirmation.valid?).to be_falsey
     end
-
   end
 
   describe "when name is already used" do
