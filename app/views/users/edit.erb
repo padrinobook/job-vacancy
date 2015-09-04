@@ -1,6 +1,6 @@
 <h2>Edit your profile</h2>
 
-<% form_for @user, "/users/#{@user.id}", method: :put do |f| %>
+<% form_for @user, url(:users, :update, :id => @user.id), method: :put do |f| %>
   <%= f.label :name %>
   <%= f.text_field :name %>
   <%= error_message_on @user, :name, :class => "text-error", :prepend => "The name " %>
