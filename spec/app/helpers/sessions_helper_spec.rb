@@ -52,6 +52,16 @@ describe SessionsHelper do
     end
   end
 
+  describe "#sign_out" do
+    it "clear the current_user from the session", :current do
+      browser = Rack::Test::Session.new(JobVacancy::App)
+      browser.get '/', {}, 'rack.session' => { :current_user => 1 }
+      expect(@session_helper).to receive(:session).and_return(browser.last_request.env['rack.session'])
+      @session_helper.sign_out
+      expect(browser.last_request.env['rack.session']).not_to include('current_user')
+    end
+  end
+
   describe "#signed_in?" do
     it "return false if user is not logged in" do
       expect(@session_helper).to receive(:current_user).and_return(nil)
