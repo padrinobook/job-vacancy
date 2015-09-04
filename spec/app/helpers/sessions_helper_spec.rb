@@ -9,23 +9,25 @@ describe SessionsHelper do
     @session_helper = SessionsHelperKlass.new
   end
 
-  context "#current_user" do
+  describe "#current_user" do
     it "output the current user if current user is already set" do
       user = User.new
       @session_helper.current_user = user
+      expect(User).to receive(:find_by_id).never
       expect(@session_helper.current_user).to eq user
     end
 
-    it "find the user by id from the current session" do
+    it "finds the user by id from the current session" do
       user = User.first
       browser = Rack::Test::Session.new(JobVacancy::App)
       browser.get '/', {}, 'rack.session' => { :current_user => user.id }
+      expect(User).to receive(:find_by_id).and_return(user)
       expect(@session_helper).to receive(:last_request).and_return(browser.last_request)
       expect(@session_helper.current_user).to eq user
     end
   end
 
-  context "#current_user?" do
+  describe "#current_user?" do
     it "returns true if current user is logged in" do
       user = User.new
       expect(@session_helper).to receive(:current_user).and_return(user)
@@ -34,13 +36,13 @@ describe SessionsHelper do
 
     it "returns false if user is not logged in" do
       user = User.new
-      expect(@session_helper).to receive(:current_user).and_return(nil)
+      expect(@session_helper).to receive(:current_user).and_return(false)
       expect(@session_helper.current_user?(user)).to be_falsey
     end
   end
 
-  context "#sign_in" do
-    it "it sets the current user to the signed in user" do
+  describe "#sign_in" do
+    it "sets the current user to the signed in user" do
       user = User.first
       browser = Rack::Test::Session.new(JobVacancy::App)
       browser.get '/', {}, 'rack.session' => { :current_user => user.id }
@@ -50,7 +52,7 @@ describe SessionsHelper do
     end
   end
 
-  context "#signed_in?" do
+  describe "#signed_in?" do
     it "return false if user is not logged in" do
       expect(@session_helper).to receive(:current_user).and_return(nil)
       expect(@session_helper.signed_in?).to be_falsey
