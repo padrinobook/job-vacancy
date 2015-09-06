@@ -53,7 +53,7 @@ describe SessionsHelper do
   end
 
   describe "#sign_out" do
-    it "clear the current_user from the session", :current do
+    it "clear the current_user from the session" do
       browser = Rack::Test::Session.new(JobVacancy::App)
       browser.get '/', {}, 'rack.session' => { :current_user => 1 }
       expect(@session_helper).to receive(:session).and_return(browser.last_request.env['rack.session'])
