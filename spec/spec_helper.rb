@@ -30,10 +30,6 @@ RSpec.configure do |conf|
   ActiveRecord::Base.observers.disable :all
 end
 
-def session
-  last_request.env['rack.session']
-end
-
 
 # You can use this method to custom specify a Rack app
 # you want rack-test to invoke:

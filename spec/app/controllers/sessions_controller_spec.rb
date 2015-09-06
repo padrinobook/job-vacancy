@@ -65,7 +65,7 @@ RSpec.describe "SessionsController" do
   describe "GET /logout" do
     it "empty the current session" do
       get '/logout'
-      expect(session[:current_user]).to be_nil
+      expect(last_request.env['rack.session'][:current_user]).to be_nil
     end
 
     it "redirect to homepage if user is logging out" do
