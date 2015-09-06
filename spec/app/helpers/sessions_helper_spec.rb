@@ -10,19 +10,19 @@ describe SessionsHelper do
   end
 
   describe "#current_user" do
-    it "output the current user if current user is already set" do
+    it "returns the current user if user is set" do
       user = User.new
       @session_helper.current_user = user
       expect(User).to receive(:find_by_id).never
       expect(@session_helper.current_user).to eq user
     end
 
-    it "finds the user by id from the current session" do
+    it "returns the current user from session" do
       user = User.first
       browser = Rack::Test::Session.new(JobVacancy::App)
       browser.get '/', {}, 'rack.session' => { :current_user => user.id }
       expect(User).to receive(:find_by_id).and_return(user)
-      expect(@session_helper).to receive(:last_request).and_return(browser.last_request)
+      expect(@session_helper).to receive(:session).and_return(user)
       expect(@session_helper.current_user).to eq user
     end
   end
@@ -53,7 +53,7 @@ describe SessionsHelper do
   end
 
   describe "#sign_out" do
-    it "clear the current_user from the session" do
+    it "clears the current_user from the session" do
       browser = Rack::Test::Session.new(JobVacancy::App)
       browser.get '/', {}, 'rack.session' => { :current_user => 1 }
       expect(@session_helper).to receive(:session).and_return(browser.last_request.env['rack.session'])
@@ -63,12 +63,12 @@ describe SessionsHelper do
   end
 
   describe "#signed_in?" do
-    it "return false if user is not logged in" do
+    it "returns false if user is not logged in" do
       expect(@session_helper).to receive(:current_user).and_return(nil)
       expect(@session_helper.signed_in?).to be_falsey
     end
 
-    it "return true if user is logged in" do
+    it "returns true if user is logged in" do
       expect(@session_helper).to receive(:current_user).and_return(User.new)
       expect(@session_helper.signed_in?).to be_truthy
     end
