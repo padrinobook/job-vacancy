@@ -19,7 +19,7 @@ describe SessionsHelper do
 
     it "returns the current user from session" do
       user = User.first
-      browser = Rack::Test::Session.new(JobVacancy::App)
+      browser = Rack::Test::Session.new(app)
       browser.get '/', {}, 'rack.session' => { :current_user => user.id }
       expect(User).to receive(:find_by_id).and_return(user)
       expect(@session_helper).to receive(:session).and_return(user)
@@ -44,7 +44,7 @@ describe SessionsHelper do
   describe "#sign_in" do
     it "sets the current user to the signed in user" do
       user = User.first
-      browser = Rack::Test::Session.new(JobVacancy::App)
+      browser = Rack::Test::Session.new(app)
       browser.get '/', {}, 'rack.session' => { :current_user => user.id }
       expect(@session_helper).to receive(:session).and_return(browser.last_request)
       @session_helper.sign_in(user)
@@ -54,7 +54,7 @@ describe SessionsHelper do
 
   describe "#sign_out" do
     it "clears the current_user from the session" do
-      browser = Rack::Test::Session.new(JobVacancy::App)
+      browser = Rack::Test::Session.new(app)
       browser.get '/', {}, 'rack.session' => { :current_user => 1 }
       expect(@session_helper).to receive(:session).and_return(browser.last_request.env['rack.session'])
       @session_helper.sign_out
