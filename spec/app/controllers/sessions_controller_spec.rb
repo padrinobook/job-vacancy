@@ -2,7 +2,7 @@ require 'spec_helper'
 
 RSpec.describe "SessionsController" do
   describe "GET /login" do
-    it "load the login page" do
+    it "loads the login page" do
       get "/login"
       expect(last_response).to be_ok
     end
@@ -12,36 +12,36 @@ RSpec.describe "SessionsController" do
     let(:user) { build(:user)}
     let(:params) { attributes_for(:user)}
 
-    it "stay on page if user is not found" do
+    it "stays on login page if user is not found" do
       expect(User).to receive(:find_by_email) {false}
       post 'sessions/create'
       expect(last_response).to be_ok
     end
 
-    it "stay on login page if user is not confirmed" do
+    it "stays on login page if user is not confirmed" do
       user.confirmation = false
       expect(User).to receive(:find_by_email) {user}
       post 'sessions/create'
       expect(last_response).to be_ok
     end
 
-    it "stay on login page if user has wrong password" do
+    it "stays on login page if user has wrong password" do
       user.confirmation = true
-      user.password = "fake"
+      user.password = 'correct'
       expect(User).to receive(:find_by_email) {user}
-      post 'sessions/create', {:password => 'correct'}
+      post 'sessions/create', {:password => 'wrong'}
       expect(last_response).to be_ok
     end
 
     it "redirects to home for confirmed user and correct password" do
       user.confirmation = true
-      user.password = 'real'
+      user.password = 'correct'
       expect(User).to receive(:find_by_email) {user}
-      post 'sessions/create', {:password => 'real', :remember_me => false}
+      post 'sessions/create', {:password => 'correct', :remember_me => false}
       expect(last_response).to be_redirect
     end
 
-    it "redirect if user is correct and has remember_me" do
+    it "redirects if user is correct and has remember_me" do
       token = 'real'
       user = double("User")
       expect(user).to receive(:id) {1}
