@@ -17,12 +17,13 @@ module JobVacancy
       :address => 'smtp.gmail.com',
       :port => 587,
       :user_name => 'lordmatze@gmail.com',
-      :password => 'M6guma2#!32?',
+      :password => 'fake',
       :authentication => :plain,
     }
 
     configure :test do
       set :protect_from_csrf, false
+      set :delivery_method, :test
     end
 
     configure :development do
