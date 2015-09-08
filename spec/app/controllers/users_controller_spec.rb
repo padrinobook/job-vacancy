@@ -57,7 +57,7 @@ RSpec.describe "UsersController" do
     let(:user) { build(:user) }
     let(:user_second) { build(:user) }
 
-    it "redirects if user is not signed in", :current do
+    it "redirects if user is not signed in" do
       put "/users/1", {}, { 'rack.session' => { current_user: nil}}
       expect(last_response).to be_redirect
       expect(last_response.header['Location']).to include('/login')
