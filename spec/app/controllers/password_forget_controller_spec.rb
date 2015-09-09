@@ -31,15 +31,19 @@ RSpec.describe "PasswordForgetController" do
     let(:user) { build(:user) }
 
     it "renders edit page from password-forget" do
-      user.password_reset_sent_date = 1.minutes.before(1.hour.ago)
+      test_time = Time.local(2015, "sep", 9, 7, 00, 00, 00)
+      expect(Time).to receive(:now).and_return(test_time,test_time,test_time,test_time,test_time,test_time,test_time,test_time,test_time)
+      user.password_reset_sent_date = 1.hour.after(test_time)
       expect(User).to receive(:find_by_password_reset_token).and_return(user)
       get '/password-reset/1/edit'
       expect(last_response).to be_ok
       expect(last_response.body).to include 'Reset Password'
     end
 
-    it "redirects to new session because password reset timestamp was over one hour ago", :current do
-      user.password_reset_sent_date = 1.minute.ago
+    it "redirects to new session because password reset timestamp was over one hour ago" do
+      test_time = Time.local(2015, "sep", 9, 7, 00, 00, 00)
+      expect(Time).to receive(:now).and_return(test_time,test_time,test_time)
+      user.password_reset_sent_date = 1.hour.before(test_time)
       expect(User).to receive(:find_by_password_reset_token).and_return(user)
       expect(user).to receive(:update_attributes)
       get '/password-reset/1/edit'
@@ -51,6 +55,25 @@ RSpec.describe "PasswordForgetController" do
       expect(User).to receive(:find_by_password_reset_token).and_return(nil)
       get '/password-reset/1/edit'
       expect(last_response).to be_redirect
+    end
+  end
+
+  describe "POST /password-reset/:token" do
+    let(:user) { build(:user) }
+
+    it "renders edit page if user can be updated" do
+      expect(User).to receive(:find_by_password_reset_token).and_return(user)
+      expect(user).to receive(:update_attributes).and_return(true, true)
+      post '/password-reset/1'
+      expect(last_response).to be_redirect
+      expect(last_response.body).to include 'Password has been reseted. Please login with your new password.'
+    end
+
+    it "renders edit page if user can not be updated" do
+      expect(User).to receive(:find_by_password_reset_token).and_return(user)
+      expect(user).to receive(:update_attributes).and_return(false)
+      post '/password-reset/1'
+      expect(last_response).to be_ok
     end
   end
 end
