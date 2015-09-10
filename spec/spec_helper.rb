@@ -2,6 +2,7 @@ RACK_ENV = 'test' unless defined?(RACK_ENV)
 require File.expand_path(File.dirname(__FILE__) + "/../config/boot")
 require File.dirname(__FILE__) + "/factories"
 Dir[File.dirname(__FILE__) + '/../app/helpers/**.rb'].each { |file| require file }
+Dir[File.dirname(__FILE__) + '/../lib/**.rb'].each { |file| require file }
 
 # require 'simplecov'
 # SimpleCov.start do
