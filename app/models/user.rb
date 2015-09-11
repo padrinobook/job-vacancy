@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
   include StringNormalizer
+  require 'securerandom'
 
   validates :name, :presence => true,
                    :uniqueness => true
@@ -37,7 +38,6 @@ class User < ActiveRecord::Base
 
   private
   def generate_authentity_token
-    require 'securerandom'
     self.authentity_token = normalize(SecureRandom.base64(64))
   end
 end
