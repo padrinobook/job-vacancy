@@ -1,5 +1,6 @@
 class UserCompletion
   require 'bcrypt'
+  include StringNormalizer
 
   attr_accessor :user, :app
 
@@ -22,6 +23,6 @@ class UserCompletion
   def encrypt_confirmation_code
     salt = BCrypt::Engine.generate_salt
     confirmation_code = BCrypt::Engine.hash_secret(self.user.password, salt)
-    self.user.confirmation_code = confirmation_code
+    self.user.confirmation_code = normalize(confirmation_code)
   end
 end
