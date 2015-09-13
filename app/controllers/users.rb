@@ -40,9 +40,10 @@ JobVacancy::App.controllers :users do
 
   post :create do
     @user = User.new(params[:user])
+    user_completion = UserCompletion.new(@user)
+    user_completion.encrypt_confirmation_code
 
     if @user && @user.save
-      user_completion = UserCompletion.new(@user)
       user_completion.send_registration_mail
       user_completion.send_confirmation_mail
       redirect '/', flash[:notice] = "You have been registered. Please confirm with the mail we've send you recently."

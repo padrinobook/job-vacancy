@@ -104,6 +104,7 @@ RSpec.describe "UsersController" do
       expect(user).to receive(:save).and_return(true)
       user_completion = double(UserCompletion)
       expect(UserCompletion).to receive(:new).with(user).and_return(user_completion)
+      expect(user_completion).to receive(:encrypt_confirmation_code)
       expect(user_completion).to receive(:send_registration_mail)
       expect(user_completion).to receive(:send_confirmation_mail)
       post "/users/create"
@@ -113,6 +114,9 @@ RSpec.describe "UsersController" do
 
     it "renders registration page if user cannot be saved" do
       expect(User).to receive(:new).and_return(user)
+      user_completion = double(UserCompletion)
+      expect(UserCompletion).to receive(:new).with(user).and_return(user_completion)
+      expect(user_completion).to receive(:encrypt_confirmation_code)
       expect(user).to receive(:save).and_return(false)
       post "/users/create"
       expect(last_response).to be_ok
