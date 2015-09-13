@@ -4,9 +4,9 @@ class UserCompletion
 
   attr_accessor :user, :app
 
-  def initialize(user, app)
+  def initialize(user, app = JobVacancy::App)
     @user = user
-    @app = app
+    @app ||= app
   end
 
   def send_registration_mail
@@ -17,7 +17,7 @@ class UserCompletion
     self.app.deliver(:confirmation, :confirmation_email, user.name,
       user.email,
       user.id,
-      user.confirmation_code) unless user.confirmation
+      user.confirmation_code)
   end
 
   def encrypt_confirmation_code

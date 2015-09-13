@@ -26,7 +26,7 @@ class UserObserver < ActiveRecord::Observer
     require 'bcrypt'
     salt = BCrypt::Engine.generate_salt
     confirmation_code = BCrypt::Engine.hash_secret(user.password, salt)
-    normalize_token(confirmation_code)
+    normalize(confirmation_code)
   end
 end
 
