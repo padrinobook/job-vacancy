@@ -17,7 +17,6 @@ RSpec.describe "UserCompletion" do
     end
 
     it "sends registration mail" do
-      app = double(JobVacancy::App)
       expect(app).to receive(:deliver).with(:registration, :registration_email, user.name, user.email)
 
       @user_completion = UserCompletion.new(user, app)
