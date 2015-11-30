@@ -1,0 +1,21 @@
+#
+# job-vacancy
+#
+mux: tmux
+name: job-vacancy
+dir: ~/git/job-vacancy
+
+
+[main]
+vim
+
+[specs]
+bundle && bundle exec rspec spec
+
+[sqlite]
+sqlite3 db/job_vacancy_development.db
+
+[tmp]
+tmux select-window -t main
+tmux kill-window -t tmp
+
