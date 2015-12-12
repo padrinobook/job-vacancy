@@ -10,3 +10,4 @@ vendor/gems/*
 *.db
 *.log
 .bundle/
+gems.tags
