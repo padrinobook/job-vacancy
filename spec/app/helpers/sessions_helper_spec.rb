@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 describe SessionsHelper do
+  let(:user) {User.new}
   before do
     class SessionsHelperKlass
       include SessionsHelper
@@ -11,14 +12,13 @@ describe SessionsHelper do
 
   describe "#current_user" do
     it "returns the current user if user is set" do
-      user = User.new
       @session_helper.current_user = user
       expect(User).to receive(:find_by_id).never
       expect(@session_helper.current_user).to eq user
     end
 
     it "returns the current user from session" do
-      user = User.first
+      user.id = 1
       browser = Rack::Test::Session.new(app)
       browser.get '/', {}, 'rack.session' => { :current_user => user.id }
       expect(User).to receive(:find_by_id).and_return(user)
@@ -29,13 +29,11 @@ describe SessionsHelper do
 
   describe "#current_user?" do
     it "returns true if current user is logged in" do
-      user = User.new
       expect(@session_helper).to receive(:current_user).and_return(user)
       expect(@session_helper.current_user?(user)).to be_truthy
     end
 
     it "returns false if user is not logged in" do
-      user = User.new
       expect(@session_helper).to receive(:current_user).and_return(false)
       expect(@session_helper.current_user?(user)).to be_falsey
     end
@@ -43,7 +41,6 @@ describe SessionsHelper do
 
   describe "#sign_in" do
     it "sets the current user to the signed in user" do
-      user = User.first
       browser = Rack::Test::Session.new(app)
       browser.get '/', {}, 'rack.session' => { :current_user => user.id }
       expect(@session_helper).to receive(:session).and_return(browser.last_request)
