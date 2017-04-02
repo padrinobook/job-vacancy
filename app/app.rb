@@ -1,6 +1,6 @@
 module JobVacancy
   class App < Padrino::Application
-    use ActiveRecord::ConnectionAdapters::ConnectionManagement
+    use ConnectionPoolManagement
     register Padrino::Rendering
     register Padrino::Mailer
     register Padrino::Helpers
