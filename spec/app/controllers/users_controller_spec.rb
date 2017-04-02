@@ -56,43 +56,65 @@ RSpec.describe "UsersController" do
   describe "PUT /users/:id" do
     let(:user) { build(:user) }
     let(:user_second) { build(:user) }
+    let(:put_user) {
+      {"name"=> user.name,
+       "email"=> user.email,
+       "password"=> user.password,
+       "password_confirmation"=> user.password,
+      }
+    }
 
-    it "redirects if user is not signed in" do
-      put "/users/1", {}, { 'rack.session' => { current_user: nil}}
-      expect(last_response).to be_redirect
-      expect(last_response.header['Location']).to include('/login')
+    describe "redirects to /login if" do
+      it "user is not signed in" do
+        put "/users/1", {}, { 'rack.session' => { current_user: nil}}
+        expect(last_response).to be_redirect
+        expect(last_response.header['Location']).to include('/login')
+      end
+
+      it "user is signed in and tries to call a different user" do
+        expect(User).to receive(:find_by_id).and_return(user, user_second)
+        put "/users/1"
+        expect(last_response).to be_redirect
+        expect(last_response.header['Location']).to include('/login')
+      end
     end
 
-    it "redirects if user is signed in and tries to call a different user" do
-      expect(User).to receive(:find_by_id).and_return(user, user_second)
-      put "/users/1"
-      expect(last_response).to be_redirect
-      expect(last_response.header['Location']).to include('/login')
-    end
+    describe "redirects to /edit" do
+      before do
+        clear_users_table
+      end
 
-    it "redirects to /edit if user has valid account changes" do
-      expect(User).to receive(:find_by_id).and_return(user, user, user)
-      put "/users/1"
-      expect(last_response).to be_redirect
-      expect(last_response.header['Location']).to include('/edit')
-    end
+      it "if user has valid account changes" do
+        expect(User).to receive(:find_by_id).and_return(user, user, user)
 
-    it "redirects to /edit if user has valid account changes" do
-      expect(User).to receive(:find_by_id).and_return(user, user, user)
-      put "/users/1"
-      expect(last_response).to be_redirect
-      expect(last_response.body).to eq 'You have updated your profile.'
-      expect(last_response.header['Location']).to include('/edit')
-    end
+        put_user =
+          {"name"=> "Fresh",
+           "email"=> "fresh@fresh.de",
+           "password"=> user.password,
+           "password_confirmation"=> user.password,
+        }
 
-    it "redirects to /edit if user has not valid account changes" do
-      user.password = 'real'
-      user.password_confirmation = 'fake'
-      expect(User).to receive(:find_by_id).and_return(user, user, user)
-      put "/users/1"
-      expect(last_response).to be_redirect
-      expect(last_response.body).to eq 'Your profile was not updated.'
-      expect(last_response.header['Location']).to include('/edit')
+        put "/users/1", user: put_user
+        expect(last_response).to be_redirect
+        expect(last_response.body).to eq 'You have updated your profile.'
+        expect(last_response.header['Location']).to include('/edit')
+      end
+
+      it "if user has not valid account changes" do
+        expect(User).to receive(:find_by_id).and_return(user, user, user)
+
+        put_user =
+          {"name"=> user.name,
+           "email"=> user.email,
+           "password"=> user.password,
+           "password_confirmation"=> 'fake',
+        }
+
+        put "/users/1", user: put_user
+        expect(last_response).to be_redirect
+        expect(last_response.body).to eq 'Your profile was not updated.'
+        expect(last_response.header['Location']).to include('/edit')
+      end
     end
   end
 
@@ -104,7 +126,7 @@ RSpec.describe "UsersController" do
       expect(@user_completion).to receive(:encrypt_confirmation_code)
     end
 
-    it "redirects to home if user can be saved", :current do
+    it "redirects to home if user can be saved" do
       expect(user).to receive(:save).and_return(true)
       expect(UserCompletion).to receive(:new).with(user).and_return(@user_completion)
       expect(@user_completion).to receive(:send_registration_mail)
