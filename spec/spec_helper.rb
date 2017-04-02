@@ -26,8 +26,6 @@ RSpec.configure do |conf|
   # ...
   # end
   #conf.filter_run :current
-
-  ActiveRecord::Base.observers.disable :all
 end
 
 

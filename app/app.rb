@@ -10,9 +10,6 @@ module JobVacancy
     register Padrino::Sprockets
     sprockets :minify => (Padrino.env == :production)
 
-    # Activating the user_observer
-    ActiveRecord::Base.add_observer UserObserver.instance
-
     set :delivery_method, :smtp => {
       :address => 'smtp.gmail.com',
       :port => 587,
