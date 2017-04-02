@@ -14,8 +14,6 @@ gem 'erubis', '~> 2.7.0'
 gem 'activerecord', '~> 5.0.2', :require => 'active_record'
 gem 'sqlite3', '~> 1.3.13'
 
-gem 'timerizer', '0.1.4'
-
 group :development do
   gem 'better_errors', '~> 2.1.1'
 end
