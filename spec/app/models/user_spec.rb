@@ -1,8 +1,8 @@
 require 'spec_helper'
 
 RSpec.describe "User Model" do
-  let(:user) { build(:user) }
-  let(:user_second) { build(:user)}
+  let(:user) { build_stubbed(:user) }
+  let(:user_second) { build_stubbed(:user)}
 
   it 'can be created' do
     expect(user).not_to be_nil
@@ -43,15 +43,18 @@ RSpec.describe "User Model" do
   describe "when name is already used" do
     it 'should not be saved' do
       User.destroy_all
+      user = build(:user)
+      user_second = build(:user)
       user.save
       user_second.name = user.name
-      user_second.save
       expect(user_second.valid?).to be_falsey
     end
   end
 
   describe "when email address is already used" do
     it 'should not save an user with an existing address' do
+      user = build(:user)
+      user_second = build(:user)
       user.save
       user_second.email = user.email
       user_second.save
