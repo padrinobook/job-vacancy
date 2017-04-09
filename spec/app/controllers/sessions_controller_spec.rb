@@ -9,7 +9,7 @@ RSpec.describe "SessionsController" do
   end
 
   describe "POST :create" do
-    let(:user) { build(:user)}
+    let(:user) { build_stubbed(:user)}
     let(:params) { attributes_for(:user)}
 
     it "stays on login page if user is not found" do
