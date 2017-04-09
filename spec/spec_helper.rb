@@ -19,6 +19,7 @@ RSpec.configure do |conf|
   conf.full_backtrace= false # save the console
   conf.color= true   # save your eyes
   conf.formatter = :documentation
+  # conf.filter_run focus: true
 
   # custom test filter
   # then use your test in the following way

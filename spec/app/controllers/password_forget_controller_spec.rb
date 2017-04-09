@@ -28,7 +28,7 @@ RSpec.describe "PasswordForgetController" do
   end
 
   describe "GET /password-reset/:token/edit" do
-    let(:user) { build(:user) }
+    let(:user) { build_stubbed(:user)}
 
     it "renders edit page from password-forget" do
       test_time = Time.local(2015, "sep", 9, 7, 00, 00, 00).to_datetime
@@ -61,7 +61,7 @@ RSpec.describe "PasswordForgetController" do
   end
 
   describe "POST /password-reset/:token" do
-    let(:user) { build(:user) }
+    let(:user) { build_stubbed(:user) }
 
     it "renders edit page if user can be updated" do
       expect(User).to receive(:find_by_password_reset_token).and_return(user)
