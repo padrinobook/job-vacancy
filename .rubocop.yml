@@ -1,0 +1,9 @@
+Documentation:
+  Enabled: false
+
+Metrics/LineLength:
+  Max: 120
+
+Layout/TrailingBlankLines:
+  EnforcedStyle: final_blank_line
+
