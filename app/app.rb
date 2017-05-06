@@ -8,14 +8,14 @@ module JobVacancy
     enable :sessions
 
     register Padrino::Sprockets
-    sprockets :minify => (Padrino.env == :production)
+    sprockets minify: (Padrino.env == :production)
 
-    set :delivery_method, :smtp => {
-      :address => 'smtp.gmail.com',
-      :port => 587,
-      :user_name => 'lordmatze@gmail.com',
-      :password => 'fake',
-      :authentication => :plain,
+    set :delivery_method, smtp: {
+      address: 'smtp.gmail.com',
+      port: 587,
+      user_name: 'lordmatze@gmail.com',
+      password: 'fake',
+      authentication: :plain
     }
 
     configure :test do
@@ -85,3 +85,4 @@ module JobVacancy
     #
   end
 end
+
