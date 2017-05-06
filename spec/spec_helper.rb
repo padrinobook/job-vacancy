@@ -1,6 +1,6 @@
 RACK_ENV = 'test' unless defined?(RACK_ENV)
-require File.expand_path(File.dirname(__FILE__) + "/../config/boot")
-require File.dirname(__FILE__) + "/factories"
+require File.expand_path(File.dirname(__FILE__) + '/../config/boot')
+require File.dirname(__FILE__) + '/factories'
 Dir[File.dirname(__FILE__) + '/../app/helpers/**.rb'].each { |file| require file }
 
 # require 'simplecov'
@@ -11,13 +11,12 @@ Dir[File.dirname(__FILE__) + '/../app/helpers/**.rb'].each { |file| require file
 #   add_group "Mailers", "app/mailers"
 # end
 
-
 RSpec.configure do |conf|
   conf.include Rack::Test::Methods
   conf.include FactoryGirl::Syntax::Methods
   conf.mock_framework = :rspec
-  conf.full_backtrace= false # save the console
-  conf.color= true   # save your eyes
+  conf.full_backtrace = false # save the console
+  conf.color = true # save your eyes
   conf.formatter = :documentation
   # conf.filter_run focus: true
 
@@ -26,9 +25,8 @@ RSpec.configure do |conf|
   # it "stay on page if user is not found", :current do
   # ...
   # end
-  #conf.filter_run :current
+  # conf.filter_run :current
 end
-
 
 # You can use this method to custom specify a Rack app
 # you want rack-test to invoke:
@@ -45,6 +43,6 @@ def app(app = nil, &blk)
 end
 
 def clear_users_table
-  ActiveRecord::Base.connection.execute("DELETE FROM users;")
+  ActiveRecord::Base.connection.execute('DELETE FROM users;')
 end
 
