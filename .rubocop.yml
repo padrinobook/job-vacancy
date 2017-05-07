@@ -2,8 +2,11 @@ Documentation:
   Enabled: false
 
 Metrics/LineLength:
-  Max: 120
+  Max: 130
 
 Layout/TrailingBlankLines:
   EnforcedStyle: final_blank_line
+
+Style/RedundantSelf:
+  Enabled: false
 
