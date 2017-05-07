@@ -3,10 +3,14 @@ Documentation:
 
 Metrics/LineLength:
   Max: 130
+Metrics/BlockLength:
+  Max: 130
 
 Layout/TrailingBlankLines:
   EnforcedStyle: final_blank_line
 
 Style/RedundantSelf:
   Enabled: false
+Style/HashSyntax:
+  EnforcedStyle: no_mixed_keys
 
