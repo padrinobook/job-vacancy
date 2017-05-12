@@ -1,23 +1,23 @@
 JobVacancy::App.controllers :users do
-  before :edit, :update  do
+  before :edit, :update do
     redirect('/login') unless signed_in?
     @user = User.find_by_id(params[:id])
     redirect('/login') unless current_user?(@user)
   end
 
-  get :new, :map => "/register" do
+  get :new, :map => '/register' do
     @user = User.new
     render 'new'
   end
 
-  get :confirm, :map => "/confirm/:id/:code" do
+  get :confirm, :map => '/confirm/:id/:code' do
     @user = User.find_by_id(params[:id])
 
     if @user && @user.authenticate(params[:code])
       flash[:notice] = "You have been confirmed. Please confirm with the mail we've send you recently."
       render 'confirm'
     else
-      flash[:error] = "Confirmed code is wrong."
+      flash[:error] = 'Confirmed code is wrong.'
       redirect('/')
     end
   end
@@ -30,11 +30,11 @@ JobVacancy::App.controllers :users do
   put :update, :map => '/users/:id' do
     @user = User.find_by_id(params[:id])
 
-    route = url(:users, :edit, :id => @user.id)
+    route = url(:users, :edit, id: @user.id)
     if @user.update_attributes(params[:user])
-      redirect route, flash[:notice] = "You have updated your profile."
+      redirect route, flash[:notice] = 'You have updated your profile.'
     else
-      redirect route, flash[:error] = "Your profile was not updated."
+      redirect route, flash[:error] = 'Your profile was not updated.'
     end
   end
 
