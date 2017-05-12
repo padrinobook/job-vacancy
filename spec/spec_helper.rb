@@ -42,7 +42,3 @@ def app(app = nil, &blk)
   @app ||= Padrino.application
 end
 
-def clear_users_table
-  ActiveRecord::Base.connection.execute('DELETE FROM users;')
-end
-

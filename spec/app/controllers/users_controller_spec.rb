@@ -46,7 +46,7 @@ RSpec.describe "UsersController" do
       expect(last_response.header['Location']).to include('/login')
     end
 
-    it 'render the view for editing a user' do
+    it 'renders the view for editing a user' do
       expect(User).to receive(:find_by_id).and_return(user, user)
       get "/users/#{user.id}/edit", {}, 'rack.session' => { current_user: user_second }
       expect(last_response).to be_ok
@@ -58,16 +58,17 @@ RSpec.describe "UsersController" do
     let(:user) { build(:user) }
     let(:user_second) { build(:user) }
     let(:put_user) {
-      {"name"=> user.name,
-       "email"=> user.email,
-       "password"=> user.password,
-       "password_confirmation"=> user.password,
+      {'name' => user.name,
+       'email' => user.email,
+       'password' => user.password,
+       'password_confirmation' => user.password
       }
     }
 
     describe "redirects to /login if" do
-      it "user is not signed in" do
-        put "/users/1", {}, { 'rack.session' => { current_user: nil}}
+      it 'user is not signed in' do
+        expect(User).to receive(:find_by_id).and_return(nil)
+        put '/users/1'
         expect(last_response).to be_redirect
         expect(last_response.header['Location']).to include('/login')
       end
@@ -80,38 +81,38 @@ RSpec.describe "UsersController" do
       end
     end
 
-    describe "redirects to /edit" do
-      before do
-        clear_users_table
-      end
-
-      it "if user has valid account changes" do
-        expect(User).to receive(:find_by_id).and_return(user, user, user)
-
+    describe "link to /edit" do
+      it 'if user has valid account changes' do
         put_user =
-          {"name"=> "Fresh",
-           "email"=> "fresh@fresh.de",
-           "password"=> user.password,
-           "password_confirmation"=> user.password,
-        }
+          {'name' => 'Fresh',
+           'email' => 'fresh@fresh.de',
+           'password' => user.password,
+           'password_confirmation' => user.password
+          }
 
-        put "/users/1", user: put_user
+        test_user = double(User, id: user.id)
+        expect(test_user).to receive(:update_attributes).with(put_user) { true }
+        expect(User).to receive(:find_by_id).and_return(test_user, test_user)
+
+        put "/users/#{user.id}", user: put_user
         expect(last_response).to be_redirect
         expect(last_response.body).to eq 'You have updated your profile.'
         expect(last_response.header['Location']).to include('/edit')
       end
 
-      it "if user has not valid account changes" do
-        expect(User).to receive(:find_by_id).and_return(user, user, user)
-
+      it 'if user has not valid account changes' do
         put_user =
-          {"name"=> user.name,
-           "email"=> user.email,
-           "password"=> user.password,
-           "password_confirmation"=> 'fake',
-        }
+          {'name' => user.name,
+           'email' => user.email,
+           'password' => user.password,
+           'password_confirmation' => 'fake'
+          }
 
-        put "/users/1", user: put_user
+        test_user = double(User, id: user.id)
+        expect(test_user).to receive(:update_attributes).with(put_user) { false }
+        expect(User).to receive(:find_by_id).and_return(test_user, test_user)
+
+        put "/users/#{user.id}", user: put_user
         expect(last_response).to be_redirect
         expect(last_response.body).to eq 'Your profile was not updated.'
         expect(last_response.header['Location']).to include('/edit')
