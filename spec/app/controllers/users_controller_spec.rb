@@ -22,7 +22,7 @@ RSpec.describe "UsersController" do
       expect(last_response).to be_redirect
     end
 
-    it "redirect to :confirm if confirmation id is wrong" do
+    it 'redirect to :confirm if confirmation id is wrong' do
       get "/confirm/#{user.id}/test"
       expect(last_response).to be_redirect
     end
@@ -32,22 +32,23 @@ RSpec.describe "UsersController" do
     let(:user) { build(:user) }
     let(:user_second) { build(:user) }
 
-    it "redirects if user is not signed in" do
-      get "/users/-1/edit", {}, { 'rack.session' => { current_user: nil}}
+    it 'redirects to /login if user is not signed in' do
+      expect(User).to receive(:find_by_id).and_return(nil)
+      get '/users/-1/edit'
       expect(last_response).to be_redirect
       expect(last_response.header['Location']).to include('/login')
     end
 
-    it "redirects if user is signed in and tries to call a different user" do
+    it 'redirects to /login signed in user tries to call a different user' do
       expect(User).to receive(:find_by_id).and_return(user, user_second)
-      get "/users/2/edit"
+      get "/users/#{user_second.id}/edit"
       expect(last_response).to be_redirect
       expect(last_response.header['Location']).to include('/login')
     end
 
-    it "render the view for editing a user" do
-      expect(User).to receive(:find_by_id).and_return(user, user, user)
-      get "/users/#{user.id}/edit", {}, { 'rack.session' => { current_user: user } }
+    it 'render the view for editing a user' do
+      expect(User).to receive(:find_by_id).and_return(user, user)
+      get "/users/#{user.id}/edit", {}, 'rack.session' => { current_user: user_second }
       expect(last_response).to be_ok
       expect(last_response.body).to include('Edit your profile')
     end
