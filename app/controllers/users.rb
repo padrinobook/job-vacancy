@@ -23,7 +23,6 @@ JobVacancy::App.controllers :users do
   end
 
   get :edit, :map => '/users/:id/edit' do
-    @user = User.find_by_id(params[:id])
     render 'edit'
   end
 
