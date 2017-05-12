@@ -12,13 +12,13 @@ RSpec.describe "UsersController" do
     let(:user) { build(:user) }
     it "render the '/confirm' page if user has confirmation code" do
       user.save
-      user_confirmed = User.find_by_id(user.id)
-      get "/confirm/#{user_confirmed.id}/#{user_confirmed.confirmation_code.to_s}"
+      confirmed_user = User.find_by_id(user.id)
+      get "/confirm/#{confirmed_user.id}/#{confirmed_user.confirmation_code}"
       expect(last_response).to be_ok
     end
 
-    it "redirect to :confirm if user id is wrong" do
-      get "/confirm/test/#{user.confirmation_code.to_s}"
+    it 'redirect to :confirm if user id is wrong' do
+      get "/confirm/test/#{user.confirmation_code}"
       expect(last_response).to be_redirect
     end
 
@@ -121,23 +121,23 @@ RSpec.describe "UsersController" do
   describe "POST /users/create" do
     let(:user) { build(:user) }
     before do
-      @user_completion = double(UserCompletion)
+      @completion_user = double(UserCompletion)
       expect(User).to receive(:new).and_return(user)
-      expect(@user_completion).to receive(:encrypt_confirmation_code)
+      expect(@completion_user).to receive(:encrypt_confirmation_code)
     end
 
-    it "redirects to home if user can be saved" do
+    it 'redirects to home if user can be saved' do
       expect(user).to receive(:save).and_return(true)
-      expect(UserCompletion).to receive(:new).with(user).and_return(@user_completion)
-      expect(@user_completion).to receive(:send_registration_mail)
-      expect(@user_completion).to receive(:send_confirmation_mail)
+      expect(UserCompletion).to receive(:new).with(user).and_return(@completion_user)
+      expect(@completion_user).to receive(:send_registration_mail)
+      expect(@completion_user).to receive(:send_confirmation_mail)
       post "/users/create"
       expect(last_response).to be_redirect
       expect(last_response.body).to eq "You have been registered. Please confirm with the mail we've send you recently."
     end
 
-    it "renders registration page if user cannot be saved" do
-      expect(UserCompletion).to receive(:new).with(user).and_return(@user_completion)
+    it 'renders registration page if user cannot be saved' do
+      expect(UserCompletion).to receive(:new).with(user).and_return(@completion_user)
       expect(user).to receive(:save).and_return(false)
       post "/users/create"
       expect(last_response).to be_ok
