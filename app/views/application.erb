@@ -45,7 +45,7 @@
               <%= link_to 'Logout', url(:sessions, :destroy) %>
             </div>
             <div class="span2">
-              <%= link_to 'Edit Profile', url(:users, :edit, :id => session[:current_user]) %>
+              <%= link_to 'Edit Profile', url(:users, :edit, id: session[:current_user]) %>
             </div>
             <!--
             <li class="dropdown">
