@@ -1,5 +1,6 @@
 module StringNormalizer
   def normalize(token)
-    token.gsub("/", "").gsub("+", "")
+    token.delete('/').delete('+')
   end
 end
+
