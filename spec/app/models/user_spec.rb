@@ -98,10 +98,8 @@ RSpec.describe "User Model" do
   end
 
   describe "#generate_authentity_token" do
-    let(:confirmation_user) { build(:user) }
-
     it 'generates the authentity_token before user is saved' do
-      expect(user).to receive(:save).and_return(true)
+      expect(user).to receive(:save) { true }
       user.send(:generate_authentity_token)
       user.save
       expect(user.authentity_token).not_to be_empty
