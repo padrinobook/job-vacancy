@@ -27,8 +27,6 @@ JobVacancy::App.controllers :users do
   end
 
   put :update, :map => '/users/:id' do
-    @user = User.find_by_id(params[:id])
-
     route = url(:users, :edit, id: @user.id)
     if @user.update_attributes(params[:user])
       redirect route, flash[:notice] = 'You have updated your profile.'
