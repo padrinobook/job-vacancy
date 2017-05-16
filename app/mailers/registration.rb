@@ -7,7 +7,7 @@ JobVacancy::App.mailer :registration do
     to email
     locals name: name, email: email
     render 'registration/registration_email'
-    add_file filename: 'welcome.pdf', content: File.open(WELCOME_PDF) { |f| f.read }
+    add_file filename: 'welcome.pdf', content: File.open(WELCOME_PDF) { |file| file.read }
   end
 end
 
