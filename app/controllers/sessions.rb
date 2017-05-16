@@ -23,7 +23,7 @@ JobVacancy::App.controllers :sessions do
       sign_in(@user)
       redirect '/'
     else
-      render 'new', :locals => { error: true }
+      render 'new', locals: { error: true }
     end
   end
 
