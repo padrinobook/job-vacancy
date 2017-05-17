@@ -1,8 +1,9 @@
 require 'spec_helper'
 
-RSpec.describe "SessionsHelper" do
+RSpec.describe "JobVacancy::App::SessionsHelper" do
   let(:user) { User.new }
   let(:session_helper) { Class.new }
+
   before { session_helper.extend JobVacancy::App::SessionsHelper }
   subject { session_helper }
 

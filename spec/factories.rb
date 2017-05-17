@@ -23,3 +23,4 @@ FactoryGirl.define do
     time_end    '01/03/2013         '
   end
 end
+
