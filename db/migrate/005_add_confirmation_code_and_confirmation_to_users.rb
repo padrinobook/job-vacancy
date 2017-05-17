@@ -12,3 +12,4 @@ class AddConfirmationCodeAndConfirmationToUsers < ActiveRecord::Migration
     end
   end
 end
+
