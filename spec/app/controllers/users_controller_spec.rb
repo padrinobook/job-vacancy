@@ -83,13 +83,6 @@ RSpec.describe "UsersController" do
 
     describe "link to /edit" do
       it 'if user has valid account changes' do
-        put_user =
-          {'name' => 'Fresh',
-           'email' => 'fresh@fresh.de',
-           'password' => user.password,
-           'password_confirmation' => user.password
-          }
-
         test_user = double(User, id: user.id)
         expect(test_user).to receive(:update_attributes).with(put_user) { true }
         expect(User).to receive(:find_by_id).and_return(test_user, test_user)
