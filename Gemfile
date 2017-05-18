@@ -39,7 +39,7 @@ gem 'tilt', '2.0.7'
 
 # Padrino edge
 #gem 'padrino', :git => "git://github.com/padrino/padrino-framework.git"
-gem 'padrino', '0.14.0'
+gem 'padrino', '0.14.1.1'
 
 
 # Codecoverage tools
