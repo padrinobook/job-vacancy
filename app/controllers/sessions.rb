@@ -11,7 +11,7 @@ JobVacancy::App.controllers :sessions do
         require 'securerandom'
         token = SecureRandom.hex
         @user.authentity_token = token
-        thirty_days_in_seconds = 30*24*60*60
+        thirty_days_in_seconds = JobVacancy::Configuration::COOKIE_MAX_AGE_REMEMBER_ME
         response.set_cookie('permanent_cookie',
                             value: { domain: 'jobvacancy.de',
                                         path: '/' },
