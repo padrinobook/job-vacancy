@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  include StringNormalizer
+  include JobVacancy::String::Normalizer
   require 'securerandom'
 
   validates :name, presence: true,

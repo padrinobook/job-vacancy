@@ -1,9 +1,9 @@
 require 'spec_helper'
 
-RSpec.describe StringNormalizer do
-  let(:string_normalizer) { Class.new { extend StringNormalizer } }
+RSpec.describe JobVacancy::String::Normalizer do
+  let(:normalizer) { Class.new { extend JobVacancy::String::Normalizer } }
 
-  subject { string_normalizer }
+  subject { normalizer }
 
   it 'replaces slashes and + signs in strings' do
     token = 'B4+K/32'
