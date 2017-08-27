@@ -12,18 +12,33 @@ RSpec.describe "PasswordForgetController" do
   describe "POST /password_forget/create" do
     let(:user) { build(:user) }
 
-    it 'renders success even if user was not found' do
-      expect(User).to receive(:find_by_email).and_return(nil)
-      post '/password_forget/create'
-      expect(last_response).to be_ok
-      expect(last_response.body).to include 'Password was reseted successfully'
+    describe "user is not found" do
+      it 'it renders the success page' do
+        expect(User).to receive(:find_by_email).and_return(nil)
+        post '/password_forget/create'
+        expect(last_response).to be_ok
+        expect(last_response.body).to include 'Password was reseted successfully'
+      end
     end
 
-    it 'renders success even if user was found' do
-      expect(User).to receive(:find_by_email).and_return(user)
-      post '/password_forget/create'
-      expect(last_response).to be_ok
-      expect(last_response.body).to include 'Password was reseted successfully'
+    describe "user is not found" do
+      it 'it send the password reset mail and render the success page' do
+        expectedLink = 'http://localhost:3000/password_forget/123/edit'
+        expectedUser = double("User", :name => "Red Dead Redemption", :email => 'hallo@padrino.de', :password_reset_token => '123')
+
+        user_password_reset_mail = double(UserPasswordResetMail)
+        expect(user_password_reset_mail).to receive(:reset_mail).with(expectedLink)
+
+        expect(UserPasswordResetMail).to receive(:new).with(expectedUser).and_return(user_password_reset_mail)
+
+        expectedUser.stub(:save_forget_password_token).and_return(nil)
+
+        expect(User).to receive(:find_by_email).with('hallo@padrino.de').and_return(expectedUser)
+
+        post '/password_forget/create', :email => 'hallo@padrino.de'
+        expect(last_response).to be_ok
+        expect(last_response.body).to include 'Password was reseted successfully'
+      end
     end
   end
 

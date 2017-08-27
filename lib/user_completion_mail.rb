@@ -10,7 +10,7 @@ class UserCompletionMail
   end
 
   def send_registration_mail
-    app.deliver(
+    @app.deliver(
       :registration,
       :registration_email,
       user.name,
@@ -19,7 +19,7 @@ class UserCompletionMail
   end
 
   def send_confirmation_mail
-    app.deliver(
+    @app.deliver(
       :confirmation,
       :confirmation_email,
       user.name,
