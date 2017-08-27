@@ -20,7 +20,7 @@ end
 
 # Test requirements
 group :test do
-  gem 'rspec' , '~> 3.5'
+  gem 'rspec' , '~> 3.6'
   gem 'factory_girl', '4.8.0'
   gem 'rack-test', '~> 0.6.3', require: 'rack/test'
 end
