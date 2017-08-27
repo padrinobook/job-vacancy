@@ -37,7 +37,7 @@ JobVacancy::App.controllers :users do
 
   post :create do
     @user = User.new(params[:user])
-    user_completion = UserCompletion.new(@user)
+    user_completion = UserCompletionMail.new(@user)
     user_completion.encrypt_confirmation_code
 
     if @user && @user.save

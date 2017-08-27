@@ -1,4 +1,4 @@
-class UserCompletion
+class UserCompletionMail
   require 'bcrypt'
   include JobVacancy::String::Normalizer
 
