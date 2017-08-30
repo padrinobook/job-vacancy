@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe "User Model" do
+RSpec.describe User do
   let(:user) { build_stubbed(:user) }
   let(:user_second) { build_stubbed(:user) }
 
