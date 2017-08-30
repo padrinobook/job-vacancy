@@ -1,27 +1,27 @@
 class User < ActiveRecord::Base
-  include StringNormalizer
+  include JobVacancy::String::Normalizer
   require 'securerandom'
 
-  validates :name, :presence => true,
-                   :uniqueness => true
+  validates :name, presence: true,
+                   uniqueness: true
 
-  validates :password, :length => {:minimum => 5},
-                       :presence => true,
-                       :confirmation => true
+  validates :password, length: { minimum: 5 },
+                       presence: true,
+                       confirmation: true
 
   before_create :generate_authentity_token
 
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
-  validates :email, :presence => true,
-                    :uniqueness => true,
-                    :format => { with: VALID_EMAIL_REGEX }
+  validates :email, presence: true,
+                    uniqueness: true,
+                    format: { with: VALID_EMAIL_REGEX }
 
   has_many :job_offers
 
   def authenticate(confirmation_code)
-    return false unless @user = User.find_by_id(self.id)
+    @user = User.find_by_id(self.id)
 
-    if @user.confirmation_code == confirmation_code
+    if @user && @user.confirmation_code == confirmation_code
       self.confirmation = true
       self.save
       true
@@ -37,6 +37,7 @@ class User < ActiveRecord::Base
   end
 
   private
+
   def generate_authentity_token
     self.authentity_token = normalize(SecureRandom.base64(64))
   end

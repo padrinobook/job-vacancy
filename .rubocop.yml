@@ -1,0 +1,16 @@
+Documentation:
+  Enabled: false
+
+Metrics/LineLength:
+  Max: 150
+Metrics/BlockLength:
+  Max: 150
+
+Layout/TrailingBlankLines:
+  EnforcedStyle: final_blank_line
+
+Style/RedundantSelf:
+  Enabled: false
+Style/HashSyntax:
+  EnforcedStyle: no_mixed_keys
+

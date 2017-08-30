@@ -11,25 +11,25 @@ JobVacancy::App.controllers :sessions do
         require 'securerandom'
         token = SecureRandom.hex
         @user.authentity_token = token
-        thirty_days_in_seconds = 30*24*60*60
+        thirty_days_in_seconds = JobVacancy::Configuration::COOKIE_MAX_AGE_REMEMBER_ME
         response.set_cookie('permanent_cookie',
-                            :value => { :domain => 'jobvacancy.de',
-                                        :path => '/'} ,
-                                        :max_age => "#{thirty_days_in_seconds}")
+                            value: { domain: 'jobvacancy.de',
+                                        path: '/' },
+                                        max_age: "#{thirty_days_in_seconds}")
         @user.save
       end
 
-      flash[:notice] = "You have successfully logged in!"
+      flash[:notice] = 'You have successfully logged in!'
       sign_in(@user)
       redirect '/'
     else
-      render 'new', :locals => { :error => true }
+      render 'new', locals: { error: true }
     end
   end
 
   get :destroy, :map => '/logout' do
     sign_out
-    flash[:notice] = "You have successfully logged out."
+    flash[:notice] = 'You have successfully logged out.'
     redirect '/'
   end
 end

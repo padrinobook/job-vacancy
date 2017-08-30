@@ -1,6 +1,6 @@
 module JobVacancy
   class App < Padrino::Application
-    use ActiveRecord::ConnectionAdapters::ConnectionManagement
+    use ConnectionPoolManagement
     register Padrino::Rendering
     register Padrino::Mailer
     register Padrino::Helpers
@@ -8,17 +8,14 @@ module JobVacancy
     enable :sessions
 
     register Padrino::Sprockets
-    sprockets :minify => (Padrino.env == :production)
+    sprockets minify: (Padrino.env == :production)
 
-    # Activating the user_observer
-    ActiveRecord::Base.add_observer UserObserver.instance
-
-    set :delivery_method, :smtp => {
-      :address => 'smtp.gmail.com',
-      :port => 587,
-      :user_name => 'lordmatze@gmail.com',
-      :password => 'fake',
-      :authentication => :plain,
+    set :delivery_method, smtp: {
+      address: 'smtp.gmail.com',
+      port: 587,
+      user_name: 'lordmatze@gmail.com',
+      password: 'fake',
+      authentication: :plain
     }
 
     configure :test do
@@ -88,3 +85,4 @@ module JobVacancy
     #
   end
 end
+
