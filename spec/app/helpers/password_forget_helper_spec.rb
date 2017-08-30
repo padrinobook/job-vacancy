@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe "JobVacancy::App::ForgetPasswordHelper" do
+RSpec.describe JobVacancy::App::ForgetPasswordHelper do
   xit "add some examples to (or delete) #{__FILE__}" do
     let(:helpers) { Class.new }
     before { helpers.extend JobVacancy::App::PasswordForgetHelper }

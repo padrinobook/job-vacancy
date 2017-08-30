@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe "SessionsController" do
+RSpec.describe "/sessions" do
   describe "GET /login" do
     it 'loads the login page' do
       get '/login'

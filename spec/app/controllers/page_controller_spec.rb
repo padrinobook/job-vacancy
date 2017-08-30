@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe "PageController" do
+RSpec.describe "/page" do
   %w(/ /about /contact).each do |path|
     describe "GET #{path}" do
       it "render the :#{path} view" do

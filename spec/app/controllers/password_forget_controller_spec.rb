@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe "PasswordForgetController" do
+RSpec.describe "/password_forget" do
   describe "GET /password_forget" do
     it 'renders new page' do
       get 'password_forget'
