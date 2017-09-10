@@ -1,4 +1,4 @@
-JobVacancy::App.controllers :page do
+JobVacancy::App.controllers :pages do
   get :home, :map => "/" do
     render 'home'
   end

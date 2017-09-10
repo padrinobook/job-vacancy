@@ -32,13 +32,13 @@
       <div class="row">
         <nav id="navigation">
           <div class="span2 offset2">
-            <%= link_to 'Home', url(:page, :home) %>
+            <%= link_to 'Home', url(:pages, :home) %>
           </div>
           <div class="span2">
-            <%= link_to 'About', url(:page, :about) %>
+            <%= link_to 'About', url(:pages, :about) %>
           </div>
           <div class="span2">
-            <%= link_to 'Contact', url(:page, :contact) %>
+            <%= link_to 'Contact', url(:pages, :contact) %>
           </div>
           <% if signed_in? %>
             <div class="span2">
