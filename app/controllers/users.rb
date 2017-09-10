@@ -31,7 +31,7 @@ JobVacancy::App.controllers :users do
       flash[:notice] = "You have been confirmed. Please confirm with the mail we've send you recently."
       render 'confirm'
     else
-      redirect '/', flash[:error] = 'Confirmed code is wrong.'
+      redirect '/', flash[:error] = 'Confirmation code is wrong.'
     end
   end
 

@@ -20,12 +20,13 @@ RSpec.describe "/users" do
     it 'redirect to :confirm if user id is wrong' do
       get "/confirm/test/#{user.confirmation_code}"
       expect(last_response).to be_redirect
-      expect(last_response.body).to include("Confirmed code is wrong.")
+      expect(last_response.body).to include("Confirmation code is wrong.")
     end
 
     it 'redirect to :confirm if confirmation id is wrong' do
       get "/confirm/#{user.id}/test"
       expect(last_response).to be_redirect
+      expect(last_response.body).to include("Confirmation code is wrong.")
     end
   end
 
