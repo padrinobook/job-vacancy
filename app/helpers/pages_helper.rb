@@ -1,12 +1,12 @@
 module JobVacancy
   class App
-    module PageHelper
+    module PagesHelper
       # def simple_helper_method
       # ...
       # end
     end
 
-    helpers PageHelper
+    helpers PagesHelper
   end
 end
 
