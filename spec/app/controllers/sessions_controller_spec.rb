@@ -54,7 +54,10 @@ RSpec.describe "/sessions" do
       expect(SecureRandom).to receive(:hex).at_least(:once) { token }
 
       post 'sessions/create', password: 'secret', remember_me: true
+
       expect(last_response).to be_redirect
+      expect(last_response.body).to include('You have successfully logged in!')
+
       cookie = last_response['Set-Cookie']
       expect(cookie).to include('permanent_cookie')
       expect(cookie).to include('path=/')
