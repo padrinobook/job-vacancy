@@ -72,6 +72,7 @@ RSpec.describe "/sessions" do
     it 'redirects to homepage if user is logging out' do
       get '/logout'
       expect(last_response).to be_redirect
+      expect(last_response.body).to include('You have successfully logged out.')
     end
   end
 end
