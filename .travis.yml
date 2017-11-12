@@ -4,6 +4,7 @@ rvm:
   - 2.2.8
   - 2.3.5
   - 2.4.2
+  - 2.5.0-preview1
 env:
   - DB=sqlite
 script:
