@@ -2,7 +2,7 @@ lang: ruby
 sudo: false
 rvm:
   - 2.2.7
-  - 2.3.1
+  - 2.3.5
   - 2.4.2
 env:
   - DB=sqlite
