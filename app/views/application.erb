@@ -42,7 +42,7 @@
           </div>
           <% if signed_in? %>
             <div class="span2">
-              <%= link_to 'Logout', url(:sessions, :destroy) %>
+              <%= link_to 'Logout', url(:sessions, :destroy, :authenticity_token => session[:csrf]), :method => :delete %>
             </div>
             <div class="span2">
               <%= link_to 'Edit Profile', url(:users, :edit, id: session[:current_user]) %>
@@ -56,7 +56,7 @@
                 <li role="presentation"><a tabindex="-1" href="#">My Job Offers</a></li>
                 <li role="presentation"><a tabindex="-1" href="#">Add New Job Offer</a></li>
                 <li role="presentation" class="divider"></li>
-                <li role="presentation"><%= link_to 'Logout', url(:sessions, :destroy), :tabindex => '-1' %></li>
+                <li role="presentation"><%= link_to 'Logout', url(:sessions, :destroy, :authenticity_token=>session[:csrf]), :method => :delete %></li>
               </ul>
             </li>
             -->

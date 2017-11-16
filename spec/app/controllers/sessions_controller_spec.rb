@@ -8,7 +8,7 @@ RSpec.describe "/sessions" do
     end
   end
 
-  describe "POST :create" do
+  describe "POST /sessions/create" do
     let(:user) { build_stubbed(:user) }
     let(:params) { attributes_for(:user) }
 
@@ -34,11 +34,7 @@ RSpec.describe "/sessions" do
     end
 
     it 'redirects to home for confirmed user and correct password' do
-      user.confirmation = true
-      user.password = 'correct'
-      expect(User).to receive(:find_by_email) { user }
-      post 'sessions/create', password: 'correct'
-      expect(last_response).to be_redirect
+      login_user(user)
     end
 
     it 'redirects if user is correct and has remember_me' do
@@ -66,17 +62,31 @@ RSpec.describe "/sessions" do
     end
   end
 
-  describe "GET /logout" do
+  describe "DELETE /logout" do
+    let(:user) { build_stubbed(:user) }
+
     it 'empty the current session' do
-      get '/logout'
+      login_user(user)
+      delete '/logout'
       expect(last_request.env['rack.session'][:current_user]).to be_nil
     end
 
     it 'redirects to homepage if user is logging out' do
-      get '/logout'
+      delete '/logout'
       expect(last_response).to be_redirect
       expect(last_response.body).to include('You have successfully logged out.')
     end
   end
+end
+
+
+private
+
+def login_user(user)
+  user.confirmation = true
+  user.password = 'correct'
+  expect(User).to receive(:find_by_email) { user }
+  post 'sessions/create', password: 'correct'
+  expect(last_request.env['rack.session'][:current_user]).not_to be_nil
 end
 

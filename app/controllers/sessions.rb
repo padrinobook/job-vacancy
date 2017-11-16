@@ -26,7 +26,7 @@ JobVacancy::App.controllers :sessions do
     end
   end
 
-  get :destroy, :map => '/logout' do
+  delete :destroy, :map => '/logout' do
     sign_out
     redirect '/', flash[:notice] = 'You have successfully logged out.'
   end
