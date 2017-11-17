@@ -1,5 +1,6 @@
+require 'bcrypt'
+
 class UserCompletionMail
-  require 'bcrypt'
   include JobVacancy::String::Normalizer
 
   attr_accessor :user, :app

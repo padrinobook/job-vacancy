@@ -1,3 +1,5 @@
+require 'securerandom'
+
 JobVacancy::App.controllers :sessions do
   get :new, :map => "/login" do
     render 'new', :locals => { :error => false }
@@ -8,7 +10,6 @@ JobVacancy::App.controllers :sessions do
 
     if @user && @user.confirmation && @user.password == params[:password]
       if (params[:remember_me] == "true")
-        require 'securerandom'
         token = SecureRandom.hex
         @user.authentity_token = token
         thirty_days_in_seconds = JobVacancy::Configuration::COOKIE_MAX_AGE_REMEMBER_ME
