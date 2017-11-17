@@ -24,14 +24,14 @@ RSpec.describe "/password_forget" do
     describe "user is not found" do
       it 'it send the password reset mail and render the success page' do
         expectedLink = 'http://localhost:3000/password_forget/123/edit'
-        expectedUser = double("User", :name => "Red Dead Redemption", :email => 'hallo@padrino.de', :password_reset_token => '123')
+        expectedUser = double('User', :name => 'Red Dead Redemption', :email => 'hallo@padrino.de', :password_reset_token => '123')
 
         user_password_reset_mail = double(UserPasswordResetMail)
         expect(user_password_reset_mail).to receive(:reset_mail).with(expectedLink)
 
         expect(UserPasswordResetMail).to receive(:new).with(expectedUser).and_return(user_password_reset_mail)
 
-        expectedUser.stub(:save_forget_password_token).and_return(nil)
+        expect(expectedUser).to receive(:save_forget_password_token).and_return(nil)
 
         expect(User).to receive(:find_by_email).with('hallo@padrino.de').and_return(expectedUser)
 
