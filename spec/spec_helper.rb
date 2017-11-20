@@ -13,7 +13,7 @@ Dir[File.expand_path(File.dirname(__FILE__) + '/../app/helpers/**/*.rb')].each(&
 
 RSpec.configure do |conf|
   conf.include Rack::Test::Methods
-  conf.include FactoryGirl::Syntax::Methods
+  conf.include FactoryBot::Syntax::Methods
   conf.mock_framework = :rspec
   conf.full_backtrace = false # save the console
   conf.color = true # save your eyes
