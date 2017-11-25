@@ -2,7 +2,7 @@
 
 FactoryBot.define do
   sequence(:email) { |email_number| "matthias#{email_number}@padrinobook.de" }
-  sequence(:name) { |name_number| "Matthias Günther #{name_number}" }
+  sequence(:name) { |name_number| "wikimatze #{name_number}" }
   sequence(:confirmation_code) { '1' }
   sequence(:id) { |n| n }
 
