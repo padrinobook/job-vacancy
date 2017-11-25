@@ -30,7 +30,7 @@ gem 'guard-rspec', '~> 4.7', require: false
 gem 'libnotify', '0.9.3'
 
 # Security
-gem 'bcrypt-ruby', '~> 3.1.5', require: 'bcrypt'
+gem 'bcrypt', '~> 3.1.11'
 
 # Padrino Stable Gem
 gem 'wirble', '0.1.3'
