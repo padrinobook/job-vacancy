@@ -32,8 +32,8 @@ class UserCompletionMail
 
   def encrypt_confirmation_token
     salt = BCrypt::Engine.generate_salt
-    confirmation_token = BCrypt::Engine.hash_secret(user.password, salt)
-    user.confirmation_token = normalize(confirmation_token)
+    token = BCrypt::Engine.hash_secret(user.password, salt)
+    user.confirmation_token = normalize(token)
   end
 end
 
