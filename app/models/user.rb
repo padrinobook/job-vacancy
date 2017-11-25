@@ -10,6 +10,8 @@ class User < ActiveRecord::Base
                        presence: true,
                        confirmation: true
 
+  validates :confirmation_code, presence: true
+
   before_create :generate_authentity_token
 
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i

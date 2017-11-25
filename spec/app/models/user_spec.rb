@@ -27,6 +27,14 @@ RSpec.describe User do
     expect(user.valid?).to be_falsey
   end
 
+  it 'has confirmation code' do
+    user.confirmation_code = ""
+    expect(user.valid?).to be_falsey
+
+    user.confirmation_code = "1"
+    expect(user.valid?).to be_truthy
+  end
+
   describe "passwords" do
     let(:user_confirmation) { build(:user) }
 
