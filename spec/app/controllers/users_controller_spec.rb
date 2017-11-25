@@ -11,9 +11,7 @@ RSpec.describe "/users" do
   describe "GET confirm" do
     let(:user) { build(:user) }
     it "render the '/confirm' page if user has confirmation code" do
-      user.save
-      confirmed_user = User.find_by_id(user.id)
-      get "/confirm/#{confirmed_user.id}/#{confirmed_user.confirmation_token}"
+      get "/confirm/#{user.id}/#{user.confirmation_token}"
       expect(last_response).to be_ok
     end
 
