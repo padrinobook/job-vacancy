@@ -29,6 +29,7 @@ RSpec.describe User do
 
   describe "passwords" do
     let(:user_confirmation) { build(:user) }
+
     it 'no blank password' do
       user_confirmation.password = ''
       expect(user_confirmation.valid?).to be_falsey
@@ -81,19 +82,16 @@ RSpec.describe User do
     end
   end
 
-  describe 'confirmation code' do
-    let(:confirmation_user) { build(:user) }
+  describe '#authenticate' do
+    let(:user) { build(:user) }
 
-    it 'should authenticate user with correct confirmation code and should be confirmed' do
-      confirmation_user.save
-      confirmation_of_saved_user = User.find_by_id(confirmation_user.id)
-      confirmation_user.confirmation_code = confirmation_of_saved_user.confirmation_code
-      expect(confirmation_user.authenticate(confirmation_user.confirmation_code)).to be_truthy
-      expect(confirmation_user.confirmation).to be_truthy
+    it 'authenticates user with correct confirmation' do
+      expect(User).to receive(:find_by_id).with(user.id).and_return(user)
+      expect(user.authenticate(user.confirmation_code)).to be_truthy
     end
 
-    it 'should not authenticate user with incorrect confirmation code' do
-      expect(confirmation_user.authenticate('wrong')).to be_falsey
+    it 'reject user with incorrect confirmation code' do
+      expect(user.authenticate('wrong')).to be_falsey
     end
   end
 
