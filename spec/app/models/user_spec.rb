@@ -28,10 +28,10 @@ RSpec.describe User do
   end
 
   it 'has confirmation token' do
-    user.confirmation_token = ""
+    user.confirmation_token = ''
     expect(user.valid?).to be_falsey
 
-    user.confirmation_token = "1"
+    user.confirmation_token = '1'
     expect(user.valid?).to be_truthy
   end
 
