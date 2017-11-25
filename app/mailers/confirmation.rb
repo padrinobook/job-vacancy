@@ -7,7 +7,7 @@ JobVacancy::App.mailer :confirmation do
     from 'admin@job-vacancy.de'
     subject 'Please confirm your account'
     to email
-    locals :name => name, :confirmation_link => "#{CONFIRMATION_URL}/#{id}/#{link}"
+    locals name: name, confirmation_link: "#{CONFIRMATION_URL}/#{id}/#{link}"
     render 'confirmation/confirmation_email'
   end
 end
