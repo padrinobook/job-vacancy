@@ -3,7 +3,7 @@
 FactoryBot.define do
   sequence(:email) { |email_number| "matthias#{email_number}@padrinobook.de" }
   sequence(:name) { |name_number| "wikimatze #{name_number}" }
-  sequence(:confirmation_code) { '1' }
+  sequence(:confirmation_token) { '1' }
   sequence(:id) { |n| n }
 
   factory :user do
@@ -11,7 +11,7 @@ FactoryBot.define do
     name
     email
     password 'octocat'
-    confirmation_code
+    confirmation_token
   end
 
   factory :job_offer do

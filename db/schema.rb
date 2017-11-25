@@ -30,7 +30,7 @@ ActiveRecord::Schema.define(version: 7) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "password"
-    t.string   "confirmation_code"
+    t.string   "confirmation_token"
     t.boolean  "confirmation",             default: false
     t.string   "authentity_token"
     t.string   "password_reset_token",     default: "0"

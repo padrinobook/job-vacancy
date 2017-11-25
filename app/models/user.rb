@@ -10,7 +10,7 @@ class User < ActiveRecord::Base
                        presence: true,
                        confirmation: true
 
-  validates :confirmation_code, presence: true
+  validates :confirmation_token, presence: true
 
   before_create :generate_authentity_token
 
@@ -21,10 +21,10 @@ class User < ActiveRecord::Base
 
   has_many :job_offers
 
-  def authenticate(confirmation_code)
+  def authenticate(token)
     @user = User.find_by_id(self.id)
 
-    if @user && @user.confirmation_code == confirmation_code
+    if @user && @user.confirmation_token == token
       self.confirmation = true
       self.save
       return true

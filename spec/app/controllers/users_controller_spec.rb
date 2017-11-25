@@ -13,12 +13,12 @@ RSpec.describe "/users" do
     it "render the '/confirm' page if user has confirmation code" do
       user.save
       confirmed_user = User.find_by_id(user.id)
-      get "/confirm/#{confirmed_user.id}/#{confirmed_user.confirmation_code}"
+      get "/confirm/#{confirmed_user.id}/#{confirmed_user.confirmation_token}"
       expect(last_response).to be_ok
     end
 
     it 'redirect to :confirm if user id is wrong' do
-      get "/confirm/test/#{user.confirmation_code}"
+      get "/confirm/test/#{user.confirmation_token}"
       expect(last_response).to be_redirect
       expect(last_response.body).to include("Confirmation code is wrong.")
     end

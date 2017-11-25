@@ -27,11 +27,11 @@ RSpec.describe User do
     expect(user.valid?).to be_falsey
   end
 
-  it 'has confirmation code' do
-    user.confirmation_code = ""
+  it 'has confirmation token' do
+    user.confirmation_token = ""
     expect(user.valid?).to be_falsey
 
-    user.confirmation_code = "1"
+    user.confirmation_token = "1"
     expect(user.valid?).to be_truthy
   end
 
@@ -95,7 +95,7 @@ RSpec.describe User do
 
     it 'authenticates user with correct confirmation' do
       expect(User).to receive(:find_by_id).with(user.id).and_return(user)
-      expect(user.authenticate(user.confirmation_code)).to be_truthy
+      expect(user.authenticate(user.confirmation_token)).to be_truthy
     end
 
     it 'reject user with incorrect confirmation code' do
