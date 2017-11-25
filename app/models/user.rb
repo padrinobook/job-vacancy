@@ -25,10 +25,10 @@ class User < ActiveRecord::Base
     if @user && @user.confirmation_code == confirmation_code
       self.confirmation = true
       self.save
-      true
-    else
-      false
+      return true
     end
+
+    false
   end
 
   def save_forget_password_token
