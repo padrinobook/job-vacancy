@@ -23,7 +23,13 @@ RSpec.describe UserCompletionMail do
     end
 
     it 'sends confirmation mail' do
-      expect(app).to receive(:deliver).with(:confirmation, :confirmation_email, user.name, user.email, user.id, user.confirmation_token)
+      expect(app).to receive(:deliver)
+        .with(:confirmation,
+              :confirmation_email,
+              user.name,
+              user.email,
+              user.id,
+              user.confirmation_token)
 
       @user_completion_mail = UserCompletionMail.new(user, app)
       @user_completion_mail.send_confirmation_mail
