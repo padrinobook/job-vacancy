@@ -9,7 +9,7 @@ JobVacancy::App.controllers :sessions do
     @user = User.find_by_email(params[:email])
 
     if @user && @user.confirmation && @user.password == params[:password]
-      if (params[:remember_me] == "true")
+      if (params[:remember_me] == '1')
         token = SecureRandom.hex
         @user.authentity_token = token
         thirty_days_in_seconds = JobVacancy::Configuration::COOKIE_MAX_AGE_REMEMBER_ME
@@ -17,6 +17,8 @@ JobVacancy::App.controllers :sessions do
                             value: { domain: 'jobvacancy.de',
                                         path: '/' },
                                         max_age: "#{thirty_days_in_seconds}")
+
+
         @user.save
       end
 

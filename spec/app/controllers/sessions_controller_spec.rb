@@ -49,7 +49,7 @@ RSpec.describe "/sessions" do
       expect(User).to receive(:find_by_email) { user }
       expect(SecureRandom).to receive(:hex).at_least(:once) { token }
 
-      post 'sessions/create', password: 'secret', remember_me: true
+      post 'sessions/create', password: 'secret', remember_me: '1'
 
       expect(last_response).to be_redirect
       expect(last_response.body).to include('You have successfully logged in!')
