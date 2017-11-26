@@ -121,7 +121,7 @@ RSpec.describe "/users" do
     before do
       @completion_user_mail = UserCompletionMail
       expect(User).to receive(:new).and_return(user)
-      expect(@completion_user_mail).to receive(:encrypt_confirmation_code)
+      expect(@completion_user_mail).to receive(:encrypt_confirmation_token)
     end
 
     it 'redirects to home if user can be saved' do
