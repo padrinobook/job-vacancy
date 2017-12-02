@@ -16,8 +16,8 @@ RSpec.describe JobVacancy::App::SessionsHelper do
 
     it 'returns the current user from session' do
       user.id = 1
-      browser = Rack::Test::Session.new(app)
-      browser.get '/', {}, 'rack.session' => { current_user: user.id }
+      client = Rack::Test::Session.new(app)
+      client.get '/', {}, 'rack.session' => { current_user: user.id }
       expect(User).to receive(:find_by_id).and_return(user)
       expect(subject).to receive(:session).and_return(user)
       expect(subject.current_user).to eq user
@@ -38,9 +38,9 @@ RSpec.describe JobVacancy::App::SessionsHelper do
 
   describe "#sign_in" do
     it 'sets the current user to the signed in user' do
-      browser = Rack::Test::Session.new(app)
-      browser.get '/', {}, 'rack.session' => { current_user: user.id }
-      expect(subject).to receive(:session).and_return(browser.last_request)
+      client = Rack::Test::Session.new(app)
+      client.get '/', {}, 'rack.session' => { current_user: user.id }
+      expect(subject).to receive(:session).and_return(client.last_request)
       subject.sign_in(user)
       expect(subject.current_user).to eq user
     end
@@ -48,11 +48,11 @@ RSpec.describe JobVacancy::App::SessionsHelper do
 
   describe "#sign_out" do
     it 'clears the current_user from the session' do
-      browser = Rack::Test::Session.new(app)
-      browser.get '/', {}, 'rack.session' => { current_user: 1 }
-      expect(subject).to receive(:session).and_return(browser.last_request.env['rack.session'])
+      client = Rack::Test::Session.new(app)
+      client.get '/', {}, 'rack.session' => { current_user: 1 }
+      expect(subject).to receive(:session).and_return(client.last_request.env['rack.session'])
       subject.sign_out
-      expect(browser.last_request.env['rack.session']).not_to include('current_user')
+      expect(client.last_request.env['rack.session']).not_to include('current_user')
     end
   end
 
