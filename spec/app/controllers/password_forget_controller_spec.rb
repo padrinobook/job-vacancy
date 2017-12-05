@@ -43,24 +43,23 @@ RSpec.describe "/password_forget" do
 
   describe "GET /password_forget/:token/edit" do
     let(:user) { build_stubbed(:user) }
+    let(:test_time) { Time.now }
 
     it 'renders edit page from password-forget' do
-      test_time = Time.now
       allow(Time).to receive(:now).and_return(test_time)
 
       user.password_reset_sent_date = test_time + 1.0 / 24.0
-      expect(User).to receive(:find_by_password_reset_token).and_return(user)
+      expect(User).to receive(:find_by_password_reset_token).with('1').and_return(user)
       get '/password_forget/1/edit'
       expect(last_response).to be_ok
       expect(last_response.body).to include 'Reset Password'
     end
 
     it 'redirects to new session because password reset timestamp was over one hour ago' do
-      test_time = Time.now
       allow(Time).to receive(:now).and_return(test_time)
 
       user.password_reset_sent_date = test_time - 1.0 / 24.0
-      expect(User).to receive(:find_by_password_reset_token).and_return(user)
+      expect(User).to receive(:find_by_password_reset_token).with('1').and_return(user)
       expect(user).to receive(:update_attributes).with({ password_reset_token: 0, password_reset_sent_date: 0 })
 
       get '/password_forget/1/edit'
