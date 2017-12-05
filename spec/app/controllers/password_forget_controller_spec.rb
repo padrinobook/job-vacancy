@@ -55,7 +55,7 @@ RSpec.describe "/password_forget" do
       expect(last_response.body).to include 'Reset Password'
     end
 
-    it 'redirects to new session because password reset timestamp was over one hour ago' do
+    it 'redirects to new session if password reset is older than one hour' do
       allow(Time).to receive(:now).and_return(test_time)
 
       user.password_reset_sent_date = test_time - 1.0 / 24.0
