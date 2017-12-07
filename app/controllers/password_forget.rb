@@ -30,7 +30,7 @@ JobVacancy::App.controllers :password_forget do
     end
   end
 
-  post :update, :map => "password_forget/:token" do
+  post :update, :map => "/password_forget/:token" do
     @user = User.find_by_password_reset_token(params[:token])
 
     if @user.update_attributes(params[:user])
