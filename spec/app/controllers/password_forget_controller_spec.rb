@@ -43,35 +43,41 @@ RSpec.describe "/password_forget" do
 
   describe "GET /password_forget/:token/edit" do
     let(:user) { build_stubbed(:user) }
-    let(:test_time) { Time.now }
+    let(:test_time) { Time.now.utc }
 
-    it 'renders edit page from password-forget' do
-      allow(Time).to receive(:now).and_return(test_time)
+    context "password reset date is not older than one hour" do
+      it 'renders edit page' do
+        allow(Time).to receive(:now).and_return(test_time)
 
-      user.password_reset_sent_date = test_time + 1.0 / 24.0
-      expect(User).to receive(:find_by_password_reset_token).with('1').and_return(user)
-      get '/password_forget/1/edit'
-      expect(last_response).to be_ok
-      expect(last_response.body).to include 'Reset Password'
+        user.password_reset_sent_date = test_time + 60 * 60
+        expect(User).to receive(:find_by_password_reset_token).with('1').and_return(user)
+        get '/password_forget/1/edit'
+        expect(last_response).to be_ok
+        expect(last_response.body).to include 'Reset Password'
+      end
     end
 
-    it 'redirects to new session if password reset is older than one hour' do
-      allow(Time).to receive(:now).and_return(test_time)
+    context "password reset date is older than one hour" do
+      it 'redirects to new session' do
+        allow(Time).to receive(:now).and_return(test_time)
 
-      user.password_reset_sent_date = test_time - 1.0 / 24.0
-      expect(User).to receive(:find_by_password_reset_token).with('1').and_return(user)
-      expect(user).to receive(:update_attributes).with({ password_reset_token: 0, password_reset_sent_date: 0 })
+        user.password_reset_sent_date = test_time - 60 * 60
+        expect(User).to receive(:find_by_password_reset_token).with('1').and_return(user)
+        expect(user).to receive(:update_attributes).with({ password_reset_token: 0, password_reset_sent_date: 0 })
 
-      get '/password_forget/1/edit'
+        get '/password_forget/1/edit'
 
-      expect(last_response).to be_redirect
-      expect(last_response.body).to include 'Password reset token has expired.'
+        expect(last_response).to be_redirect
+        expect(last_response.body).to include 'Password reset token has expired.'
+      end
     end
 
-    it 'redirects to /password_forget if user is not found' do
-      expect(User).to receive(:find_by_password_reset_token).and_return(nil)
-      get '/password_forget/1/edit'
-      expect(last_response).to be_redirect
+    context "user is not found" do
+      it 'redirects to /password_forget' do
+        expect(User).to receive(:find_by_password_reset_token).and_return(nil)
+        get '/password_forget/1/edit'
+        expect(last_response).to be_redirect
+      end
     end
   end
 
