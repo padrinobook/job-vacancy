@@ -89,9 +89,7 @@ RSpec.describe "/password_forget" do
         expect(User).to receive(:find_by_password_reset_token)
           .with('1')
           .and_return(user)
-        bla_user = user
-        bla_user.id = 3
-        expect(user).to receive(:update_attributes).exactly(2).times.and_return(true, true)
+        expect(user).to receive(:update_attributes).exactly(2).times.and_return(true)
         post '/password_forget/1'
         expect(last_response).to be_redirect
         expect(last_response.body).to include 'Password has been reseted. Please login with your new password.'
