@@ -84,17 +84,24 @@ RSpec.describe "/password_forget" do
   describe "POST /password_forget/:token" do
     let(:user) { build_stubbed(:user) }
 
-    it "renders edit page if user can be updated" do
-      expect(User).to receive(:find_by_password_reset_token).and_return(user)
-      expect(user).to receive(:update_attributes).and_return(true, true)
+    it "redirects to login if user can be updated" do
+      expect(User).to receive(:find_by_password_reset_token)
+        .with('1')
+        .and_return(user)
+      bla_user = user
+      bla_user.id = 3
+      expect(user).to receive(:update_attributes).exactly(2).times.and_return(true, true)
       post '/password_forget/1'
       expect(last_response).to be_redirect
       expect(last_response.body).to include 'Password has been reseted. Please login with your new password.'
     end
 
     it "renders edit page if user can not be updated" do
-      expect(User).to receive(:find_by_password_reset_token).and_return(user)
-      expect(user).to receive(:update_attributes).and_return(false)
+      expect(User).to receive(:find_by_password_reset_token)
+        .with('1')
+        .and_return(user)
+      expect(user).to receive(:update_attributes)
+        .and_return(false)
       post '/password_forget/1'
       expect(last_response).to be_ok
     end
