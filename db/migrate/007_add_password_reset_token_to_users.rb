@@ -1,4 +1,4 @@
-class AddPasswordResetTokenToUsers < ActiveRecord::Migration
+class AddPasswordResetTokenToUsers < ActiveRecord::Migration[4.2]
   def self.up
     change_table :users do |t|
       t.string :password_reset_token, default: 0, null: true

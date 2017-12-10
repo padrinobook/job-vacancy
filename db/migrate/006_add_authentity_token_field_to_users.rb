@@ -1,4 +1,4 @@
-class AddAuthentityTokenFieldToUsers < ActiveRecord::Migration
+class AddAuthentityTokenFieldToUsers < ActiveRecord::Migration[4.2]
   def self.up
     change_table :users do |t|
       t.string :authentity_token

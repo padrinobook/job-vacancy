@@ -1,5 +1,4 @@
-class AddRegistrationFieldsToUsers < ActiveRecord::Migration
-
+class AddRegistrationFieldsToUsers < ActiveRecord::Migration[4.2]
   @fields = [:password]
 
   def self.up

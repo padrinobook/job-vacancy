@@ -1,4 +1,4 @@
-class AddConfirmationTokenAndConfirmationToUsers < ActiveRecord::Migration
+class AddConfirmationTokenAndConfirmationToUsers < ActiveRecord::Migration[4.2]
   def self.up
     change_table :users do |t|
       t.string :confirmation_token
