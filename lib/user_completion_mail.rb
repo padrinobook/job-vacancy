@@ -1,7 +1,4 @@
-require 'bcrypt'
-
 class UserCompletionMail
-  include JobVacancy::String::Normalizer
 
   attr_accessor :user, :app
 
@@ -14,8 +11,8 @@ class UserCompletionMail
     @app.deliver(
       :registration,
       :registration_email,
-      user.name,
-      user.email
+      @user.name,
+      @user.email
     )
   end
 
@@ -23,17 +20,11 @@ class UserCompletionMail
     @app.deliver(
       :confirmation,
       :confirmation_email,
-      user.name,
-      user.email,
-      user.id,
-      user.confirmation_token
+      @user.name,
+      @user.email,
+      @user.id,
+      @user.confirmation_token
     )
-  end
-
-  def encrypt_confirmation_token
-    salt = BCrypt::Engine.generate_salt
-    token = BCrypt::Engine.hash_secret(user.password, salt)
-    user.confirmation_token = normalize(token)
   end
 end
 

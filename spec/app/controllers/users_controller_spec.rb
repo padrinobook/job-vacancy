@@ -119,27 +119,41 @@ RSpec.describe "/users" do
     let(:user) { build(:user) }
 
     before do
-      @completion_user_mail = UserCompletionMail
       expect(User).to receive(:new).and_return(user)
-      expect(@completion_user_mail).to receive(:encrypt_confirmation_token)
     end
 
-    it 'redirects to home if user can be saved' do
-      expect(user).to receive(:save).and_return(true)
-      expect(UserCompletionMail).to receive(:new).with(user).and_return(@completion_user_mail)
-      expect(@completion_user_mail).to receive(:send_registration_mail)
-      expect(@completion_user_mail).to receive(:send_confirmation_mail)
-      post "/users/create"
-      expect(last_response).to be_redirect
-      expect(last_response.body).to eq "You have been registered. Please confirm with the mail we've send you recently."
+    context "user can be saved" do
+      it 'redirects to home' do
+        @completion_user_mail = double(UserCompletionMail)
+        expect(UserCompletionMail).to receive(:new)
+          .with(user)
+          .and_return(@completion_user_mail)
+        expect(@completion_user_mail).to receive(:send_registration_mail)
+        expect(@completion_user_mail).to receive(:send_confirmation_mail)
+
+        @user_token_encryption_service = double(UserTokenConfirmationEncryptionService)
+        expect(UserTokenConfirmationEncryptionService).to receive(:new)
+          .with(user)
+          .and_return(@user_token_encryption_service)
+        expect(@user_token_encryption_service)
+          .to receive(:encrypt_confirmation_token)
+
+        expect(user).to receive(:save).and_return(true)
+
+        post "/users/create"
+        expect(last_response).to be_redirect
+        expect(last_response.body).to eq "You have been registered. " +
+          "Please confirm with the mail we've send you recently."
+      end
     end
 
-    it 'renders registration page if user cannot be saved' do
-      expect(UserCompletionMail).to receive(:new).with(user).and_return(@completion_user_mail)
-      expect(user).to receive(:save).and_return(false)
-      post "/users/create"
-      expect(last_response).to be_ok
-      expect(last_response.body).to include 'Registration'
+    context "user cannot be saved" do
+      it 'renders registration' do
+        expect(user).to receive(:save).and_return(false)
+        post "/users/create"
+        expect(last_response).to be_ok
+        expect(last_response.body).to include 'Registration'
+      end
     end
   end
 end
