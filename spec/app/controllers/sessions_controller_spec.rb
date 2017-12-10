@@ -47,7 +47,8 @@ RSpec.describe "/sessions" do
       expect(user).to receive(:authentity_token=) { token }
       expect(user).to receive(:save)
       expect(User).to receive(:find_by_email) { user }
-      expect(SecureRandom).to receive(:hex).at_least(:once) { token }
+      expect(SecureRandom).to receive(:hex)
+        .at_least(:once) { token }
 
       post 'sessions/create', password: 'secret', remember_me: '1'
 
@@ -68,7 +69,8 @@ RSpec.describe "/sessions" do
     it 'empty the current session' do
       login_user(user)
       delete '/logout'
-      expect(last_request.env['rack.session'][:current_user]).to be_nil
+      expect(last_request.env['rack.session'][:current_user])
+        .to be_nil
     end
 
     it 'redirects to homepage if user is logging out' do
@@ -86,6 +88,7 @@ def login_user(user)
   user.password = 'correct'
   expect(User).to receive(:find_by_email) { user }
   post 'sessions/create', password: 'correct'
-  expect(last_request.env['rack.session'][:current_user]).not_to be_nil
+  expect(last_request.env['rack.session'][:current_user])
+    .not_to be_nil
 end
 

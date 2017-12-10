@@ -12,7 +12,8 @@ RSpec.describe "/password_forget" do
   describe "POST /password_forget/create" do
     describe "user is not found" do
       it 'it renders the success page' do
-        expect(User).to receive(:find_by_email).and_return(nil)
+        expect(User).to receive(:find_by_email)
+          .and_return(nil)
         post '/password_forget/create', :email => ''
         expect(last_response).to be_ok
         expect(last_response.body).to include 'Password was reseted successfully'
@@ -25,11 +26,15 @@ RSpec.describe "/password_forget" do
         expectedUser = double(User, :name => 'Red Dead Redemption', :email => 'hallo@padrino.de', :password_reset_token => '123')
 
         user_password_reset_mail = double(UserPasswordResetMail)
-        expect(user_password_reset_mail).to receive(:reset_mail).with(expectedLink)
+        expect(user_password_reset_mail).to receive(:reset_mail)
+          .with(expectedLink)
 
-        expect(UserPasswordResetMail).to receive(:new).with(expectedUser).and_return(user_password_reset_mail)
+        expect(UserPasswordResetMail).to receive(:new)
+          .with(expectedUser)
+          .and_return(user_password_reset_mail)
 
-        expect(expectedUser).to receive(:save_forget_password_token).and_return(nil)
+        expect(expectedUser).to receive(:save_forget_password_token)
+          .and_return(nil)
 
         expect(User).to receive(:find_by_email).with('hallo@padrino.de')
           .and_return(expectedUser)
@@ -47,10 +52,13 @@ RSpec.describe "/password_forget" do
 
     context "password reset date is not older than one hour" do
       it 'renders edit page' do
-        allow(Time).to receive(:now).and_return(test_time)
+        allow(Time).to receive(:now)
+          .and_return(test_time)
 
         user.password_reset_sent_date = test_time + 60 * 60
-        expect(User).to receive(:find_by_password_reset_token).with('1').and_return(user)
+        expect(User).to receive(:find_by_password_reset_token)
+          .with('1')
+          .and_return(user)
         get '/password_forget/1/edit'
         expect(last_response).to be_ok
         expect(last_response.body).to include 'Reset Password'
@@ -62,8 +70,11 @@ RSpec.describe "/password_forget" do
         allow(Time).to receive(:now).and_return(test_time)
 
         user.password_reset_sent_date = test_time - 60 * 60
-        expect(User).to receive(:find_by_password_reset_token).with('1').and_return(user)
-        expect(user).to receive(:update_attributes).with({ password_reset_token: 0, password_reset_sent_date: 0 })
+        expect(User).to receive(:find_by_password_reset_token)
+          .with('1')
+          .and_return(user)
+        expect(user).to receive(:update_attributes)
+          .with({ password_reset_token: 0, password_reset_sent_date: 0 })
 
         get '/password_forget/1/edit'
 
@@ -89,7 +100,9 @@ RSpec.describe "/password_forget" do
         expect(User).to receive(:find_by_password_reset_token)
           .with('1')
           .and_return(user)
-        expect(user).to receive(:update_attributes).exactly(2).times.and_return(true)
+        expect(user).to receive(:update_attributes)
+          .exactly(2).times
+          .and_return(true)
         post '/password_forget/1'
         expect(last_response).to be_redirect
         expect(last_response.body).to include 'Password has been reseted. Please login with your new password.'

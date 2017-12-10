@@ -5,7 +5,8 @@ RSpec.describe UserPasswordResetMail do
 
   it 'sends the password reset mail' do
     link = 'i-forget-everything'
-    expect(app).to receive(:deliver).with(:password_reset, :email, user, link)
+    expect(app).to receive(:deliver)
+      .with(:password_reset, :email, user, link)
 
     @user_password_forget_mail = UserPasswordResetMail.new(user, app)
     @user_password_forget_mail.reset_mail(link)

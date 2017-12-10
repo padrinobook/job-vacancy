@@ -149,7 +149,8 @@ RSpec.describe "/users" do
 
     context "user cannot be saved" do
       it 'renders registration' do
-        expect(user).to receive(:save).and_return(false)
+        expect(user).to receive(:save)
+          .and_return(false)
         post "/users/create"
         expect(last_response).to be_ok
         expect(last_response.body).to include 'Registration'

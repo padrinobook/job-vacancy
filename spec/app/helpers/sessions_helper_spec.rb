@@ -18,20 +18,24 @@ RSpec.describe JobVacancy::App::SessionsHelper do
       user.id = 1
       client = Rack::Test::Session.new(app)
       client.get '/', {}, 'rack.session' => { current_user: user.id }
-      expect(User).to receive(:find_by_id).and_return(user)
-      expect(subject).to receive(:session).and_return(user)
+      expect(User).to receive(:find_by_id)
+        .and_return(user)
+      expect(subject).to receive(:session)
+        .and_return(user)
       expect(subject.current_user).to eq user
     end
   end
 
   describe "#current_user?" do
     it 'returns true if current user is logged in' do
-      expect(subject).to receive(:current_user).and_return(user)
+      expect(subject).to receive(:current_user)
+        .and_return(user)
       expect(subject.current_user?(user)).to be_truthy
     end
 
     it 'returns false if user is not logged in' do
-      expect(subject).to receive(:current_user).and_return(false)
+      expect(subject).to receive(:current_user)
+        .and_return(false)
       expect(subject.current_user?(user)).to be_falsey
     end
   end
@@ -40,7 +44,8 @@ RSpec.describe JobVacancy::App::SessionsHelper do
     it 'sets the current user to the signed in user' do
       client = Rack::Test::Session.new(app)
       client.get '/', {}, 'rack.session' => { current_user: user.id }
-      expect(subject).to receive(:session).and_return(client.last_request)
+      expect(subject).to receive(:session)
+        .and_return(client.last_request)
       subject.sign_in(user)
       expect(subject.current_user).to eq user
     end
@@ -58,12 +63,14 @@ RSpec.describe JobVacancy::App::SessionsHelper do
 
   describe "#signed_in?" do
     it 'returns false if user is not logged in' do
-      expect(subject).to receive(:current_user).and_return(nil)
+      expect(subject).to receive(:current_user)
+        .and_return(nil)
       expect(subject.signed_in?).to be_falsey
     end
 
     it 'returns true if user is logged in' do
-      expect(subject).to receive(:current_user).and_return(User.new)
+      expect(subject).to receive(:current_user)
+        .and_return(User.new)
       expect(subject.signed_in?).to be_truthy
     end
   end
