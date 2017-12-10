@@ -70,14 +70,18 @@ RSpec.describe "/users" do
     describe "redirects to /login if" do
       it 'user is not signed in' do
         expect(User).to receive(:find_by_id).and_return(nil)
+
         put '/users/1'
+
         expect(last_response).to be_redirect
         expect(last_response.header['Location']).to include('/login')
       end
 
       it "user is signed in and tries to call a different user" do
         expect(User).to receive(:find_by_id).and_return(user, user_second)
+
         put "/users/1"
+
         expect(last_response).to be_redirect
         expect(last_response.header['Location']).to include('/login')
       end
@@ -86,10 +90,13 @@ RSpec.describe "/users" do
     describe "link to /edit" do
       it 'if user has valid account changes' do
         test_user = double(User, id: user.id)
-        expect(test_user).to receive(:update_attributes).with(put_user) { true }
+        expect(test_user).to receive(:update_attributes)
+          .with(put_user)
+          .and_return(true)
         expect(User).to receive(:find_by_id).and_return(test_user, test_user)
 
         put "/users/#{user.id}", user: put_user
+
         expect(last_response).to be_redirect
         expect(last_response.body).to eq 'You have updated your profile.'
         expect(last_response.header['Location']).to include('/edit')
@@ -104,10 +111,14 @@ RSpec.describe "/users" do
           }
 
         test_user = double(User, id: user.id)
-        expect(test_user).to receive(:update_attributes).with(put_user) { false }
-        expect(User).to receive(:find_by_id).and_return(test_user, test_user)
+        expect(test_user).to receive(:update_attributes)
+          .with(put_user)
+          .and_return(false)
+        expect(User).to receive(:find_by_id)
+          .and_return(test_user, test_user)
 
         put "/users/#{user.id}", user: put_user
+
         expect(last_response).to be_redirect
         expect(last_response.body).to eq 'Your profile was not updated.'
         expect(last_response.header['Location']).to include('/edit')
@@ -141,6 +152,7 @@ RSpec.describe "/users" do
         expect(user).to receive(:save).and_return(true)
 
         post "/users/create"
+
         expect(last_response).to be_redirect
         expect(last_response.body).to eq "You have been registered. " +
           "Please confirm with the mail we've send you recently."
