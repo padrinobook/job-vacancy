@@ -7,8 +7,8 @@ rvm:
   - ruby-head
 env:
   - DB=sqlite
-install:
-  - bundle install --path bin/
+before_install:
+  - gem install bundler
 script:
   - bundle exec padrino rake ar:schema:load
   - bundle exec rspec spec
