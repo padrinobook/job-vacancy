@@ -4,7 +4,7 @@ source 'https://rubygems.org'
 gem 'thin', '1.7.0'
 
 # Project requirements
-gem 'rake', '12'
+gem 'rake', '~> 12.3'
 gem 'padrino-sprockets', :require => 'padrino/sprockets', :git => 'git://github.com/nightsailer/padrino-sprockets.git'
 gem 'uglifier', '3.1.12'
 gem 'yui-compressor', '0.12'
