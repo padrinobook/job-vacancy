@@ -6,8 +6,8 @@ gem 'thin', '1.7.0'
 # Project requirements
 gem 'rake', '~> 12.3'
 gem 'padrino-sprockets', :require => 'padrino/sprockets', :git => 'git://github.com/nightsailer/padrino-sprockets.git'
-gem 'uglifier', '~> 3.1.12'
-gem 'yui-compressor', '0.12'
+gem 'uglifier', '~> 4.1'
+gem 'yui-compressor', '~> 0.12'
 
 # Component requirements
 gem 'erubis', '~> 2.7.0'
@@ -15,7 +15,7 @@ gem 'activerecord', '~> 5.0.2', :require => 'active_record'
 gem 'sqlite3', '~> 1.3.13'
 
 group :development do
-  gem 'better_errors', '~> 2.1.1'
+  gem 'better_errors', '~> 2.4'
 end
 
 # Test requirements
