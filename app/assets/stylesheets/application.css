@@ -6,7 +6,6 @@
  * at the top of the generated css file
  * require_tree . means, that requiring all stylesheets from the current directory.
  *= require_self
- *= require bootstrap
- *= require bootstrap-responsive
+ *= require bulma
  *= require site
 */
