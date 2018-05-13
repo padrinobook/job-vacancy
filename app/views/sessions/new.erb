@@ -2,28 +2,41 @@
 
 <% form_tag url(:sessions, :create) do %>
   <% if error %>
-    <div class="alert alert-error">
-      <h4>Error</h4>
-      Your Email and/or Password is wrong!
-    </div>
+    <article class="message is-danger">
+      <div class="message-header">
+        <p>Error - Your Email and/or Password is wrong!</p>
+      </div>
+    </article>
   <% end %>
 
-  <%= label_tag :email %>
-  <%= text_field_tag :email %>
+  <div class="field">
+    <%= label_tag :email, :class => 'label' %>
+    <div class="control">
+      <%= text_field_tag :email, :class => 'input' %>
+    </div>
+  </div>
 
-  <%= label_tag :password %>
-  <%= password_field_tag :password %>
+  <div class="field">
+    <%= label_tag :password, :class => 'label' %>
+    <div class="control">
+      <%= password_field_tag :password, :class => 'input' %>
+    </div>
+  </div>
 
-  <label class="checkbox">
-    <%= check_box_tag :remember_me %> Remember me
-  </label>
+  <div class="field">
+    <label class="checkbox">
+      <%= check_box_tag :remember_me, :class => 'checkbox' %> Remember me
+    </label>
+  </div>
+
+  <div class="field">
+    <div class="control">
+      <%= submit_tag "Sign up", :class => "button is-large is-link" %>
+    </div>
+  </div>
 
   <p>
-    <%= link_to 'forget password?', url(:password_forget, :new) %>
-  </p>
-
-  <p>
-    <%= submit_tag "Sign up", :class => "btn btn-primary" %>
+  <%= link_to 'forget password?', url(:password_forget, :new) %>
   </p>
 <% end %>
 

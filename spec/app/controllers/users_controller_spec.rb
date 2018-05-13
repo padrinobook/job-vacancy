@@ -149,6 +149,7 @@ RSpec.describe "/users" do
         expect(@user_token_encryption_service)
           .to receive(:encrypt_confirmation_token)
 
+        expect(user).to receive(:valid?).and_return(true)
         expect(user).to receive(:save).and_return(true)
 
         post "/users/create"
@@ -161,8 +162,9 @@ RSpec.describe "/users" do
 
     context "user cannot be saved" do
       it 'renders registration' do
-        expect(user).to receive(:save)
+        expect(user).to receive(:valid?)
           .and_return(false)
+        expect(user).to_not receive(:save)
         post "/users/create"
         expect(last_response).to be_ok
         expect(last_response.body).to include 'Registration'

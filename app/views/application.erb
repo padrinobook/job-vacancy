@@ -6,72 +6,64 @@
   <%= javascript_include_tag '/assets/application' %>
 </head>
 <body>
-  <div class="container">
-    <% if !flash.empty? %>
-      <div class="row" id="flash">
-        <% if flash.key?(:notice) %>
-        <div class="span6 offset3 alert alert-success">
-          <%= flash[:notice] %>
-        </div>
-        <% elsif flash.key?(:error) %>
-        <div class="span9 offset3 alert alert-error">
-          <%= flash[:error] %>
-        </div>
-        <% end %>
-        <script type="text/javascript">
-          $(function(){
-              $("#flash").fadeOut(2000);
-          });
-        </script>
+  <nav class="navbar">
+    <div class="container">
+      <div class="navbar-brand">
+        <a class="navbar-item" href="/">Job Vacancy</a>
+        <span class="navbar-burger burger" data-target="navbarMenu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </span>
       </div>
-    <% end %>
-    <div class="row">
-      <div class="span12 offset2">
-        <span id="header">Job Vacancy Board</span>
-      </div>
-      <div class="row">
-        <nav id="navigation">
-          <div class="span2 offset2">
-            <%= link_to 'Home', url(:pages, :home) %>
+      <div id="navbarMenu" class="navbar-menu">
+        <div class="navbar-end">
+          <div class="tabs is-right">
+            <ul>
+              <li>
+                <%= link_to 'Home', url(:pages, :home) %>
+              </li>
+              <li>
+                <%= link_to 'About', url(:pages, :about) %>
+              </li>
+              <li>
+                <%= link_to 'Contact', url(:pages, :contact) %>
+              </li>
+              <% if signed_in? %>
+              <li>
+                <%= link_to 'Logout', url(:sessions, :destroy, :authenticity_token => session[:csrf]), :method => :delete %>
+              </li>
+              <li>
+                <%= link_to 'Edit Profile', url(:users, :edit, id: session[:current_user]) %>
+              </li>
+            <% else %>
+              <li>
+                <%= link_to 'Login', url(:sessions, :new) %>
+              </li>
+            <% end %>
+            </ul>
           </div>
-          <div class="span2">
-            <%= link_to 'About', url(:pages, :about) %>
-          </div>
-          <div class="span2">
-            <%= link_to 'Contact', url(:pages, :contact) %>
-          </div>
-          <% if signed_in? %>
-            <div class="span2">
-              <%= link_to 'Logout', url(:sessions, :destroy, :authenticity_token => session[:csrf]), :method => :delete %>
-            </div>
-            <div class="span2">
-              <%= link_to 'Edit Profile', url(:users, :edit, id: session[:current_user]) %>
-            </div>
-            <!--
-            <li class="dropdown">
-              <a class="dropdown-toggle" id="drop4" role="button" data-toggle="dropdown" href="#">User Actions<b class="caret"></b></a>
-              <ul id="menu1" class="dropdown-menu" role="menu" aria-labelledby="drop4">
-                <li role="presentation"><a tabindex="-1" href="#">View Profile</a></li>
-                <li role="presentation"> <%= link_to 'Edit Profile', url(:users, :edit, :id => session[:current_user]), :tabindex => '-1' %></li>
-                <li role="presentation"><a tabindex="-1" href="#">My Job Offers</a></li>
-                <li role="presentation"><a tabindex="-1" href="#">Add New Job Offer</a></li>
-                <li role="presentation" class="divider"></li>
-                <li role="presentation"><%= link_to 'Logout', url(:sessions, :destroy, :authenticity_token=>session[:csrf]), :method => :delete %></li>
-              </ul>
-            </li>
-            -->
-          <% else %>
-            <div class="span3">
-              <%= link_to 'Login', url(:sessions, :new) %>
-            </div>
-          <% end %>
-        </nav>
-      </div>
-      <div class="row">
-        <div class="span9 offset3 site">
-          <%= yield %>
         </div>
       </div>
     </div>
+  </nav>
+  <div class="container">
+    <% if !flash.empty? %>
+      <% if flash.key?(:notice) %>
+        <article class="message is-success" id="flash">
+          <div class="message-header">
+            <%= flash[:notice] %>
+          </div>
+        </article>
+        <script type="text/javascript">
+          $(function(){
+              $("#flash").fadeOut(3000);
+          });
+        </script>
+      <% end %>
+    <% end %>
+
+    <%= yield %>
   </div>
 </body>
+

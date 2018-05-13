@@ -1,16 +1,26 @@
 <h2>Reset Password</h2>
 
 <% form_for @user, "/password_forget/#{@user.password_reset_token}", method: :post do |f| %>
-  <%= f.label :password %>
-  <%= f.password_field :password %>
-  <%= error_message_on @user, :password, class: "text-error", prepend: "The password "%>
+  <div class="field">
+    <%= f.label :password, :class => 'label' %>
+    <div class="control">
+      <%= f.password_field :password, :class => 'input' %>
+    </div>
+    <%= error_message_on @user, :password, class: "has-background-danger", prepend: "The password"%>
+  </div>
 
-  <%= f.label :password_confirmation %>
-  <%= f.password_field :password_confirmation %>
+  <div class="field">
+    <%= f.label :password_confirmation, :class => 'label' %>
+    <div class="control">
+      <%= f.password_field :password_confirmation, :class => 'input' %>
+    </div>
+    <%= error_message_on @user, :password_confirmation, class: "has-background-danger", prepend: "The password confirmation"%>
+  </div>
 
-  <p>
-    <%= f.submit "Reset password", class: "btn btn-primary" %>
-  </p>
-
+  <div class="field">
+    <div class="control">
+      <%= submit_tag "Reset password", class: "button is-large is-link" %>
+    </div>
+  </div>
 <% end %>
 
