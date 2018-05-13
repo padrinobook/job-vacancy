@@ -4,6 +4,11 @@ body {
   text-align: justify;
 }
 
+h1 {
+  font-size: 200%;
+  padding-bottom: 20px;
+}
+
 /* Tab Navigation */
 .tabs ul {
   border-bottom: none;
