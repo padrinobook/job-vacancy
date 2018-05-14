@@ -57,8 +57,10 @@ RSpec.describe "/sessions" do
 
       cookie = last_response['Set-Cookie']
       expect(cookie).to include('permanent_cookie')
-      expect(cookie).to include('path=/')
+      expect(cookie).to include('path%3D%3E%22%2F%22%7D')
       expect(cookie).to include('domain%3D%3E%22jobvacancy.de')
+      expect(cookie).to include('HttpOnly')
+      expect(cookie).to_not include('secure')
       expect(cookie).to include("max-age=#{thirty_days_in_seconds}")
     end
   end

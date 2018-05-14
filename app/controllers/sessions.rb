@@ -16,9 +16,10 @@ JobVacancy::App.controllers :sessions do
         response.set_cookie('permanent_cookie',
                             value: { domain: 'jobvacancy.de',
                                         path: '/' },
-                                        max_age: "#{thirty_days_in_seconds}")
-
-
+                                        max_age: "#{thirty_days_in_seconds}",
+                                        httponly: true,
+                                        secure: false,
+                           )
         @user.save
       end
 
