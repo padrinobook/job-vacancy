@@ -40,7 +40,6 @@ RSpec.describe "/sessions" do
     it 'redirects if user is correct and has remember_me' do
       token = 'real'
       user = double('User')
-      thirty_days_in_seconds = JobVacancy::Configuration::COOKIE_MAX_AGE_REMEMBER_ME
       expect(user).to receive(:id) { 1 }
       expect(user).to receive(:password) { 'secret' }
       expect(user).to receive(:confirmation) { true }
@@ -51,6 +50,8 @@ RSpec.describe "/sessions" do
         .at_least(:once) { token }
 
       post 'sessions/create', password: 'secret', remember_me: '1'
+
+      thirty_days_in_seconds = JobVacancy::Configuration::COOKIE_MAX_AGE_REMEMBER_ME
 
       expect(last_response).to be_redirect
       expect(last_response.body).to include('You have successfully logged in!')
