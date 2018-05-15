@@ -12,14 +12,15 @@ JobVacancy::App.controllers :sessions do
       if (params[:remember_me] == '1')
         token = SecureRandom.hex
         @user.authentity_token = token
-        thirty_days_in_seconds = JobVacancy::Configuration::COOKIE_MAX_AGE_REMEMBER_ME
-        response.set_cookie('permanent_cookie',
-                            value: { domain: 'jobvacancy.de',
-                                        path: '/' },
-                                        max_age: "#{thirty_days_in_seconds}",
-                                        httponly: true,
-                                        secure: false,
-                           )
+        thirty_days = JobVacancy::Configuration::COOKIE_MAX_DAYS_REMEMBER_ME
+        response.set_cookie('permanent_cookie', {
+                              value: 1,
+                              expires: (Date.today + thirty_days).to_time,
+                              domain: 'jobvacancy.de',
+                              path: '/',
+                              httponly: true,
+                              secure: false,
+                            })
         @user.save
       end
 

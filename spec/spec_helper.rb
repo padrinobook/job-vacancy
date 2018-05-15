@@ -42,3 +42,9 @@ def app(app = nil, &blk)
   @app ||= Padrino.application
 end
 
+def cookies_from_response(response = last_response)
+  Hash[response["Set-Cookie"].lines.map { |line|
+    cookie = Rack::Test::Cookie.new(line.chomp)
+    [cookie.name, cookie]
+  }]
+end

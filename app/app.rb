@@ -85,4 +85,3 @@ module JobVacancy
     #
   end
 end
-

@@ -51,18 +51,18 @@ RSpec.describe "/sessions" do
 
       post 'sessions/create', password: 'secret', remember_me: '1'
 
-      thirty_days_in_seconds = JobVacancy::Configuration::COOKIE_MAX_AGE_REMEMBER_ME
-
       expect(last_response).to be_redirect
       expect(last_response.body).to include('You have successfully logged in!')
 
-      cookie = last_response['Set-Cookie']
-      expect(cookie).to include('permanent_cookie')
-      expect(cookie).to include('path%3D%3E%22%2F%22%7D')
-      expect(cookie).to include('domain%3D%3E%22jobvacancy.de')
-      expect(cookie).to include('HttpOnly')
-      expect(cookie).to_not include('secure')
-      expect(cookie).to include("max-age=#{thirty_days_in_seconds}")
+      cookie = cookies_from_response['permanent_cookie']
+
+      expect(cookie.name).to eql('permanent_cookie')
+      expect(cookie.value).to eql('1')
+      expect(cookie.domain).to eql('jobvacancy.de')
+      expect(cookie.path).to eql('/')
+      expect(cookie.http_only?).to eql(true)
+      expect(cookie.secure?).to eql(false)
+      expect(cookie.expired?).to eql(false)
     end
   end
 
