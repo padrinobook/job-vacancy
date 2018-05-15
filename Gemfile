@@ -22,7 +22,7 @@ end
 group :test do
   gem 'rspec' , '~> 3.6'
   gem 'factory_bot', '~> 4.8.2'
-  gem 'rack-test', '~> 0.6.3', require: 'rack/test'
+  gem 'rack-test', '~> 1.0', require: 'rack/test'
 end
 
 # Automatically running tests
