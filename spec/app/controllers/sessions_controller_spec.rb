@@ -37,7 +37,7 @@ RSpec.describe "/sessions" do
       login_user(user)
     end
 
-    it 'redirects if user is correct and has remember_me' do
+    it 'redirects if user is correct and has permanent_cookie' do
       token = 'real'
       user = double('User')
       expect(user).to receive(:id) { 1 }
