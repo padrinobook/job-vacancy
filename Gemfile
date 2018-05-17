@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 # Server requirements
-gem 'thin', '1.7.0'
+gem 'thin', '~> 1.7.0'
 
 # Project requirements
 gem 'rake', '~> 12.3'
