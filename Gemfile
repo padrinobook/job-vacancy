@@ -34,7 +34,7 @@ gem 'bcrypt', '~> 3.1.11'
 
 # Padrino Stable Gem
 gem 'wirble', '0.1.3'
-gem 'pry', '0.9.12.6'
+gem 'pry', '~> 0.11'
 gem 'tilt', '2.0.7'
 
 # Padrino edge
