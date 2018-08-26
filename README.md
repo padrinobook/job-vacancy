@@ -3,6 +3,7 @@
 ![Build Status](https://travis-ci.org/padrinobook/job-vacancy.svg?branch=master)
 ![Gitter](https://img.shields.io/gitter/room/padrinobook/padrinobook.js.svg)
 ![Twitter Follow](https://img.shields.io/twitter/follow/padrinobook.svg?style=social&label=Follow)
+![Coverage Status](https://coveralls.io/repos/github/padrinobook/job-vacancy/badge.svg?branch=master)
 
 
 This is the application written for my [PadrinoBook](https://padrinobook.com). There are a lots of commits in there - so
