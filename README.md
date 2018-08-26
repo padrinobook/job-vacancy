@@ -2,6 +2,7 @@
 
 [![Build Status](https://travis-ci.org/padrinobook/job-vacancy.svg?branch=master)](https://travis-ci.org/padrinobook/job-vacancy)
 ![Twitter Follow](https://img.shields.io/twitter/follow/padrinobook.svg?style=social&label=Follow)
+![Gitter](https://img.shields.io/gitter/room/wikimatze/PadrinoBook.js.svg)
 
 
 This is the application written for my [PadrinoBook](http://padrinobook.com). There are a lots of commits in there - so
