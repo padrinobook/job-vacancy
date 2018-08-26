@@ -45,4 +45,4 @@ gem 'padrino', '0.14.3'
 # Codecoverage tools
 # gem 'simplecov'
 # gem 'metric_fu'
-
+gem 'coveralls', require: false
