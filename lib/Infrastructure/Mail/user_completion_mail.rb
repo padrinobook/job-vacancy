@@ -1,5 +1,4 @@
 class UserCompletionMail
-
   attr_accessor :user, :app
 
   def initialize(user, app = JobVacancy::App)
