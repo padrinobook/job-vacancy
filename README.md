@@ -1,7 +1,7 @@
 ![PadrinoBook - The Guide To Master The Elegant Ruby Web Framework](https://raw.githubusercontent.com/wikimatze/padrinobook/master/images/logo.png "PadrinoBook - The Guide To Master The Elegant Ruby Web Framework")
 
 ![Build Status](https://travis-ci.org/padrinobook/job-vacancy.svg?branch=master)
-![Gitter](https://img.shields.io/gitter/room/padrinobook/padrinobook.svg)
+[![](https://img.shields.io/gitter/room/padrinobook/padrinobook.svg)](https://gitter.im/padrinobook/padrinobook)
 [![](https://img.shields.io/twitter/follow/padrinobook.svg?label=Follow&style=social)](https://twitter.com/padrinobook)
 ![Coverage Status](https://coveralls.io/repos/github/padrinobook/job-vacancy/badge.svg?branch=master)
 
