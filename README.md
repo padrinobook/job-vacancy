@@ -60,6 +60,10 @@ bundle exec padrino s
 ```
 
 
+# Specs
+
+Follow the style written under: <http://www.betterspecs.org/#describe>
+
 # License
 
 This software is licensed under the [MIT](http://en.wikipedia.org/wiki/MIT_License) license.
