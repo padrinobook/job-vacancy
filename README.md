@@ -10,8 +10,54 @@ This is the application written for my [PadrinoBook](https://padrinobook.com). T
 feel free to sniff around.
 
 
-If you have questions, you can send me an email to <matthias@padrinobook.com> or chat with other under
-[gitter.im/padrinobook/padrinoBook](https://gitter.im/padrinobook/padrinobook).
+# Build
+
+Get the code
+
+
+```sh
+git clone https://github.com/padrinobook/job-vacancy
+```
+
+
+Install dependencies:
+
+
+```sh
+cd job-vacancy && bundle
+```
+
+
+Create all databases:
+
+
+```sh
+bundle exec rake ar:create:all
+```
+
+
+Run migrations:
+
+
+```sh
+bundle exec padrino rake ar:migrate -e production && bundle exec padrino rake ar:migrate -e test
+```
+
+
+Run the tests:
+
+
+```sh
+bundle exec rspec
+```
+
+
+Start the app:
+
+
+```sh
+bundle exec padrino s
+```
 
 
 # License
