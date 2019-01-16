@@ -15,12 +15,12 @@ FactoryBot.define do
   end
 
   factory :job_offer do
-    title       'Padrino Engineer   '
-    location    'Berlin             '
-    description 'We want you ...    '
+    title       'Padrino Engineer'
+    description 'We want you ...'
+    location    'Berlin'
     contact     'recruter@awesome.de'
-    time_start  '1/01/2013          '
-    time_end    '01/03/2013         '
+    time_start  '2019/01/16'
+    time_end    '2019/01/31'
   end
 end
 
