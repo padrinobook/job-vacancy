@@ -34,7 +34,9 @@
                 <%= link_to 'Logout', url(:sessions, :destroy, :authenticity_token => session[:csrf]), :method => :delete %>
               </li>
               <li>
-                <%= link_to 'Edit Profile', url(:users, :edit, id: session[:current_user]) %>
+                <% if session[:current_user] %>
+                  <%= link_to 'Edit Profile', url(:users, :edit, id: session[:current_user]) %>
+              <% end %>
               </li>
             <% else %>
               <li>

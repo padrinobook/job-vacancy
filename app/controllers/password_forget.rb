@@ -17,7 +17,7 @@ JobVacancy::App.controllers :password_forget do
     render 'success'
   end
 
-  get :edit, :map => "/password_forget/:token/edit" do
+  get :edit, :map => '/password_forget/:token/edit' do
     @user = User.find_by_password_reset_token(params[:token])
 
     if @user && Time.now.utc < (@user.password_reset_sent_date.to_datetime + (1.0 / 24.0))
