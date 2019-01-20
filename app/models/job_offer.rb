@@ -3,6 +3,8 @@ class JobOffer < ActiveRecord::Base
 
   validates :title, :description, :location, :contact, presence: true
 
+  validate :dates
+
   private
   def dates
     if time_start.blank? || time_end.blank?
