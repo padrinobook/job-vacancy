@@ -2,18 +2,18 @@ require 'spec_helper'
 
 RSpec.describe "/job_offers" do
   let(:user) { build_stubbed(:user) }
-  describe "GET list" do
-    it "render the :list view" do
-      get "/job_offers/list"
+  describe "GET /jobs" do
+    it "render the :jobs view" do
+      get "/jobs"
       expect(last_response).to be_ok
     end
   end
 
-  describe "GET my_list" do
+  describe "GET /jobs/mylist" do
     context "user is not logged in" do
       it 'redirects to login' do
         expect(User).to receive(:find_by_id).and_return(nil)
-        get '/job_offers/mylist'
+        get '/jobs/mylist'
         expect(last_response).to be_redirect
         expect(last_response.header['Location']).to include('/login')
       end
@@ -22,11 +22,12 @@ RSpec.describe "/job_offers" do
     context "user is logged in" do
       it 'renders list of users job offers' do
         expect(User).to receive(:find_by_id).and_return(user, user)
-        get "/job_offers/mylist"
+        get "/jobs/mylist"
         expect(last_response).to be_ok
       end
     end
   end
+
 
   describe "POST /job_offers/create" do
     context "user is not logged in" do
@@ -77,7 +78,7 @@ RSpec.describe "/job_offers" do
       put "/job_offers/myjobs/1000", job_offer: updated_job_offer
 
       expect(last_response).to be_redirect
-      expect(last_response.header['Location']).to include('/job_offers/mylist')
+      expect(last_response.header['Location']).to include('/jobs/mylist')
     end
 
     it 'job_offer changes are not valid' do
@@ -110,7 +111,7 @@ RSpec.describe "/job_offers" do
       put "/job_offers/myjobs/1", job_offer: updated_job_offer
 
       expect(last_response).to be_redirect
-      expect(last_response.header['Location']).to include('/job_offers/mylist')
+      expect(last_response.header['Location']).to include('/jobs/mylist')
       expect(last_response.body).to eq 'Job offer was updated.'
     end
   end

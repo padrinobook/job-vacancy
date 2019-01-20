@@ -4,11 +4,11 @@ JobVacancy::App.controllers :job_offers do
     @user = User.find_by_id(params[:id])
   end
 
-  get :list do
-    render 'list'
+  get :jobs, :map => '/jobs' do
+    render 'jobs'
   end
 
-  get :mylist, :map => '/job_offers/mylist' do
+  get :mylist, :map => '/jobs/mylist' do
     @job_offers = JobOffer.where("user_id = ?", current_user.id)
 
     render 'mylist', :locals => { job_offers: @job_offers }
