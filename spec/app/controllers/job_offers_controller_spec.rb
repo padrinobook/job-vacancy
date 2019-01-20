@@ -9,6 +9,13 @@ RSpec.describe "/job_offers" do
     end
   end
 
+  describe "GET /jobs/new" do
+    it 'renders the :new routes' do
+      get "/jobs/new"
+      expect(last_response).to be_ok
+    end
+  end
+
   describe "GET /jobs/mylist" do
     context "user is not logged in" do
       it 'redirects to login' do
@@ -28,12 +35,11 @@ RSpec.describe "/job_offers" do
     end
   end
 
-
-  describe "POST /job_offers/create" do
+  describe "POST /jobs/create" do
     context "user is not logged in" do
       it 'redirects to login' do
         expect(User).to receive(:find_by_id).and_return(nil)
-        post '/job_offers/create'
+        post '/jobs/create'
         expect(last_response).to be_redirect
         expect(last_response.header['Location']).to include('/login')
       end
@@ -46,7 +52,7 @@ RSpec.describe "/job_offers" do
         expect(JobOffer).to receive(:new).and_return(@job_offer)
         expect(@job_offer).to receive(:valid?).and_return(false)
 
-        post '/job_offers/create'
+        post '/jobs/create'
         expect(last_response).to be_ok
       end
 
@@ -61,21 +67,58 @@ RSpec.describe "/job_offers" do
 
         expect(@job_offer).to receive(:save).and_return(true)
 
-        post '/job_offers/create', job_offer: @job_offer
+        post '/jobs/create', job_offer: @job_offer
         expect(last_response).to be_redirect
         expect(last_response.body).to eq "Job is saved"
       end
     end
   end
 
-  describe "PUT /job_offers/myjobs/:id" do
+  describe "GET /jobs/myjobs/:id/edit" do
+    let(:job) { build_stubbed(:job_offer) }
+    let(:user_second) { build_stubbed(:user) }
+
+    it 'redirects to /login if user is not signed in' do
+      expect(User).to receive(:find_by_id).and_return(nil)
+      get '/jobs/myjobs/1/edit'
+      expect(last_response).to be_redirect
+      expect(last_response.header['Location']).to include('/login')
+    end
+
+    it 'redirects to /jobs/mylist if signed in user tries to edit a job from a different user' do
+      expect(User).to receive(:find_by_id).and_return(user, user)
+      job.user = user_second
+      expect(JobOffer).to receive(:where)
+        .with("id = ?", "#{job.id}")
+        .and_return(job)
+
+      get "/jobs/myjobs/#{job.id}/edit"
+
+      expect(last_response).to be_redirect
+      expect(last_response.header['Location']).to include('/jobs/mylist')
+    end
+
+    it 'renders edit view if signed in user edits his own job' do
+      expect(User).to receive(:find_by_id).and_return(user, user)
+      job.user = user
+      expect(JobOffer).to receive(:where)
+        .with("id = ?", "#{job.id}")
+        .and_return(job)
+
+      get "/jobs/myjobs/#{job.id}/edit"
+
+      expect(last_response).to be_ok
+    end
+  end
+
+  describe "PUT /jobs/myjobs/:id" do
     it 'try to edit non existing job' do
       updated_job_offer = ['']
       expect(JobOffer).to receive(:find)
         .with('1000')
         .and_return(nil)
 
-      put "/job_offers/myjobs/1000", job_offer: updated_job_offer
+      put "/jobs/myjobs/1000", job_offer: updated_job_offer
 
       expect(last_response).to be_redirect
       expect(last_response.header['Location']).to include('/jobs/mylist')
@@ -91,10 +134,10 @@ RSpec.describe "/job_offers" do
         .with(updated_job_offer)
         .and_return(false)
 
-      put "/job_offers/myjobs/1", job_offer: updated_job_offer
+      put "/jobs/myjobs/1", job_offer: updated_job_offer
 
       expect(last_response).to be_redirect
-      expect(last_response.header['Location']).to include('/job_offers/myjobs/1')
+      expect(last_response.header['Location']).to include('/jobs/myjobs/1/edit')
       expect(last_response.body).to eq 'Job offer was not updated.'
     end
 
@@ -108,7 +151,7 @@ RSpec.describe "/job_offers" do
         .with(updated_job_offer)
         .and_return(true)
 
-      put "/job_offers/myjobs/1", job_offer: updated_job_offer
+      put "/jobs/myjobs/1", job_offer: updated_job_offer
 
       expect(last_response).to be_redirect
       expect(last_response.header['Location']).to include('/jobs/mylist')

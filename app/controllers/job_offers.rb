@@ -1,11 +1,17 @@
 JobVacancy::App.controllers :job_offers do
-  before :create, :mylist do
+  before :create, :mylist, :edit do
     redirect('/login') unless signed_in?
     @user = User.find_by_id(params[:id])
+    redirect('/login') unless current_user?(@user)
   end
 
   get :jobs, :map => '/jobs' do
     render 'jobs'
+  end
+
+  get :new, :map => '/jobs/new' do
+    @job_offer = JobOffer.new
+    render 'new'
   end
 
   get :mylist, :map => '/jobs/mylist' do
@@ -14,12 +20,7 @@ JobVacancy::App.controllers :job_offers do
     render 'mylist', :locals => { job_offers: @job_offers }
   end
 
-  get :new, :map => '/job_offers/new' do
-    @job_offer = JobOffer.new
-    render 'new'
-  end
-
-  post :create do
+  post :create, :map => '/jobs/create' do
     @job_offer = JobOffer.new(params[:job_offer])
 
     if @job_offer && @job_offer.valid?
@@ -32,11 +33,18 @@ JobVacancy::App.controllers :job_offers do
     render 'new'
   end
 
-  get :edit, :map => '/job_offers/myjobs/:id/edit' do
+  get :edit, :map => '/jobs/myjobs/:id/edit' do
+    current_job_offer = JobOffer.where("id = ?", params[:id])
+
+    if current_job_offer.user != @user
+      redirect url(:job_offers, :mylist)
+    end
+
+
     render 'edit'
   end
 
-  put :update, :map => '/job_offers/myjobs/:id' do
+  put :update, :map => '/jobs/myjobs/:id' do
     @job_offer = JobOffer.find(params[:id])
 
     if @job_offer == nil
