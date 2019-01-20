@@ -46,8 +46,7 @@ RSpec.describe "/job_offers" do
         expect(@job_offer).to receive(:valid?).and_return(false)
 
         post '/job_offers/create'
-        expect(last_response).to be_redirect
-        expect(last_response.body).to eq "Job could not be saved"
+        expect(last_response).to be_ok
       end
 
       it 'list page if job offer is saved' do
@@ -55,12 +54,15 @@ RSpec.describe "/job_offers" do
         expect(User).to receive(:find_by_id).and_return(user, user)
         expect(JobOffer).to receive(:new).and_return(@job_offer)
         expect(@job_offer).to receive(:valid?).and_return(true)
+        expect(@job_offer).to receive(:write_attribute)
+          .with(user: user)
+          .and_return(true)
+
         expect(@job_offer).to receive(:save).and_return(true)
 
         post '/job_offers/create', job_offer: @job_offer
         expect(last_response).to be_redirect
         expect(last_response.body).to eq "Job is saved"
-        expect(last_response.header['Location']).to include('/job_offers/mylist')
       end
     end
   end

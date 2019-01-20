@@ -24,7 +24,7 @@ JobVacancy::App.controllers :job_offers do
     @job_offer = JobOffer.new(params[:job_offer])
 
     if @job_offer && @job_offer.valid?
-      @job_offer.user = current_user
+      @job_offer.write_attribute(user: current_user)
       @job_offer.save
 
       redirect url(:job_offers, :mylist, id: current_user.id), flash[:notice] = "Job is saved"
