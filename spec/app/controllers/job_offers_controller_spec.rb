@@ -28,7 +28,7 @@ RSpec.describe "/job_offers" do
 
     context "user is logged in" do
       it 'renders list of users job offers' do
-        expect(User).to receive(:find_by_id).and_return(user, user)
+        expect(User).to receive(:find_by_id).and_return(user)
         get "/jobs/mylist"
         expect(last_response).to be_ok
       end
@@ -46,28 +46,29 @@ RSpec.describe "/job_offers" do
     end
 
     context "user is logged in" do
+      let(:user) { build_stubbed(:user) }
+      let(:job) { build_stubbed(:job_offer) }
+
       it 'renders the post page if form is invalid' do
-        @job_offer = double(JobOffer)
-        expect(User).to receive(:find_by_id).and_return(user, user)
-        expect(JobOffer).to receive(:new).and_return(@job_offer)
-        expect(@job_offer).to receive(:valid?).and_return(false)
+        expect(User).to receive(:find_by_id).and_return(user)
+        expect(JobOffer).to receive(:new).and_return(job)
+        expect(job).to receive(:valid?).and_return(false)
 
         post '/jobs/create'
         expect(last_response).to be_ok
       end
 
       it 'list page if job offer is saved' do
-        @job_offer = double(JobOffer)
-        expect(User).to receive(:find_by_id).and_return(user, user)
-        expect(JobOffer).to receive(:new).and_return(@job_offer)
-        expect(@job_offer).to receive(:valid?).and_return(true)
-        expect(@job_offer).to receive(:write_attribute)
-          .with(user: user)
+        expect(User).to receive(:find_by_id).and_return(user)
+        expect(JobOffer).to receive(:new).and_return(job)
+        expect(job).to receive(:valid?).and_return(true)
+        expect(job).to receive(:write_attribute)
+          .with(:user_id, user.id)
           .and_return(true)
 
-        expect(@job_offer).to receive(:save).and_return(true)
+        expect(job).to receive(:save).and_return(true)
 
-        post '/jobs/create', job_offer: @job_offer
+        post '/jobs/create', job_offer: job
         expect(last_response).to be_redirect
         expect(last_response.body).to eq "Job is saved"
       end
@@ -86,7 +87,7 @@ RSpec.describe "/job_offers" do
     end
 
     it 'redirects to /jobs/mylist if signed in user tries to edit a job from a different user' do
-      expect(User).to receive(:find_by_id).and_return(user, user)
+      expect(User).to receive(:find_by_id).and_return(user)
       job.user = user_second
       expect(JobOffer).to receive(:where)
         .with("id = ?", "#{job.id}")
@@ -99,7 +100,7 @@ RSpec.describe "/job_offers" do
     end
 
     it 'renders edit view if signed in user edits his own job' do
-      expect(User).to receive(:find_by_id).and_return(user, user)
+      expect(User).to receive(:find_by_id).and_return(user)
       job.user = user
       expect(JobOffer).to receive(:where)
         .with("id = ?", "#{job.id}")
