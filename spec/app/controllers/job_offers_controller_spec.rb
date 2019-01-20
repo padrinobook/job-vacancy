@@ -66,4 +66,52 @@ RSpec.describe "/job_offers" do
       end
     end
   end
+
+  describe "PUT /job_offers/myjobs/:id" do
+    it 'try to edit non existing job' do
+      updated_job_offer = ['']
+      expect(JobOffer).to receive(:find)
+        .with('1000')
+        .and_return(nil)
+
+      put "/job_offers/myjobs/1000", job_offer: updated_job_offer
+
+      expect(last_response).to be_redirect
+      expect(last_response.header['Location']).to include('/job_offers/mylist')
+    end
+
+    it 'job_offer changes are not valid' do
+      @existing_job_offer = double(JobOffer, id: 1, title: 'old')
+      updated_job_offer = ['']
+      expect(JobOffer).to receive(:find)
+        .with('1')
+        .and_return(@existing_job_offer)
+      expect(@existing_job_offer).to receive(:update_attributes)
+        .with(updated_job_offer)
+        .and_return(false)
+
+      put "/job_offers/myjobs/1", job_offer: updated_job_offer
+
+      expect(last_response).to be_redirect
+      expect(last_response.header['Location']).to include('/job_offers/myjobs/1')
+      expect(last_response.body).to eq 'Job offer was not updated.'
+    end
+
+    it 'job_offer changes are valid' do
+      @existing_job_offer = double(JobOffer, id: 1, title: 'old')
+      updated_job_offer = ['']
+      expect(JobOffer).to receive(:find)
+        .with('1')
+        .and_return(@existing_job_offer)
+      expect(@existing_job_offer).to receive(:update_attributes)
+        .with(updated_job_offer)
+        .and_return(true)
+
+      put "/job_offers/myjobs/1", job_offer: updated_job_offer
+
+      expect(last_response).to be_redirect
+      expect(last_response.header['Location']).to include('/job_offers/mylist')
+      expect(last_response.body).to eq 'Job offer was updated.'
+    end
+  end
 end
