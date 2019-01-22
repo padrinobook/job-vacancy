@@ -1,1 +1,58 @@
-Edit
+<h2>Edit your job</h2>
+
+<% form_for job_offer, url(:job_offers, :update, id: job_offer.id), method: :put do |f| %>
+  <div class="field">
+    <%= f.label :title, :class => 'label' %>
+    <div class="control">
+      <%= f.text_field :title, :class => 'input' %>
+    </div>
+    <%= error_message_on job_offer, :title, :class => "has-background-danger", :prepend => "The title" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :description, :class => 'label' %>
+    <div class="control">
+      <%= f.text_area :description, :class => 'input' %>
+    </div>
+    <%= error_message_on job_offer, :description, :class => "has-background-danger", :prepend => "The description" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :location, :class => 'label' %>
+    <div class="control">
+      <%= f.text_area :location, :class => 'input' %>
+    </div>
+    <%= error_message_on job_offer, :location, :class => "has-background-danger", :prepend => "The location" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :contact, :class => 'label' %>
+    <div class="control">
+      <%= f.text_area :contact, :class => 'input' %>
+    </div>
+    <%= error_message_on job_offer, :contact, :class => "has-background-danger", :prepend => "The contact" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :time_start, :class => 'label' %>
+    <div class="control">
+      <%= f.date_field :time_start, :class => 'input' %>
+    </div>
+    <%= error_message_on job_offer, :time_start, :class => "has-background-danger", :prepend => "The time_start" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :time_end, :class => 'label' %>
+    <div class="control">
+      <%= f.date_field :time_end, :class => 'input' %>
+    </div>
+    <%= error_message_on job_offer, :time_end, :class => "has-background-danger", :prepend => "The time_end" %>
+  </div>
+
+  <div class="field">
+    <div class="control">
+      <%= f.submit "Post job", :class => "button is-large is-link" %>
+    </div>
+  </div>
+<% end %>
+
