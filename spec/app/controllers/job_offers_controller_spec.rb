@@ -89,8 +89,8 @@ RSpec.describe "/job_offers" do
     it 'redirects to /jobs/mylist if signed in user tries to edit a job from a different user' do
       expect(User).to receive(:find_by_id).and_return(user)
       job.user = user_second
-      expect(JobOffer).to receive(:where)
-        .with("id = ?", "#{job.id}")
+      expect(JobOffer).to receive(:find_by_id)
+        .with("#{job.id}")
         .and_return(job)
 
       get "/jobs/myjobs/#{job.id}/edit"
@@ -102,8 +102,8 @@ RSpec.describe "/job_offers" do
     it 'renders edit view if signed in user edits his own job' do
       expect(User).to receive(:find_by_id).and_return(user)
       job.user = user
-      expect(JobOffer).to receive(:where)
-        .with("id = ?", "#{job.id}")
+      expect(JobOffer).to receive(:find_by_id)
+        .with("#{job.id}")
         .and_return(job)
 
       get "/jobs/myjobs/#{job.id}/edit"
@@ -115,7 +115,7 @@ RSpec.describe "/job_offers" do
   describe "PUT /jobs/myjobs/:id" do
     it 'try to edit non existing job' do
       updated_job_offer = ['']
-      expect(JobOffer).to receive(:find)
+      expect(JobOffer).to receive(:find_by_id)
         .with('1000')
         .and_return(nil)
 
@@ -128,10 +128,10 @@ RSpec.describe "/job_offers" do
     it 'job_offer changes are not valid' do
       @existing_job_offer = double(JobOffer, id: 1, title: 'old')
       updated_job_offer = ['']
-      expect(JobOffer).to receive(:find)
+      expect(JobOffer).to receive(:find_by_id)
         .with('1')
         .and_return(@existing_job_offer)
-      expect(@existing_job_offer).to receive(:update_attributes)
+      expect(@existing_job_offer).to receive(:update_attributes!)
         .with(updated_job_offer)
         .and_return(false)
 
@@ -145,10 +145,10 @@ RSpec.describe "/job_offers" do
     it 'job_offer changes are valid' do
       @existing_job_offer = double(JobOffer, id: 1, title: 'old')
       updated_job_offer = ['']
-      expect(JobOffer).to receive(:find)
+      expect(JobOffer).to receive(:find_by_id)
         .with('1')
         .and_return(@existing_job_offer)
-      expect(@existing_job_offer).to receive(:update_attributes)
+      expect(@existing_job_offer).to receive(:update_attributes!)
         .with(updated_job_offer)
         .and_return(true)
 
@@ -157,6 +157,23 @@ RSpec.describe "/job_offers" do
       expect(last_response).to be_redirect
       expect(last_response.header['Location']).to include('/jobs/mylist')
       expect(last_response.body).to eq 'Job offer was updated.'
+    end
+
+    it 'job_offer changes DB error' do
+      @existing_job_offer = double(JobOffer, id: 1, title: 'old')
+      updated_job_offer = ['']
+      expect(JobOffer).to receive(:find_by_id)
+        .with('1')
+        .and_return(@existing_job_offer)
+      expect(@existing_job_offer).to receive(:update_attributes!)
+        .with(updated_job_offer)
+        .and_raise(ActiveRecord::RecordInvalid)
+
+      put "/jobs/myjobs/1", job_offer: updated_job_offer
+
+      expect(last_response).to be_redirect
+      expect(last_response.header['Location']).to include('/jobs/myjobs/1/edit')
+      expect(last_response.body).to eq 'Job offer changes were not valid'
     end
   end
 end
