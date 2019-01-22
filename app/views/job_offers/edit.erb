@@ -1,5 +1,6 @@
 <h2>Edit your job</h2>
 
+<br>
 <% form_for job_offer, url(:job_offers, :update, id: job_offer.id), method: :put do |f| %>
   <div class="field">
     <%= f.label :title, :class => 'label' %>
@@ -12,7 +13,7 @@
   <div class="field">
     <%= f.label :description, :class => 'label' %>
     <div class="control">
-      <%= f.text_area :description, :class => 'input' %>
+      <%= f.text_area :description, :class => 'textarea' %>
     </div>
     <%= error_message_on job_offer, :description, :class => "has-background-danger", :prepend => "The description" %>
   </div>
