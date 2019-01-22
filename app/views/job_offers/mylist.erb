@@ -1,5 +1,20 @@
-Hallo
+<h1>My Jobs</h1>
 
-Wurst
-
-<% job_offers.size %>
+<table class="table is-fullwidth">
+  <thead>
+    <tr>
+      <th>Position</th>
+      <th>Title</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @job_offers.each do |job_offer| %>
+      <tr>
+        <td><%= job_offer.id %></td>
+        <td><%= job_offer.title %></td>
+        <td><%= link_to 'Edit', url(:job_offers, :edit, id: job_offer.id) %></td>
+      </tr>
+    <% end  %>
+  </tbody>
+</table>
