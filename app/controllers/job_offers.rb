@@ -21,13 +21,13 @@ JobVacancy::App.controllers :job_offers do
   end
 
   get :edit, :map => '/jobs/myjobs/:id/edit' do
-    job = JobOffer.where("id = ?", params[:id])
+    job = JobOffer.find_by_id(params[:id])
 
-    if job.user != current_user
+    if job && job.user.id != current_user.id
       redirect url(:job_offers, :mylist)
     end
 
-    render 'edit'
+    render 'edit', :locals => { job_offer: job }
   end
 
   post :create, :map => '/jobs/create' do
@@ -43,14 +43,18 @@ JobVacancy::App.controllers :job_offers do
   end
 
   put :update, :map => '/jobs/myjobs/:id' do
-    @job_offer = JobOffer.find(params[:id])
+    @job_offer = JobOffer.find_by_id(params[:id])
 
     if @job_offer == nil
       redirect url(:job_offers, :mylist)
     end
 
-    if @job_offer && @job_offer.update_attributes(params[:job_offer])
-      redirect url(:job_offers, :mylist), flash[:notice] = 'Job offer was updated.'
+    begin
+      if @job_offer.update_attributes!(params[:job_offer])
+        redirect url(:job_offers, :mylist), flash[:notice] = 'Job offer was updated.'
+      end
+    rescue ActiveRecord::RecordInvalid
+      redirect url(:job_offers, :edit, id: params[:id]), flash[:error] = 'Job offer changes were not valid'
     end
 
     redirect url(:job_offers, :edit, id: params[:id]), flash[:error] = 'Job offer was not updated.'
