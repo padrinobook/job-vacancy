@@ -41,6 +41,8 @@ gem 'tilt', '~> 2.0.7'
 #gem 'padrino', :git => "git://github.com/padrino/padrino-framework.git"
 gem 'padrino', '0.14.4'
 
+gem 'redcarpet'
+
 
 # Codecoverage tools
 # gem 'simplecov'
