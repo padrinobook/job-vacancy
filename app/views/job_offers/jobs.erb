@@ -1,1 +1,29 @@
-Jobs
+<h1>Jobs</h1>
+
+<h3>Overview of latest jobs</h3>
+
+<br>
+
+<div class="content">
+  <table class="table is-fullwidth">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Start date</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% if @job_offers %>
+        <% @job_offers.each do |job_offer| %>
+          <tr>
+            <td><%= link_to job_offer.title, url(:job_offers, :job, id: job_offer.id ) %></td>
+            <td><%= job_offer.time_start %></td>
+          </tr>
+        <% end  %>
+      <% else %>
+        There are no open job offerings
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
