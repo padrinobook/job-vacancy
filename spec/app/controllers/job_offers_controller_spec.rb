@@ -1,37 +1,12 @@
 require 'spec_helper'
 
-RSpec.describe "/job_offers" do
+RSpec.describe "/jobs" do
   let(:user) { build_stubbed(:user) }
-  describe "GET /jobs" do
-    it "render the :jobs view" do
-      get "/jobs"
-      expect(last_response).to be_ok
-    end
-  end
 
   describe "GET /jobs/new" do
     it 'renders the :new routes' do
       get "/jobs/new"
       expect(last_response).to be_ok
-    end
-  end
-
-  describe "GET /jobs/mylist" do
-    context "user is not logged in" do
-      it 'redirects to login' do
-        expect(User).to receive(:find_by_id).and_return(nil)
-        get '/jobs/mylist'
-        expect(last_response).to be_redirect
-        expect(last_response.header['Location']).to include('/login')
-      end
-    end
-
-    context "user is logged in" do
-      it 'renders list of users job offers' do
-        expect(User).to receive(:find_by_id).and_return(user)
-        get "/jobs/mylist"
-        expect(last_response).to be_ok
-      end
     end
   end
 
@@ -71,6 +46,32 @@ RSpec.describe "/job_offers" do
         post '/jobs/create', job_offer: job
         expect(last_response).to be_redirect
         expect(last_response.body).to eq "Job is saved"
+      end
+    end
+  end
+
+  describe "GET /jobs" do
+    it "render the :jobs view" do
+      get "/jobs"
+      expect(last_response).to be_ok
+    end
+  end
+
+  describe "GET /jobs/mylist" do
+    context "user is not logged in" do
+      it 'redirects to login' do
+        expect(User).to receive(:find_by_id).and_return(nil)
+        get '/jobs/mylist'
+        expect(last_response).to be_redirect
+        expect(last_response.header['Location']).to include('/login')
+      end
+    end
+
+    context "user is logged in" do
+      it 'renders list of users job offers' do
+        expect(User).to receive(:find_by_id).and_return(user)
+        get "/jobs/mylist"
+        expect(last_response).to be_ok
       end
     end
   end
@@ -177,3 +178,4 @@ RSpec.describe "/job_offers" do
     end
   end
 end
+

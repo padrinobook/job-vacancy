@@ -5,13 +5,25 @@ JobVacancy::App.controllers :job_offers do
     end
   end
 
-  get :jobs, :map => '/jobs' do
-    render 'jobs'
-  end
-
   get :new, :map => '/jobs/new' do
     @job_offer = JobOffer.new
     render 'new'
+  end
+
+  post :create, :map => '/jobs/create' do
+    @job_offer = JobOffer.new(params[:job_offer])
+
+    if @job_offer && @job_offer.valid?
+      @job_offer.write_attribute(:user_id, current_user.id)
+      @job_offer.save
+      redirect url(:job_offers, :mylist), flash[:notice] = "Job is saved"
+    end
+
+    render 'new'
+  end
+
+  get :jobs, :map => '/jobs' do
+    render 'jobs'
   end
 
   get :mylist, :map => '/jobs/mylist' do
@@ -28,18 +40,6 @@ JobVacancy::App.controllers :job_offers do
     end
 
     render 'edit', :locals => { job_offer: job }
-  end
-
-  post :create, :map => '/jobs/create' do
-    @job_offer = JobOffer.new(params[:job_offer])
-
-    if @job_offer && @job_offer.valid?
-      @job_offer.write_attribute(:user_id, current_user.id)
-      @job_offer.save
-      redirect url(:job_offers, :mylist), flash[:notice] = "Job is saved"
-    end
-
-    render 'new'
   end
 
   put :update, :map => '/jobs/myjobs/:id' do
