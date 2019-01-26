@@ -33,13 +33,13 @@ JobVacancy::App.controllers :job_offers do
   end
 
   get :edit, :map => '/jobs/myjobs/:id/edit' do
-    job = JobOffer.find_by_id(params[:id])
+    @job_offer = JobOffer.find_by_id(params[:id])
 
-    if job && job.user.id != current_user.id
+    if @job_offer && @job_offer.user.id != current_user.id
       redirect url(:job_offers, :mylist)
     end
 
-    render 'edit', :locals => { job_offer: job }
+    render 'edit', :locals => { job_offer: @job_offer }
   end
 
   put :update, :map => '/jobs/myjobs/:id' do
