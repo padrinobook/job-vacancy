@@ -1,8 +1,13 @@
 JobVacancy::App.controllers :job_offers do
-  before :create, :mylist, :edit do
+  before :new, :create, :mylist, :edit do
     if !signed_in?
       redirect('/login')
     end
+  end
+
+  get :index, :map => '/jobs' do
+    @job_offers = JobOffer.all
+    render 'jobs', :locals => { job_offers: @job_offers }
   end
 
   get :new, :map => '/jobs/new' do
@@ -22,13 +27,8 @@ JobVacancy::App.controllers :job_offers do
     render 'new'
   end
 
-  get :jobs, :map => '/jobs' do
-    render 'jobs'
-  end
-
   get :mylist, :map => '/jobs/mylist' do
     @job_offers = JobOffer.where("user_id = ?", current_user.id)
-
     render 'mylist', :locals => { job_offers: @job_offers }
   end
 
@@ -58,5 +58,15 @@ JobVacancy::App.controllers :job_offers do
     end
 
     redirect url(:job_offers, :edit, id: params[:id]), flash[:error] = 'Job offer was not updated.'
+  end
+
+  get :job, :map => '/jobs/:id' do
+    @job_offer = JobOffer.find_by_id(params[:id])
+
+    if @job_offer
+      render 'job', :local => { job_offer: @job_offer }
+    else
+      render 'jobs'
+    end
   end
 end

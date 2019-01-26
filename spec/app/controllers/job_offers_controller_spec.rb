@@ -3,10 +3,29 @@ require 'spec_helper'
 RSpec.describe "/jobs" do
   let(:user) { build_stubbed(:user) }
 
-  describe "GET /jobs/new" do
-    it 'renders the :new routes' do
-      get "/jobs/new"
+  describe "GET /jobs" do
+    it "render the :jobs view" do
+      get "/jobs"
       expect(last_response).to be_ok
+    end
+  end
+
+  describe "GET /jobs/new" do
+    context "user is not logged in" do
+      it 'redirects to login' do
+        expect(User).to receive(:find_by_id).and_return(nil)
+        get "/jobs/new"
+        expect(last_response).to be_redirect
+        expect(last_response.header['Location']).to include('/login')
+      end
+    end
+
+    context "user is logged in" do
+      it 'renders the :new routes' do
+        expect(User).to receive(:find_by_id).and_return(user)
+        get "/jobs/new"
+        expect(last_response).to be_ok
+      end
     end
   end
 
@@ -50,13 +69,6 @@ RSpec.describe "/jobs" do
     end
   end
 
-  describe "GET /jobs" do
-    it "render the :jobs view" do
-      get "/jobs"
-      expect(last_response).to be_ok
-    end
-  end
-
   describe "GET /jobs/mylist" do
     context "user is not logged in" do
       it 'redirects to login' do
@@ -87,7 +99,7 @@ RSpec.describe "/jobs" do
       expect(last_response.header['Location']).to include('/login')
     end
 
-    it 'redirects to /jobs/mylist if signed in user tries to edit a job from a different user' do
+    it 'redirects to /jobs/mylist if signed in user tries to edit a job from another user' do
       expect(User).to receive(:find_by_id).and_return(user)
       job.user = user_second
       expect(JobOffer).to receive(:find_by_id)
@@ -175,6 +187,34 @@ RSpec.describe "/jobs" do
       expect(last_response).to be_redirect
       expect(last_response.header['Location']).to include('/jobs/myjobs/1/edit')
       expect(last_response.body).to eq 'Job offer changes were not valid'
+    end
+  end
+
+  describe "GET /job/:id" do
+    let(:job_offer) { build_stubbed(:job_offer) }
+
+    context "Job exists" do
+      it 'renders the page' do
+        expect(JobOffer).to receive(:find_by_id)
+          .with("#{job_offer.id}")
+          .and_return(job_offer)
+
+        get "/jobs/#{job_offer.id}"
+        expect(last_response).to be_ok
+        expect(last_response.body).to include("#{job_offer.title}")
+      end
+    end
+
+    context "Job does not exists" do
+      it 'renders the job overview page' do
+        expect(JobOffer).to receive(:find_by_id)
+          .with("#{job_offer.id}")
+          .and_return(nil)
+
+        get "/jobs/#{job_offer.id}"
+        expect(last_response).to be_ok
+        expect(last_response.body).to include('Overview of latest jobs')
+      end
     end
   end
 end
