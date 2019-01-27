@@ -34,6 +34,9 @@
                 <%= link_to 'Logout', url(:sessions, :destroy, :authenticity_token => session[:csrf]), :method => :delete %>
               </li>
               <li>
+                <%= link_to 'New Job', url(:job_offers, :new) %>
+              </li>
+              <li>
                 <%= link_to 'My Jobs', url(:job_offers, :mylist) %>
               </li>
               <li>
