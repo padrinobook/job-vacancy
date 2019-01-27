@@ -10,30 +10,31 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 7) do
+ActiveRecord::Schema.define(version: 8) do
 
   create_table "job_offers", force: :cascade do |t|
-    t.string   "title"
-    t.string   "location"
-    t.text     "description"
-    t.string   "contact"
-    t.date     "time_start"
-    t.date     "time_end"
+    t.string "title"
+    t.string "location"
+    t.text "description"
+    t.string "contact"
+    t.date "time_start"
+    t.date "time_end"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "user_id"
+    t.integer "user_id"
+    t.boolean "enable_markdown", default: false
   end
 
   create_table "users", force: :cascade do |t|
-    t.string   "name"
-    t.string   "email"
+    t.string "name"
+    t.string "email"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "password"
-    t.string   "confirmation_token"
-    t.boolean  "confirmation",             default: false
-    t.string   "authentity_token"
-    t.string   "password_reset_token",     default: "0"
+    t.string "password"
+    t.string "confirmation_token"
+    t.boolean "confirmation", default: false
+    t.string "authentity_token"
+    t.string "password_reset_token", default: "0"
     t.datetime "password_reset_sent_date"
   end
 

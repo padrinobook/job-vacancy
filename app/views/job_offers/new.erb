@@ -50,6 +50,12 @@
   </div>
 
   <div class="field">
+    <label class="checkbox">
+      <%= f.check_box :enable_markdown, :class => 'checkbox' %> Enable Markdown rendering
+    </label>
+  </div>
+
+  <div class="field">
     <div class="control">
       <%= f.submit "Post new job", :class => "button is-large is-link" %>
     </div>
