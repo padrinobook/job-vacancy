@@ -1,6 +1,6 @@
 JobVacancy::App.controllers :pages do
   get :home, :map => "/" do
-    render 'home'
+    redirect url(:job_offers, :index)
   end
 
   get :about, :map => '/about' do
