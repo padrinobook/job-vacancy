@@ -1,37 +1,12 @@
 module JobVacancy
   class App
-    module SessionsHelper
-      def current_user=(user)
-        @current_user = user
-      end
-
-      def current_user
-        @current_user ||= User.find_by_id(session[:current_user])
-      end
-
-      def current_user?(user)
-        user == current_user
-      end
-
-      def sign_in(user)
-        session[:current_user] = user.id
-        self.current_user = user
-      end
-
-      def sign_out
-        session.delete(:current_user)
-      end
-
-      def signed_in?
-        !current_user.nil?
-      end
-
+    module MarkdownHelper
       def markdown(text)
         options = {
           filter_html:     true,
           hard_wrap:       true,
           link_attributes: { rel: 'nofollow', target: "_blank" },
-          space_after_headers: true,
+          space_after_headers: false,
           fenced_code_blocks: true
         }
 
@@ -48,7 +23,7 @@ module JobVacancy
       end
     end
 
-    helpers SessionsHelper
+    helpers MarkdownHelper
   end
 end
 
