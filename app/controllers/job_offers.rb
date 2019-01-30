@@ -69,4 +69,18 @@ JobVacancy::App.controllers :job_offers do
       render 'jobs'
     end
   end
+
+  delete :job, :map => '/jobs/:id' do
+    if !signed_in?
+      redirect('/login')
+    end
+
+    @job_offer = JobOffer.find_by_id(params[:id])
+
+    if @job_offer && current_user && @job_offer.user.id == current_user.id
+      @job_offer.delete
+    end
+
+    redirect url(:job_offers, :mylist)
+  end
 end

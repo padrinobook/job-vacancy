@@ -217,5 +217,64 @@ RSpec.describe "/jobs" do
       end
     end
   end
+
+  describe "DELETE /job/:id" do
+    let(:job_offer) { build_stubbed(:job_offer) }
+    let(:user_second) { build_stubbed(:user) }
+
+    context "Job exists" do
+      context "User is logged" do
+        it 'deletes his own job' do
+          expect(User).to receive(:find_by_id).and_return(user)
+          job_offer.user = user
+          expect(JobOffer).to receive(:find_by_id)
+            .with("#{job_offer.id}")
+            .and_return(job_offer)
+
+          expect(job_offer).to receive(:delete)
+
+          delete "/jobs/#{job_offer.id}"
+          expect(last_response).to be_redirect
+        end
+
+        it 'redirects to /jobs/mylist if user deletes job of another user' do
+          expect(User).to receive(:find_by_id).and_return(user)
+          job_offer.user = user_second
+          expect(JobOffer).to receive(:find_by_id)
+            .with("#{job_offer.id}")
+            .and_return(job_offer)
+          expect(job_offer).to_not receive(:delete)
+
+          delete "/jobs/#{job_offer.id}"
+          expect(last_response).to be_redirect
+        end
+      end
+
+      context "User is not logged in" do
+        it 'redirects to /login' do
+          expect(User).to receive(:find_by_id).and_return(nil)
+          delete "/jobs/#{job_offer.id}"
+          expect(last_response).to be_redirect
+          expect(last_response.header['Location']).to include('/login')
+        end
+      end
+    end
+
+    context "Job does not exists" do
+      context "User logged in" do
+        it 'redirects to /jobs/mylist' do
+          expect(User).to receive(:find_by_id).and_return(user)
+          expect(JobOffer).to receive(:find_by_id)
+            .with("#{job_offer.id}")
+            .and_return(nil)
+
+          expect(job_offer).to_not receive(:delete)
+
+          delete "/jobs/#{job_offer.id}"
+          expect(last_response).to be_redirect
+        end
+      end
+    end
+  end
 end
 

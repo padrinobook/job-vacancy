@@ -15,7 +15,8 @@
       <tr>
         <td><%= job_offer.id %></td>
         <td><%= job_offer.title %></td>
-        <td><%= link_to 'Edit', url(:job_offers, :edit, id: job_offer.id) %></td>
+        <td><%= link_to 'Edit', url(:job_offers, :edit, id: job_offer.id) %> |
+          <%= link_to 'Delete', url(:job_offers, :job, id: job_offer.id, :authenticity_token => session[:csrf]), :method => :delete %></td>
       </tr>
     <% end  %>
   </tbody>
