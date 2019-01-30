@@ -6,7 +6,7 @@ JobVacancy::App.controllers :job_offers do
   end
 
   get :index, :map => '/jobs' do
-    @job_offers = JobOffer.all
+    @job_offers = JobOffer.where("is_published = ?", true)
     render 'jobs', :locals => { job_offers: @job_offers }
   end
 

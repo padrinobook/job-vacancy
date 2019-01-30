@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 8) do
+ActiveRecord::Schema.define(version: 9) do
 
   create_table "job_offers", force: :cascade do |t|
     t.string "title"
@@ -23,6 +23,7 @@ ActiveRecord::Schema.define(version: 8) do
     t.datetime "updated_at"
     t.integer "user_id"
     t.boolean "enable_markdown", default: false
+    t.boolean "is_published", default: false
   end
 
   create_table "users", force: :cascade do |t|
