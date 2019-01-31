@@ -2,7 +2,7 @@ require 'spec_helper'
 
 RSpec.describe JobVacancy::App::MarkdownHelper do
   let(:user) { User.new }
-  let(:markdown_helper) { Class.new.extend JobVacancy::App::SessionsHelper}
+  let(:markdown_helper) { Class.new.extend JobVacancy::App::MarkdownHelper}
 
   subject { markdown_helper }
 
