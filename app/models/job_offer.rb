@@ -1,4 +1,6 @@
 class JobOffer < ActiveRecord::Base
+  include ImageUploader::Attachment.new(:image)
+
   belongs_to :user
 
   validates :title,
