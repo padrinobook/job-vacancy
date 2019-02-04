@@ -43,6 +43,8 @@ gem 'padrino', '0.14.4'
 
 gem 'redcarpet', '3.4.0'
 
+gem "shrine", "~> 2.0"
+
 
 # Codecoverage tools
 # gem 'simplecov'
