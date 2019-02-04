@@ -6,6 +6,10 @@
   <% else %>
     <%= @job_offer.description %>
   <% end %>
+
+  <% if @job_offer.image.present? %>
+    <%= image_tag @job_offer.image_url %>
+  <% end %>
 </div>
 
 <%= link_to 'Get to job overview', url(:job_offers, :index), :class => 'button is-link' %>
