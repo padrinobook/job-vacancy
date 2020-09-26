@@ -1,9 +1,8 @@
 lang: ruby
 sudo: false
 rvm:
-  - 2.4.5
-  - 2.5.3
-  - 2.6.0
+  - 2.6.5
+  - 2.7.1
 env:
   - DB=sqlite
 before_install:
