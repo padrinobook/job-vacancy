@@ -210,4 +210,4 @@ DEPENDENCIES
   yui-compressor (~> 0.12)
 
 BUNDLED WITH
-   1.17.3
+   2.2.0.rc.1
