@@ -13,20 +13,20 @@
 #     :socket    => '/tmp/mysql.sock'
 #   }
 #
-ActiveRecord::Base.configurations[:development] = {
-  :adapter  => 'sqlite3',
-  :pool     => 32,
-  :database => Padrino.root('db', 'job_vacancy_development.db')
-}
-
-ActiveRecord::Base.configurations[:production] = {
-  :adapter => 'sqlite3',
-  :database => Padrino.root('db', 'job_vacancy_production.db')
-}
-
-ActiveRecord::Base.configurations[:test] = {
-  :adapter => 'sqlite3',
-  :database => Padrino.root('db', 'job_vacancy_test.db')
+ActiveRecord::Base.configurations = {
+  'development' => {
+    :adapter  => 'sqlite3',
+    :pool     => 32,
+    :database => Padrino.root('db', 'job_vacancy_development.db')
+  },
+  'production' => {
+    :adapter => 'sqlite3',
+    :database => Padrino.root('db', 'job_vacancy_production.db')
+  },
+  'test' => {
+    :adapter => 'sqlite3',
+    :database => Padrino.root('db', 'job_vacancy_test.db')
+  }
 }
 
 # Setup our logger

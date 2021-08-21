@@ -11,8 +11,8 @@ gem 'yui-compressor', '~> 0.12'
 
 # Component requirements
 gem 'erubis', '~> 2.7.0'
-gem 'activerecord', '~> 5.2.0', :require => 'active_record'
-gem 'sqlite3', '~> 1.3.13'
+gem 'activerecord', '~> 6.0', :require => 'active_record'
+gem 'sqlite3', '~> 1.4'
 
 group :development do
   gem 'better_errors', '~> 2.4'
