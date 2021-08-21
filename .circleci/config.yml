@@ -14,7 +14,7 @@ jobs:
       - checkout
       - run:
           name: Install sqlite
-          command: sudo apt update && sudo apt install zlib1g-dev libsqlite3-dev sqlite3
+          command: sudo apt update && sudo apt install zlib1g-dev libsqlite3-dev sqlite3 nodejs
       - run:
           name: Which bundler?
           command: gem install bundler:2.2.26
