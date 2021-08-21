@@ -8,7 +8,7 @@ module JobVacancy
     enable :sessions
 
     register Padrino::Sprockets
-    sprockets minify: (Padrino.env == :production)
+    # sprockets minify: (Padrino.env == :production)
 
     set :delivery_method, smtp: {
       address: 'smtp.gmail.com',
