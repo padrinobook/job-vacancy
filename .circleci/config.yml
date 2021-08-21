@@ -18,7 +18,7 @@ jobs:
       - ruby/bundle-install
       - run:
           name: Create DB
-          command: bundle exec rake ar:create:all
+          command: bundle exec rake ar:create:all --trace
       - run:
           name: Run migrations
           command: bundle exec padrino rake ar:migrate -e test
