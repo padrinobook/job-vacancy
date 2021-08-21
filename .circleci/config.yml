@@ -1,15 +1,37 @@
 version: 2.1
 orbs:
-  ruby: circleci/ruby@0.1.2 
+  ruby: circleci/ruby@0.1.2
 
 jobs:
   build:
+    parameters:
+      ruby-version:
+        type: string
     docker:
-      - image: circleci/ruby:2.6.3-stretch-node
+      - image: circleci/ruby:<< parameters.ruby-version >>
     executor: ruby/default
     steps:
       - checkout
       - run:
           name: Which bundler?
-          command: bundle -v
+          command: gem install bundler:2.2.26
       - ruby/bundle-install
+      - run:
+          name: Create DB
+          command: bundle exec rake ar:create:all
+      - run:
+          name: Run migrations
+          command: bundle exec padrino rake ar:migrate -e test
+      - run:
+          name: Run rspec tests
+          command: bundle exec rake spec
+workflows:
+  build_and_test:
+    jobs:
+      - build:
+          matrix:
+            parameters:
+              # https://github.com/CircleCI-Public/cimg-ruby
+              # only supports the last three ruby versions
+              ruby-version: ["2.6.0", "2.6.5", "2.7.4", "3.0.2"]
+
