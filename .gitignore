@@ -10,5 +10,5 @@ vendor/gems/*
 *.db
 *.log
 .bundle/
-.muckrc
+.mucksrc
 gems.tags
