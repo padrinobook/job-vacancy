@@ -5,7 +5,6 @@ gem 'thin', '~> 1.7.0'
 
 # Project requirements
 gem 'rake', '~> 13.0'
-gem 'padrino-sprockets', :require => 'padrino/sprockets', :git => 'git://github.com/nightsailer/padrino-sprockets.git'
 gem 'uglifier', '~> 4.1'
 gem 'yui-compressor', '~> 0.12'
 
