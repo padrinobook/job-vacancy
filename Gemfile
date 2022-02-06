@@ -5,8 +5,6 @@ gem 'thin', '~> 1.7.0'
 
 # Project requirements
 gem 'rake', '~> 13.0'
-gem 'uglifier', '~> 4.1'
-gem 'yui-compressor', '~> 0.12'
 
 # Component requirements
 gem 'erubis', '~> 2.7.0'
