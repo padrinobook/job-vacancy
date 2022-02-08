@@ -48,7 +48,8 @@ JobVacancy::App.controllers :users do
 
   put :update, :map => '/users/:id' do
     route = url(:users, :edit, id: @user.id)
-    if @user.update_attributes(params[:user])
+
+    if @user.update(params[:user])
       redirect route, flash[:notice] = 'You have updated your profile.'
     else
       redirect route, flash[:error] = 'Your profile was not updated.'
