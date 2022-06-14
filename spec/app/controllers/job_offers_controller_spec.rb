@@ -144,7 +144,7 @@ RSpec.describe "/jobs" do
       expect(JobOffer).to receive(:find_by_id)
         .with('1')
         .and_return(@existing_job_offer)
-      expect(@existing_job_offer).to receive(:update_attributes!)
+      expect(@existing_job_offer).to receive(:update)
         .with(updated_job_offer)
         .and_return(false)
 
@@ -161,7 +161,7 @@ RSpec.describe "/jobs" do
       expect(JobOffer).to receive(:find_by_id)
         .with('1')
         .and_return(@existing_job_offer)
-      expect(@existing_job_offer).to receive(:update_attributes!)
+      expect(@existing_job_offer).to receive(:update)
         .with(updated_job_offer)
         .and_return(true)
 
@@ -178,7 +178,7 @@ RSpec.describe "/jobs" do
       expect(JobOffer).to receive(:find_by_id)
         .with('1')
         .and_return(@existing_job_offer)
-      expect(@existing_job_offer).to receive(:update_attributes!)
+      expect(@existing_job_offer).to receive(:update)
         .with(updated_job_offer)
         .and_raise(ActiveRecord::RecordInvalid)
 

@@ -100,7 +100,7 @@ RSpec.describe "/password_forget" do
         expect(User).to receive(:find_by_password_reset_token)
           .with('1')
           .and_return(user)
-        expect(user).to receive(:update_attributes)
+        expect(user).to receive(:update)
           .exactly(2).times
           .and_return(true)
         post '/password_forget/1'
@@ -114,7 +114,7 @@ RSpec.describe "/password_forget" do
         expect(User).to receive(:find_by_password_reset_token)
           .with('1')
           .and_return(user)
-        expect(user).to receive(:update_attributes)
+        expect(user).to receive(:update)
           .and_return(false)
         post '/password_forget/1'
         expect(last_response).to be_ok

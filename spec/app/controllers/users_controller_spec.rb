@@ -90,7 +90,7 @@ RSpec.describe "/users" do
     describe "link to /edit" do
       it 'if user has valid account changes' do
         test_user = double(User, id: user.id)
-        expect(test_user).to receive(:update_attributes)
+        expect(test_user).to receive(:update)
           .with(put_user)
           .and_return(true)
         expect(User).to receive(:find_by_id).and_return(test_user, test_user)
@@ -111,7 +111,7 @@ RSpec.describe "/users" do
           }
 
         test_user = double(User, id: user.id)
-        expect(test_user).to receive(:update_attributes)
+        expect(test_user).to receive(:update)
           .with(put_user)
           .and_return(false)
         expect(User).to receive(:find_by_id)

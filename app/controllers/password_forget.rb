@@ -33,8 +33,8 @@ JobVacancy::App.controllers :password_forget do
   post :update, :map => "/password_forget/:token" do
     @user = User.find_by_password_reset_token(params[:token])
 
-    if @user.update_attributes(params[:user])
-      @user.update_attributes(password_reset_token: 0, password_reset_sent_date: 0)
+    if @user.update(params[:user])
+      @user.update(password_reset_token: 0, password_reset_sent_date: 0)
       redirect url(:sessions, :new), flash[:notice] = 'Password has been reseted. Please login with your new password.'
     else
       render 'edit'

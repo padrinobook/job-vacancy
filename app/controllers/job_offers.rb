@@ -49,7 +49,6 @@ JobVacancy::App.controllers :job_offers do
       redirect url(:job_offers, :mylist)
     end
 
-
     begin
       if @job_offer.update(params[:job_offer])
         redirect url(:job_offers, :mylist), flash[:notice] = 'Job offer was updated.'
