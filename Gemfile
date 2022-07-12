@@ -8,7 +8,7 @@ gem 'rake', '~> 13.0'
 
 # Component requirements
 gem 'erubis', '~> 2.7.0'
-gem 'activerecord', '~> 6.0', :require => 'active_record'
+gem 'activerecord', '~> 6.1', :require => 'active_record'
 gem 'sqlite3', '~> 1.4'
 
 group :development do
